@@ -1,0 +1,18 @@
+*._DS_Store
+
+#IntelliJ files
+*.idea
+*.iml
+
+#Java Build files
+*.jar
+*build/
+*.class
+
+#Eclipe project files
+*.claspath
+*.project
+*.settings/
+*sysProps.xml
+*build.xml
+*build.properties
