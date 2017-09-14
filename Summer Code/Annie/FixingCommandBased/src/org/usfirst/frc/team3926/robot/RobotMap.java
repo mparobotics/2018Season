@@ -8,9 +8,9 @@ package org.usfirst.frc.team3926.robot;
  */
 public class RobotMap {
 
-    public final static int FRONT_RIGHT_MOTOR_ID      = null; //inputs for Jill (might need to change)
+    public final static int FRONT_RIGHT_MOTOR_ID      = 0; //inputs for Jill (might need to change)
     public final static int FRONT_LEFT_MOTOR_ID       = 12;
-    public final static int BACK_RIGHT_MOTOR_ID       = null;
+    public final static int BACK_RIGHT_MOTOR_ID       = 0;
     public final static int BACK_LEFT_MOTOR_ID        = 15; 
 
 

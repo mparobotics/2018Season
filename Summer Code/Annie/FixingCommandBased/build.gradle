@@ -2,7 +2,7 @@ plugins {
     id "java"
     id "eclipse"
     id "idea"
-    id "jaci.openrio.gradle.GradleRIO" version "2017.1.5"
+    id "jaci.openrio.gradle.GradleRIO" version "2017.1.1"
 }
 
 frc {
@@ -15,7 +15,6 @@ frc {
 dependencies {
     compile wpilib()
     compile talonSrx()
-    compile navx()
 }
 
 def robotManifest = {
@@ -26,6 +25,8 @@ def robotManifest = {
 jar {
     from configurations.compile.collect { it.isDirectory() ? it : zipTree(it) }
     manifest robotManifest
+
+    
 }
 
 task wrapper(type: Wrapper) {

@@ -1,12 +1,10 @@
 package org.usfirst.frc.team3926.robot.subsystems;
 
-import org.usfirst.frc.team3926.robot.RobotMap;
-import org.usfirst.frc.team3926.robot.commands.DriveCommand;
-
 import com.ctre.CANTalon;
-
 import edu.wpi.first.wpilibj.RobotDrive;
 import edu.wpi.first.wpilibj.command.Subsystem;
+import org.usfirst.frc.team3926.robot.RobotMap;
+import org.usfirst.frc.team3926.robot.commands.DriveCommand;
 
 /**
  *
