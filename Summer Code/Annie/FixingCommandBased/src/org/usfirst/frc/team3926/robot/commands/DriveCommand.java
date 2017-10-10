@@ -20,19 +20,24 @@ public class DriveCommand extends Command {
 	@Override
 	protected void initialize() {
 
-
+		double lSpeed;
+		double rSpeed;
 	}
 
 	// Called repeatedly when this Command is scheduled to run
 	@Override
 	protected void execute() {
-		
-		Robot.DrivingSubsystem.TankDrive(OI.lJoystick.getY(), OI.rJoystick.getY());
+
+		lSpeed = OI.lJoystick.getY();
+		rSpeed = OI.rJoystick.getY();
+
+		Robot.DrivingSubsystem.TankDrive(lSpeed, rSpeed);
 	}
 
 	// Make this return true when this Command no longer needs to run execute()
 	@Override
 	protected boolean isFinished() {
+
 		return false;
 	}
 

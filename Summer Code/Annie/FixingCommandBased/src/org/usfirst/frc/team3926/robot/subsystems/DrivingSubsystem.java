@@ -11,12 +11,12 @@ import org.usfirst.frc.team3926.robot.commands.DriveCommand;
  */
 public class DrivingSubsystem extends Subsystem {
 
-	CANTalon FRmotor = new CANTalon(RobotMap.FRONT_RIGHT_MOTOR_ID);
-	CANTalon FLmotor = new CANTalon(RobotMap.FRONT_LEFT_MOTOR_ID);
-	CANTalon BRmotor = new CANTalon(RobotMap.BACK_RIGHT_MOTOR_ID);
-	CANTalon BLmotor = new CANTalon(RobotMap.BACK_LEFT_MOTOR_ID);
+	public CANTalon FRmotor = new CANTalon(RobotMap.FRONT_RIGHT_MOTOR_ID);
+	public CANTalon FLmotor = new CANTalon(RobotMap.FRONT_LEFT_MOTOR_ID);
+	public CANTalon BRmotor = new CANTalon(RobotMap.BACK_RIGHT_MOTOR_ID);
+	public CANTalon BLmotor = new CANTalon(RobotMap.BACK_LEFT_MOTOR_ID);
 	
-	RobotDrive robotDrive = new RobotDrive(FRmotor, FLmotor, BRmotor, BLmotor);
+	public RobotDrive robotDrive = new RobotDrive(FLmotor, BLmotor, FRmotor, BRmotor);
 	
 	// Put methods for controlling this subsystem
 	// here. Call these from Commands.

@@ -13,15 +13,14 @@ import edu.wpi.first.wpilibj.buttons.JoystickButton;
 public class OI {
 
     public static Joystick xboxController;
-    public static Button shootingButton;
     public static Joystick rJoystick;
     public static Joystick lJoystick;
 
     OI () {
         SmartDashboard.putBoolean("Xbox Driving: ", RobotMap.XBOX_DRIVE_CONTROLLER);
-
-        xboxController = new Joystick(RobotMap.XBOX_CONTROLLER_ID);
-        shootingButton = new JoystickButton(rJoystick, RobotMap.SHOOTER_BUTTON_ID);
+        //rJoystick  = new Joystick(RobotMap.RIGHT_JOYSTICK_ID);
+        //lJoystick  = new Joystick(RobotMap.LEFT_JOYSTICK_ID);
+        //xboxController = new Joystick(RobotMap.XBOX_CONTROLLER_ID);
 
 
         if (RobotMap.XBOX_DRIVE_CONTROLLER) {
@@ -32,6 +31,7 @@ public class OI {
 
             rJoystick  = new Joystick(RobotMap.RIGHT_JOYSTICK_ID);
             lJoystick  = new Joystick(RobotMap.LEFT_JOYSTICK_ID);
+            xboxController = new Joystick(RobotMap.XBOX_CONTROLLER_ID);
         }
 
         //// CREATING BUTTONS
