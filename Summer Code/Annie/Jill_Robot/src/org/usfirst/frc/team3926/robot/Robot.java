@@ -26,8 +26,8 @@ public class Robot extends IterativeRobot {
 		//need to change these values to match the robot
 		FR_CANTalon = new CANTalon(2);
 		BR_CANTalon = new CANTalon(3);
-		FL_CANTalon = new CANTalon(4);
-		BL_CANTalon = new CANTalon(5);
+		FL_CANTalon = new CANTalon(14);
+		BL_CANTalon = new CANTalon(15);
 		R_stick = new Joystick(0);
 		L_stick = new Joystick(1);
 		
