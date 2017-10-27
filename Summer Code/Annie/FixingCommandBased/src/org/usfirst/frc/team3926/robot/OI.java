@@ -24,15 +24,15 @@ public class OI {
         shootingButton = new JoystickButton(rJoystick, RobotMap.SHOOTER_BUTTON_ID);
 
 
-        if (RobotMap.XBOX_DRIVE_CONTROLLER) {
+       /* if (RobotMap.XBOX_DRIVE_CONTROLLER) {
 
             rJoystick  = new Joystick(RobotMap.XBOX_RIGHT_SPEED_AXIS);
             lJoystick  = new Joystick(RobotMap.XBOX_LEFT_SPEED_AXIS);
-        } else {
+        } else {*/
 
             rJoystick  = new Joystick(RobotMap.RIGHT_JOYSTICK_ID);
             lJoystick  = new Joystick(RobotMap.LEFT_JOYSTICK_ID);
-        }
+        //}
 
         //// CREATING BUTTONS
         // One type of button is a joystick button which is any button on a

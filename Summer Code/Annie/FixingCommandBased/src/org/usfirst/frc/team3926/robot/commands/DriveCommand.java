@@ -27,20 +27,22 @@ public class DriveCommand extends Command {
 	@Override
 	protected void execute() {
 		
-		Robot.DrivingSubsystem.TankDrive(OI.lJoystick.getY(), OI.rJoystick.getY());
+		Robot.DrivingSubsystem.TankDriveMethod(OI.lJoystick.getY(), OI.rJoystick.getY());
 	}
 
 	// Make this return true when this Command no longer needs to run execute()
 	@Override
 	protected boolean isFinished() {
+
 		return false;
+
 	}
 
 	// Called once after isFinished returns true
 	@Override
 	protected void end() {
 		
-		Robot.DrivingSubsystem.TankDrive(0, 0);
+		Robot.DrivingSubsystem.TankDriveMethod(0, 0);
 	}
 
 	// Called when another command which requires one or more of the same

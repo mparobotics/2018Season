@@ -27,8 +27,10 @@ public class DrivingSubsystem extends Subsystem {
 		// Set the default command for a subsystem here.
 		//setDefaultCommand(new MySpecialCommand());
 	}
-	public void TankDrive(double lSpeed, double rSpeed) {
+
+	public void TankDriveMethod(double lSpeed, double rSpeed) {
 		
 		robotDrive.tankDrive(lSpeed, rSpeed);
 	}
+
 }
