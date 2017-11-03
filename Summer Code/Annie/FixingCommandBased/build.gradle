@@ -12,6 +12,13 @@ frc {
     rioHost = "roboRIO-3926-FRC.local"
 }
 
+wpi {
+    wpilibVersion = "+"
+    ntcoreVersion = "+"
+    opencvVersion = "3.1.0"
+    cscoreVersion = "+"
+}
+
 dependencies {
     compile wpilib()
     compile talonSrx()
