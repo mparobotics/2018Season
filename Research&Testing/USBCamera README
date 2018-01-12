@@ -1,0 +1,12 @@
+To Get A USB Camera Working:
+
+1. Upload indermeditate vision to robot
+2. Open shuffleboard 
+3. file => prefrences => network tables 
+4. connect to robot's wifi network
+5. type in the ip adress of the roborio(10.39.26.2)
+7. Sorces => CameraServer
+8. drag the USBcam on to the dashboard
+
+*if you do not connect to the robot through wifi the ip address will be diffrent
+      
