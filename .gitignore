@@ -1,8 +1,12 @@
+#special directories
 *.DS_Store
+*.gradle
 
 #IntelliJ files
 *.idea
 *.iml
+*.ipr 
+*.iws
 
 #Java Build files
 *.jar
