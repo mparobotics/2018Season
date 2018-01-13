@@ -1,7 +1,5 @@
 package frc.team3926.robot;
 
-package edu.wpi.first.wpilibj.examples.intermediatevision;
-
 import edu.wpi.cscore.CvSink;
 import edu.wpi.cscore.CvSource;
 import edu.wpi.cscore.UsbCamera;
