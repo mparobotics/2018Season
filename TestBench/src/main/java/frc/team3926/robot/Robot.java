@@ -4,14 +4,13 @@ import edu.wpi.cscore.CvSink;
 import edu.wpi.cscore.CvSource;
 import edu.wpi.cscore.UsbCamera;
 import edu.wpi.first.wpilibj.CameraServer;
+import edu.wpi.first.wpilibj.DigitalInput;
 import edu.wpi.first.wpilibj.IterativeRobot;
+import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 import org.opencv.core.Mat;
 import org.opencv.core.Point;
 import org.opencv.core.Scalar;
 import org.opencv.imgproc.Imgproc;
-
-
-import edu.wpi.first.wpilibj.IterativeRobot;
 
 /**
  *  * This is a demo program showing the use of OpenCV to do vision processing. The
@@ -23,9 +22,13 @@ import edu.wpi.first.wpilibj.IterativeRobot;
 
 public class Robot extends IterativeRobot {
 	Thread m_visionThread;
+	DigitalInput limitSwitch;
 
 	@Override
 	public void robotInit() {
+
+		DigitalInput limitSwitch = new DigitalInput(0);
+
 		m_visionThread = new Thread(() -> {
 			// Get the UsbCamera from CameraServer
 			UsbCamera camera = CameraServer.getInstance().startAutomaticCapture();
@@ -62,30 +65,31 @@ public class Robot extends IterativeRobot {
 		});
 		m_visionThread.setDaemon(true);
 		m_visionThread.start();
+
+
+		while (true) {
+
+			SmartDashboard.putBoolean("Limit Switch", limitSwitch.get());
+
+		}
+
 	}
 
-    @Override
+
     public void disabledInit() { }
 
-    @Override
     public void autonomousInit() { }
 
-    @Override
     public void teleopInit() { }
 
-    @Override
     public void testInit() { }
 
+    public void disabledPeriodic() {
+	}
 
-    @Override
-    public void disabledPeriodic() { }
-    
-    @Override
     public void autonomousPeriodic() { }
 
-    @Override
     public void teleopPeriodic() { }
 
-    @Override
     public void testPeriodic() { }
 }
