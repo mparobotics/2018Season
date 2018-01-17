@@ -4,6 +4,7 @@ import edu.wpi.cscore.CvSink;
 import edu.wpi.cscore.CvSource;
 import edu.wpi.cscore.UsbCamera;
 import edu.wpi.first.wpilibj.CameraServer;
+import edu.wpi.first.wpilibj.DigitalInput;
 import edu.wpi.first.wpilibj.IterativeRobot;
 import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 import org.opencv.core.Mat;
@@ -21,9 +22,12 @@ import org.opencv.imgproc.Imgproc;
 
 public class Robot extends IterativeRobot {
 	Thread m_visionThread;
+	DigitalInput limitSwitch;
 
-	@Override
+
 	public void robotInit() {
+
+		DigitalInput limitSwitch = new DigitalInput(0);
 		m_visionThread = new Thread(() -> {
 			// Get the UsbCamera from CameraServer
 			UsbCamera camera = CameraServer.getInstance().startAutomaticCapture();
@@ -63,7 +67,7 @@ public class Robot extends IterativeRobot {
 
 		while(true) {
 
-		SmartDashboard.putBoolean("Limit Switch", true);
+		SmartDashboard.putBoolean("Limit Switch", limitSwitch.get());
 		}
 	}
 
