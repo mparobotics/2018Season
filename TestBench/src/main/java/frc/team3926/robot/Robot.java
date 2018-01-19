@@ -27,7 +27,7 @@ public class Robot extends IterativeRobot {
 
 	public void robotInit() {
 
-		DigitalInput limitSwitch = new DigitalInput(0);
+		DigitalInput limitSwitch = new DigitalInput(RobotMap.LIMIT_SWITCH);
 		m_visionThread = new Thread(() -> {
 			// Get the UsbCamera from CameraServer
 			UsbCamera camera = CameraServer.getInstance().startAutomaticCapture();
@@ -80,8 +80,7 @@ public class Robot extends IterativeRobot {
 
     @Override
     public void testInit() { }
-
-
+	
     @Override
     public void disabledPeriodic() { }
     
