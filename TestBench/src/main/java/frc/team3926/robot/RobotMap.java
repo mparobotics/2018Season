@@ -5,6 +5,7 @@ import edu.wpi.first.wpilibj.Joystick;
 public class RobotMap {
 
     public static int LIMIT_SWITCH = 0;
+    public static int SOMETHING_ELSE = 1;
 
     public static int FRONT_RIGHT = 8;
     public static int FRONT_LEFT = 0;
