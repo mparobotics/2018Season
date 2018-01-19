@@ -47,6 +47,8 @@ public class Robot extends IterativeRobot {
 			// lets the robot stop this thread when restarting robot code or
 			// deploying.
 			while (!Thread.interrupted()) {
+
+				SmartDashboard.putBoolean("Limit Switch", limitSwitch.get());
 				// Tell the CvSink to grab a frame from the camera and put it
 				// in the source mat.  If there is an error notify the output.
 				if (cvSink.grabFrame(mat) == 0) {
@@ -65,10 +67,6 @@ public class Robot extends IterativeRobot {
 		m_visionThread.setDaemon(true);
 		m_visionThread.start();
 
-		while(true) {
-
-		SmartDashboard.putBoolean("Limit Switch", limitSwitch.get());
-		}
 	}
 
     @Override
