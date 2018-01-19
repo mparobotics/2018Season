@@ -14,7 +14,7 @@
 *.class
 
 #Eclipe project files
-*.claspath
+*.classpath
 *.project
 *.settings/
 *sysProps.xml
