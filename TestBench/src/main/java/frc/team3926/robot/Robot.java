@@ -3,9 +3,8 @@ package frc.team3926.robot;
 import edu.wpi.cscore.CvSink;
 import edu.wpi.cscore.CvSource;
 import edu.wpi.cscore.UsbCamera;
-import edu.wpi.first.wpilibj.CameraServer;
-import edu.wpi.first.wpilibj.DigitalInput;
-import edu.wpi.first.wpilibj.IterativeRobot;
+import edu.wpi.first.wpilibj.*;
+import edu.wpi.first.wpilibj.drive.DifferentialDrive;
 import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 import org.opencv.core.Mat;
 import org.opencv.core.Point;
@@ -24,8 +23,13 @@ public class Robot extends IterativeRobot {
 	Thread m_visionThread;
 	DigitalInput limitSwitch;
 
+	Joystick rightStick = new Joystick(RobotMap.RIGHT_JOYSTICK);
+	Joystick leftStick = new Joystick(RobotMap.LEFT_JOYSTICK);
+	private DifferentialDrive m_myRobot;
 
 	public void robotInit() {
+
+		m_myRobot = new DifferentialDrive(new Spark(RobotMap.FRONT_LEFT), new Spark(RobotMap.FRONT_RIGHT));
 
 		DigitalInput limitSwitch = new DigitalInput(RobotMap.LIMIT_SWITCH);
 		m_visionThread = new Thread(() -> {
@@ -80,7 +84,7 @@ public class Robot extends IterativeRobot {
 
     @Override
     public void testInit() { }
-	
+
     @Override
     public void disabledPeriodic() { }
     
@@ -88,7 +92,10 @@ public class Robot extends IterativeRobot {
     public void autonomousPeriodic() { }
 
     @Override
-    public void teleopPeriodic() { }
+    public void teleopPeriodic() {
+
+		m_myRobot.tankDrive(leftStick.getY(), rightStick.getY());
+	}
 
     @Override
     public void testPeriodic() { }
