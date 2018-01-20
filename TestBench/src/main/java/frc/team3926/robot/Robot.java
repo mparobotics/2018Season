@@ -1,5 +1,6 @@
 package frc.team3926.robot;
 
+import com.ctre.phoenix.motorcontrol.can.WPI_TalonSRX;
 import edu.wpi.cscore.CvSink;
 import edu.wpi.cscore.CvSource;
 import edu.wpi.cscore.UsbCamera;
@@ -25,11 +26,15 @@ public class Robot extends IterativeRobot {
 
 	Joystick rightStick = new Joystick(RobotMap.RIGHT_JOYSTICK);
 	Joystick leftStick = new Joystick(RobotMap.LEFT_JOYSTICK);
+
+	//CANTalon FR = new CANTalon(RobotMap.FRONT_RIGHT);
+
 	private DifferentialDrive m_myRobot;
 
 	public void robotInit() {
 
-		m_myRobot = new DifferentialDrive(new Spark(RobotMap.FRONT_LEFT), new Spark(RobotMap.FRONT_RIGHT));
+
+		m_myRobot = new DifferentialDrive(new WPI_TalonSRX(RobotMap.FRONT_LEFT), new WPI_TalonSRX(RobotMap.FRONT_RIGHT));
 
 		DigitalInput limitSwitch = new DigitalInput(RobotMap.LIMIT_SWITCH);
 		m_visionThread = new Thread(() -> {
@@ -94,7 +99,7 @@ public class Robot extends IterativeRobot {
     @Override
     public void teleopPeriodic() {
 
-		m_myRobot.tankDrive(leftStick.getY(), rightStick.getY());
+		m_myRobot.tankDrive(-leftStick.getY(), -rightStick.getY());
 	}
 
     @Override
