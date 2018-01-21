@@ -1,11 +1,10 @@
 package frc.team3926.robot;
 
-import com.ctre.phoenix.motorcontrol.can.WPI_TalonSRX;
 import edu.wpi.cscore.CvSink;
 import edu.wpi.cscore.CvSource;
 import edu.wpi.cscore.UsbCamera;
-import edu.wpi.first.wpilibj.*;
-import edu.wpi.first.wpilibj.drive.DifferentialDrive;
+import edu.wpi.first.wpilibj.CameraServer;
+import edu.wpi.first.wpilibj.IterativeRobot;
 import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 import org.opencv.core.Mat;
 import org.opencv.core.Point;
@@ -19,24 +18,28 @@ import org.opencv.imgproc.Imgproc;
  *  * processing.
  *  */
 
-
 public class Robot extends IterativeRobot {
+
+	public final static OI oi = new OI();
+	public final static LimitSwitchSubsystem LSSubsystem = new LimitSwitchSubsystem();
+	public final static DriveSubsystem driveSubsystem = new DriveSubsystem();
+
 	Thread m_visionThread;
-	DigitalInput limitSwitch;
 
-	Joystick rightStick = new Joystick(RobotMap.RIGHT_JOYSTICK);
-	Joystick leftStick = new Joystick(RobotMap.LEFT_JOYSTICK);
+	public static boolean rightPosition;
+	public static boolean leftPosition;
+	public static boolean centerPosition;
 
-	//CANTalon FR = new CANTalon(RobotMap.FRONT_RIGHT);
-
-	private DifferentialDrive m_myRobot;
+	public static boolean desiredSwitchOnRight; //right = true    left = false
 
 	public void robotInit() {
 
+		SmartDashboard.putBoolean("Right Position", rightPosition);
+		SmartDashboard.putBoolean("Left Position", leftPosition);
+		SmartDashboard.putBoolean("Center Position", centerPosition);
 
-		m_myRobot = new DifferentialDrive(new WPI_TalonSRX(RobotMap.FRONT_LEFT), new WPI_TalonSRX(RobotMap.FRONT_RIGHT));
+		SmartDashboard.putBoolean("Desired Switch on Right", desiredSwitchOnRight);
 
-		DigitalInput limitSwitch = new DigitalInput(RobotMap.LIMIT_SWITCH);
 		m_visionThread = new Thread(() -> {
 			// Get the UsbCamera from CameraServer
 			UsbCamera camera = CameraServer.getInstance().startAutomaticCapture();
@@ -57,7 +60,6 @@ public class Robot extends IterativeRobot {
 			// deploying.
 			while (!Thread.interrupted()) {
 
-				SmartDashboard.putBoolean("Limit Switch", limitSwitch.get());
 				// Tell the CvSink to grab a frame from the camera and put it
 				// in the source mat.  If there is an error notify the output.
 				if (cvSink.grabFrame(mat) == 0) {
@@ -98,8 +100,6 @@ public class Robot extends IterativeRobot {
 
     @Override
     public void teleopPeriodic() {
-
-		m_myRobot.tankDrive(-leftStick.getY(), -rightStick.getY());
 	}
 
     @Override
