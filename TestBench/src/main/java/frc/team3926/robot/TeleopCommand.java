@@ -28,7 +28,8 @@ public class TeleopCommand extends Command {
 
         driveSubsystem.teleopDrive();
 
-        //SmartDashboard.putBoolean("Hitting Something", Robot.oi.limitSwitch.get());   .get() is not working
+        //SmartDashboard.putBoolean("Hitting Something", Robot.OI.limitSwitch.get()); //.get() is not working
+
     }
 
     // Make this return true when this Command no longer needs to run execute()

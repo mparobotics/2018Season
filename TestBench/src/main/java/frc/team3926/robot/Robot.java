@@ -20,7 +20,7 @@ import org.opencv.imgproc.Imgproc;
 
 public class Robot extends IterativeRobot {
 
-	public final static OI oi = new OI();
+	public final static OI OI = new OI();
 	public final static LimitSwitchSubsystem LSSubsystem = new LimitSwitchSubsystem();
 	public final static DriveSubsystem driveSubsystem = new DriveSubsystem();
 
@@ -44,7 +44,7 @@ public class Robot extends IterativeRobot {
 			// Get the UsbCamera from CameraServer
 			UsbCamera camera = CameraServer.getInstance().startAutomaticCapture();
 			// Set the resolution
-			camera.setResolution(640, 480);
+			camera.setResolution(320, 240);
 
 			// Get a CvSink. This will capture Mats from the camera
 			CvSink cvSink = CameraServer.getInstance().getVideo();
@@ -54,7 +54,6 @@ public class Robot extends IterativeRobot {
 
 			// Mats are very memory expensive. Lets reuse this Mat.
 			Mat mat = new Mat();
-
 			// This cannot be 'true'. The program will never exit if it is. This
 			// lets the robot stop this thread when restarting robot code or
 			// deploying.

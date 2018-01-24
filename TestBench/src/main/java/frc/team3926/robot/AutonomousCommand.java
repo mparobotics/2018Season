@@ -7,6 +7,7 @@ import edu.wpi.first.wpilibj.command.Command;
  */
 public class AutonomousCommand extends Command {
 
+    boolean hittingSomething;
     public AutonomousCommand() {
 
         requires(Robot.driveSubsystem);
@@ -22,6 +23,12 @@ public class AutonomousCommand extends Command {
 
         Robot.driveSubsystem.autonomous();
 
+        //SmartDashboard.putBoolean("Hitting Something", Robot.OI.limitSwitch.get()); //.get() is not working
+        if(hittingSomething) {
+
+            Robot.driveSubsystem.hitSomething();
+            //then needs to do something else
+        }
     }
 
     // Make this return true when this Command no longer needs to run execute()

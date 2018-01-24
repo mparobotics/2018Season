@@ -38,7 +38,7 @@ public class DriveSubsystem extends Subsystem {
 
     public void teleopDrive() {
 
-        m_myRobot.tankDrive(-oi.leftStick.getY(), -oi.rightStick.getY());
+        m_myRobot.tankDrive(-OI.leftStick.getY(), -OI.rightStick.getY());
     }
 
     public void autonomous() {
@@ -89,6 +89,15 @@ public class DriveSubsystem extends Subsystem {
 
         m_myRobot.tankDrive(leftSpeed, rightSpeed);
         return 0;
+    }
+
+    public void hitSomething() {
+
+        m_myRobot.tankDrive(0, 0);
+        m_myRobot.tankDrive(-.5, -.5);
+        Timer.delay(1);
+        m_myRobot.tankDrive(0, 0);
+        Timer.delay(3);
     }
 }
 
