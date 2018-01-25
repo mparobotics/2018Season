@@ -22,8 +22,8 @@ public class DriveSubsystem extends Subsystem {
     private SpeedControllerGroup m_left;
     private DifferentialDrive m_myRobot;
 
-    int leftStickHeight;
-    int rightStickHeight;
+    double leftStickHeight;
+    double rightStickHeight;
     double leftSpeed;
     double rightSpeed;
     double a;
@@ -44,11 +44,11 @@ public class DriveSubsystem extends Subsystem {
 
     public void teleopDrive() {
 
-        a = 0.5;//must be kept between 0 and 1
+        a = RobotMap.A;//must be kept between 0 and 1
         leftStickHeight = OI.leftStick.getY();
         rightStickHeight = OI.rightStick.getY();
-        leftSpeed = a*(leftStickHeight^3) + (1-a)*leftStickHeight;
-        rightSpeed = a*(rightStickHeight^3) + (1-a)*rightStickHeight;
+        leftSpeed = a*(Math.pow(leftStickHeight,3)) + (1-a)*leftStickHeight;
+        rightSpeed = a*(Math.pow(rightStickHeight,3)) + (1-a)*rightStickHeight;
 
 
         m_myRobot.tankDrive(-leftSpeed, -rightSpeed);
