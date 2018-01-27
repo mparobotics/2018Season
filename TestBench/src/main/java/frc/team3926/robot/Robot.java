@@ -24,6 +24,7 @@ public class Robot extends IterativeRobot {
 	public final static OI OI = new OI();
 	public final static LimitSwitchSubsystem LSSubsystem = new LimitSwitchSubsystem();
 	public final static DriveSubsystem driveSubsystem = new DriveSubsystem();
+	public final static AccelerometerSubsystem accelerometerSubsystem = new AccelerometerSubsystem();
 
 	Thread m_visionThread;
 
