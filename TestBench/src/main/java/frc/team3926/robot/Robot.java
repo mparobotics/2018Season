@@ -3,6 +3,7 @@ package frc.team3926.robot;
 import edu.wpi.cscore.CvSink;
 import edu.wpi.cscore.CvSource;
 import edu.wpi.cscore.UsbCamera;
+import edu.wpi.cscore.VideoMode;
 import edu.wpi.first.wpilibj.CameraServer;
 import edu.wpi.first.wpilibj.IterativeRobot;
 import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
@@ -44,13 +45,16 @@ public class Robot extends IterativeRobot {
 			// Get the UsbCamera from CameraServer
 			UsbCamera camera = CameraServer.getInstance().startAutomaticCapture();
 			// Set the resolution
-			camera.setResolution(320, 240);
+			//camera.setResolution(320, 240);
+
+			VideoMode greyscale = new VideoMode(VideoMode.PixelFormat.kGray, RobotMap.CAMERA_RES_WIDTH, RobotMap.CAMERA_RES_HIGHT, RobotMap.FPS);
+			camera.setVideoMode(greyscale);
 
 			// Get a CvSink. This will capture Mats from the camera
 			CvSink cvSink = CameraServer.getInstance().getVideo();
 			// Setup a CvSource. This will send images back to the Dashboard
 			CvSource outputStream
-					= CameraServer.getInstance().putVideo("Rectangle", 640, 480);
+					= CameraServer.getInstance().putVideo("Rectangle", RobotMap.CAMERA_RES_WIDTH, RobotMap.CAMERA_RES_HIGHT);
 
 			// Mats are very memory expensive. Lets reuse this Mat.
 			Mat mat = new Mat();

@@ -21,4 +21,9 @@ public class RobotMap {
     public static int LEFT_JOYSTICK = 1;
     public static int XBOX_CONTROLLER = 3;
 
+    public static int CAMERA_RES_HIGHT = 480;
+    public static int CAMERA_RES_WIDTH = 640;
+    public static int FPS = 20;
+
+
 }
