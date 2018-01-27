@@ -21,6 +21,4 @@ public class RobotMap {
     public static int LEFT_JOYSTICK = 1;
     public static int XBOX_CONTROLLER = 3;
 
-    public static double A = 0.5; // a constant used for exponential speed growth as the joystick goes forward
-
 }
