@@ -1,3 +1,4 @@
+
 package frc.team3926.robot;
 
 import edu.wpi.first.wpilibj.command.Command;
@@ -5,6 +6,7 @@ import edu.wpi.first.wpilibj.command.Command;
 /**
  *
  */
+
 public class AutonomousCommand extends Command {
 
     boolean hittingSomething;

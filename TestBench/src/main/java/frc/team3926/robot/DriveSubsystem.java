@@ -11,6 +11,7 @@ import static frc.team3926.robot.Robot.*;
 /**
  *
  */
+
 public class DriveSubsystem extends Subsystem {
 
     private WPI_TalonSRX FR;
@@ -22,14 +23,15 @@ public class DriveSubsystem extends Subsystem {
     private SpeedControllerGroup m_left;
     private DifferentialDrive m_myRobot;
 
-    double leftStickHeight;
-    double rightStickHeight;
+    double leftStickYaxis;
+    double rightStickYaxis;
     double leftSpeed;
     double rightSpeed;
-    double a;
+    double exponentialSpeedConstant;
 
 
-    public void initDefaultCommand() {
+
+   public void initDefaultCommand() {
 
         FR = new WPI_TalonSRX(RobotMap.FRONT_RIGHT);
         BR = new WPI_TalonSRX(RobotMap.BACK_RIGHT);
@@ -42,16 +44,26 @@ public class DriveSubsystem extends Subsystem {
 
     }
 
+    //takes in data from the position of the joysticks to determine speeds for drive system. As a joystick is pushed
+    //forward, the speed goes up exponentially
     public void teleopDrive() {
 
-        a = RobotMap.A;//must be kept between 0 and 1
-        leftStickHeight = OI.leftStick.getY();
-        rightStickHeight = OI.rightStick.getY();
-        leftSpeed = a*(Math.pow(leftStickHeight,3)) + (1-a)*leftStickHeight;
-        rightSpeed = a*(Math.pow(rightStickHeight,3)) + (1-a)*rightStickHeight;
+        exponentialSpeedConstant = RobotMap.EXPONENTIAL_SPEED_CONSTANT;//must be kept between 0 and 1
+        leftStickYaxis = OI.leftStick.getY();
+        rightStickYaxis = OI.rightStick.getY();
+        leftSpeed = exponentialSpeedConstant * (Math.pow(leftStickYaxis, 3)) + (1 - exponentialSpeedConstant) * leftStickYaxis;
+        rightSpeed = exponentialSpeedConstant * (Math.pow(rightStickYaxis, 3)) + (1 - exponentialSpeedConstant) * rightStickYaxis;
 
+        exponentialSpeedConstant = RobotMap.EXPONENTIAL_SPEED_CONSTANT; // constant used to determine the exponential curve for the speed. must be kept between 0 & 1
+
+        leftStickYaxis = OI.leftStick.getY();
+        rightStickYaxis = OI.rightStick.getY();
+
+        leftSpeed = exponentialSpeedConstant * (Math.pow(leftStickYaxis, 3)) + (1 - exponentialSpeedConstant) * leftStickYaxis;
+        rightSpeed = exponentialSpeedConstant * (Math.pow(rightStickYaxis, 3)) + (1 - exponentialSpeedConstant) * rightStickYaxis;
 
         m_myRobot.tankDrive(-leftSpeed, -rightSpeed);
+
     }
 
     public void autonomous() {
@@ -81,21 +93,22 @@ public class DriveSubsystem extends Subsystem {
                 m_myRobot.tankDrive(.5, .5);
                 Timer.delay(6);
             }
-        /*} else {
-            if (centerPosition) {
 
-            }
-            else if (rightPosition) {
+        /*  } else {
+                if (centerPosition) {
 
-
-            }
-            else if (leftPosition) {
+                }
+                else if (rightPosition) {
 
 
-            }
-        } */
+                }
+                else if (leftPosition) {
 
-       m_myRobot.tankDrive(0, 0);
+
+                }
+            } */
+
+         m_myRobot.tankDrive(0, 0);
     }
 
     public double setSpeed(double leftSpeed, double rightSpeed) {
@@ -113,4 +126,3 @@ public class DriveSubsystem extends Subsystem {
         Timer.delay(3);
     }
 }
-

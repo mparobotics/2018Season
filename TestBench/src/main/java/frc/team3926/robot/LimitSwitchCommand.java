@@ -1,13 +1,13 @@
-package frc.team3926.robot;
+/*package frc.team3926.robot;
 
 import edu.wpi.first.wpilibj.command.Command;
 
 import static frc.team3926.robot.Robot.LSSubsystem;
-
+*/
 /**
  *
  */
-public class LimitSwitchCommand extends Command {
+/*public class LimitSwitchCommand extends Command {
 
     public LimitSwitchCommand() {
 
@@ -44,4 +44,4 @@ public class LimitSwitchCommand extends Command {
 
     }
 
-}
+}*/
