@@ -115,6 +115,7 @@ public class DriveSubsystem extends Subsystem {
 
         m_myRobot.tankDrive(leftSpeed, rightSpeed);
         return 0;
+
     }
 
     public void hitSomething() {
@@ -125,4 +126,5 @@ public class DriveSubsystem extends Subsystem {
         m_myRobot.tankDrive(0, 0);
         Timer.delay(3);
     }
+
 }

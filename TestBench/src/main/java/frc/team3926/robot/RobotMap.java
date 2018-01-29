@@ -24,4 +24,10 @@ public class RobotMap {
     public static double EXPONENTIAL_SPEED_CONSTANT = 0.5; // a constant used for exponential speed growth as the
     // joystick goes forward
 
+    public static double AUTONOMOUS_SPEED_P         = 1;
+    public static double AUTONOMOUS_SPEED_I         = 1;
+    public static double AUTONOMOUS_SPEED_D         = 1;
+    public static double AUTONOMOUS_SPEED_TOLERANCE = 1;
+
+
 }

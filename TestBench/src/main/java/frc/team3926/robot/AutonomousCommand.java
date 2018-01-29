@@ -36,12 +36,14 @@ public class AutonomousCommand extends Command {
     // Make this return true when this Command no longer needs to run execute()
     protected boolean isFinished() {
 
-        Robot.driveSubsystem.setSpeed(0, 0);
+
         return false;
     }
 
     // Called once after isFinished returns true
     protected void end() {
+
+        Robot.driveSubsystem.setSpeed(0, 0);
 
     }
 
