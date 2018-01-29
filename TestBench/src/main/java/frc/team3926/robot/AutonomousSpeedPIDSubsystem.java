@@ -3,6 +3,7 @@ package frc.team3926.robot;
 import edu.wpi.first.wpilibj.BuiltInAccelerometer;
 import edu.wpi.first.wpilibj.command.PIDSubsystem;
 import edu.wpi.first.wpilibj.interfaces.Accelerometer;
+import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 
 /**
  * this class is supposed to control the speed during autonomous.
@@ -29,6 +30,9 @@ public class AutonomousSpeedPIDSubsystem extends PIDSubsystem {
         // Set the default command for a subsystem here.
         //setDefaultCommand(new MySpecialCommand());
 
+        SmartDashboard.putNumber("P Value",RobotMap.AUTONOMOUS_SPEED_P);
+        SmartDashboard.putNumber("I Value",RobotMap.AUTONOMOUS_SPEED_I);
+        SmartDashboard.putNumber("D Value",RobotMap.AUTONOMOUS_SPEED_D);
         accel = new BuiltInAccelerometer();
         accel = new BuiltInAccelerometer(Accelerometer.Range.k4G);
 
