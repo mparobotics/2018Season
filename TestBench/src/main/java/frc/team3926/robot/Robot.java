@@ -1,5 +1,6 @@
 package frc.team3926.robot;
 
+import com.ctre.phoenix.motorcontrol.can.WPI_TalonSRX;
 import edu.wpi.cscore.UsbCamera;
 import edu.wpi.cscore.VideoMode;
 import edu.wpi.first.wpilibj.CameraServer;
@@ -7,18 +8,16 @@ import edu.wpi.first.wpilibj.IterativeRobot;
 import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 
 /**
- *  * This is a demo program showing the use of OpenCV to do vision processing. The
- *  * image is acquired from the USB camera, then a rectangle is put on the image
- *  * and sent to the dashboard. OpenCV has many methods for different types of
- *  * processing.
+ *  *
  *  */
 
 public class Robot extends IterativeRobot {
 
-	public final static OI OI = new OI();
+	public final static OI oi = new OI();
 	//public final static LimitSwitchSubsystem LSSubsystem = new LimitSwitchSubsystem();
 	public final static DriveSubsystem driveSubsystem = new DriveSubsystem();
 	//public final static CameraSubsystem cameraSubsystem = new CameraSubsystem();
+	//public final static SensorSubsystem sensorSubsystem = new SensorSubsystem();
 
 	public static boolean rightPosition;
 	public static boolean leftPosition;
@@ -27,6 +26,8 @@ public class Robot extends IterativeRobot {
 	public static boolean desiredSwitchOnRight; //right = true    left = false
 
 	Thread m_visionThread;
+	WPI_TalonSRX encoderMotor;
+	//Encoder enc;
 
 	public void robotInit() {
 
@@ -73,8 +74,16 @@ public class Robot extends IterativeRobot {
                 outputStream.putFrame(mat);
             } */
 		});
-		m_visionThread.setDaemon(true);
+		/*m_visionThread.setDaemon(true);
 		m_visionThread.start();
+
+		enc = new Encoder(RobotMap.ENCODER_ID_1, RobotMap.ENCODER_ID_2, false, CounterBase.EncodingType.k4X);
+
+		enc.setMaxPeriod(.1);
+		enc.setMinRate(10);
+		enc.setDistancePerPulse(6.3); //TODO find better value
+		enc.setReverseDirection(true);
+		enc.setSamplesToAverage(7); //TODO test to find better value */
 
 	}
 
@@ -88,7 +97,11 @@ public class Robot extends IterativeRobot {
     public void teleopInit() { }
 
     @Override
-    public void testInit() { }
+    public void testInit() {
+
+		encoderMotor = new WPI_TalonSRX(RobotMap.ENCODER_MOTOR);
+		//SmartDashboard.putNumber("Distance", enc.getDistance());
+	}
 
     @Override
     public void disabledPeriodic() { }
@@ -103,6 +116,9 @@ public class Robot extends IterativeRobot {
     @Override
     public void testPeriodic() {
 
-		//cameraSubsystem.initDefaultCommand();
+		encoderMotor.set(.25);
+		//SmartDashboard.putNumber("distance", sensorSubsystem.Encoder("Distance"));
+		//SmartDashboard.putNumber("raw value", sensorSubsystem.Encoder("Raw Value"));
+		//SmartDashboard.putNumber("rate", sensorSubsystem.Encoder("Rate"));
 	}
 }
