@@ -29,6 +29,8 @@ public class SensorSubsystem extends Subsystem {
            enc.setReverseDirection(true);
            enc.setSamplesToAverage(7); //TODO test to find better value
 
+
+
            switch(output) {
 
                case "Raw Count" :
