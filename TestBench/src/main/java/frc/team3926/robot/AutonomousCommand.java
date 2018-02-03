@@ -32,215 +32,56 @@ public class AutonomousCommand extends Command {
             //then needs to do something else
         }
 
-        switch(RobotMap.AUTONOMOUS_MODE){
-            case 1:
-                // go to auto line.
-                break;
 
-            case 2:
-                // go to auto line
-                //go to place to prepare for teleop
-                break;
+        switch(RobotMap.STARTING_POSITION){
 
-            case 3:
-                // travel to switch
-                switch(RobotMap.STARTING_POSITION){
-
-                    case "right":
-                        switch(RobotMap.FREINDLY_SWITCH_SIDE){
-
-                            case "left":
-                                //DriveSubsystem.autonomous(0,0,0,0,0,0,0,0,0,0,0,0,0,0,0);
-                                break;
-
-                            case "right":
-                                //DriveSubsystem.autonomous(0,0,0,0,0,0,0,0,0,0,0,0,0,0,0);
-                                break;
-                        }
-
-                        break;
+            case "right":
+                switch(RobotMap.FREINDLY_SCALE_SIDE){
 
                     case "left":
-                        switch(RobotMap.FREINDLY_SWITCH_SIDE){
-
-                            case "left":
-                                //DriveSubsystem.autonomous(0,0,0,0,0,0,0,0,0,0,0,0,0,0,0);
-                                break;
-
-                            case "right":
-                                //DriveSubsystem.autonomous(0,0,0,0,0,0,0,0,0,0,0,0,0,0,0);
-                                break;
-                        }
-
                         break;
 
-                    case "middle":
-                        switch(RobotMap.FREINDLY_SWITCH_SIDE){
+                    case "right":
+                        break;
 
-                            case "left":
-                                //DriveSubsystem.autonomous(0,0,0,0,0,0,0,0,0,0,0,0,0,0,0);
-                                break;
-
-                            case "right":
-                                //DriveSubsystem.autonomous(0,0,0,0,0,0,0,0,0,0,0,0,0,0,0);
-                                break;
-                        }
+                    case "notGettingScale":
                         break;
 
                 }
-                // place power cube on switch
                 break;
 
-            case 4:
-                // travel to switch
-                switch(RobotMap.STARTING_POSITION){
-
-                    case "right":
-                        switch(RobotMap.FREINDLY_SWITCH_SIDE){
-
-                            case "left":
-                                //DriveSubsystem.autonomous(0,0,0,0,0,0,0,0,0,0,0,0,0,0,0);
-                                break;
-
-                            case "right":
-                                //DriveSubsystem.autonomous(0,0,0,0,0,0,0,0,0,0,0,0,0,0,0);
-                                break;
-                        }
-
-                        break;
+            case "left":
+                switch(RobotMap.FREINDLY_SCALE_SIDE){
 
                     case "left":
-                        switch(RobotMap.FREINDLY_SWITCH_SIDE){
-
-                            case "left":
-                                //DriveSubsystem.autonomous(0,0,0,0,0,0,0,0,0,0,0,0,0,0,0);
-                                break;
-
-                            case "right":
-                                //DriveSubsystem.autonomous(0,0,0,0,0,0,0,0,0,0,0,0,0,0,0);
-                                break;
-                        }
-
                         break;
 
-                    case "middle":
-                        switch(RobotMap.FREINDLY_SWITCH_SIDE){
+                    case "right":
+                        break;
 
-                            case "left":
-                                //DriveSubsystem.autonomous(0,0,0,0,0,0,0,0,0,0,0,0,0,0,0);
-                                break;
-
-                            case "right":
-
-                                break;
-                        }
+                    case "notGettingScale":
                         break;
 
                 }
-                // place power cube on switch
-                // go to place to prepare for teleop
                 break;
 
-            case 5:
-                //travel to scale
-                switch(RobotMap.STARTING_POSITION){
-
-                    case "right":
-                        switch(RobotMap.FREINDLY_SCALE_SIDE){
-
-                            case "left":
-
-                                break;
-
-                            case "right":
-
-                                break;
-                        }
-
-                        break;
+            case "middle":
+                switch(RobotMap.FREINDLY_SCALE_SIDE){
 
                     case "left":
-                        switch(RobotMap.FREINDLY_SCALE_SIDE){
-
-                            case "left":
-
-                                break;
-
-                            case "right":
-
-                                break;
-                        }
-
                         break;
 
-                    case "middle":
-                        switch(RobotMap.FREINDLY_SCALE_SIDE){
+                    case "right":
+                        break;
 
-                            case "left":
-
-                                break;
-
-                            case "right":
-
-                                break;
-                        }
+                    case "notGettingScale":
                         break;
 
                 }
-                // place power cube on scale
-                break;
-
-            case 6:
-                //travel to scale
-                switch(RobotMap.STARTING_POSITION){
-
-                    case "right":
-                        switch(RobotMap.FREINDLY_SCALE_SIDE){
-
-                            case "left":
-
-                                break;
-
-                            case "right":
-
-                                break;
-                        }
-
-                        break;
-
-                    case "left":
-                        switch(RobotMap.FREINDLY_SCALE_SIDE){
-
-                            case "left":
-
-                                break;
-
-                            case "right":
-
-                                break;
-                        }
-
-                        break;
-
-                    case "middle":
-                        switch(RobotMap.FREINDLY_SCALE_SIDE){
-
-                            case "left":
-
-                                break;
-
-                            case "right":
-
-                                break;
-                        }
-                        break;
-
-                }
-                // place power cube on scale
-                // go to place to prepare for teleop
                 break;
 
         }
+
 
 
 
