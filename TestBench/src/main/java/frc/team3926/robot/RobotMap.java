@@ -6,6 +6,8 @@ public class RobotMap {
     public static int ENCODER_ID_1 = 1;
     public static int ENCODER_ID_2 = 2;
 
+    public static double RADIUS_OF_ROTATION = 7.62; //cm
+
     public static int FRONT_RIGHT = 8;
     public static int FRONT_LEFT = 22;
     public static int BACK_RIGHT = 7;

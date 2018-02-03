@@ -17,10 +17,14 @@ public class Robot extends IterativeRobot {
 	public final static CameraSubsystem cameraSubsystem = new CameraSubsystem();
 	public final static SensorSubsystem sensorSubsystem = new SensorSubsystem();
 
+	public final static EncoderCommand encoderCommand = new EncoderCommand();
+
 	public static boolean rightPosition;
 	public static boolean leftPosition;
 	public static boolean centerPosition;
 	public static boolean desiredSwitchOnRight; //right = true    left = false
+
+	double speed;
 
 	WPI_TalonSRX encoderMotor;
 
@@ -50,7 +54,6 @@ public class Robot extends IterativeRobot {
 
     public void testInit() {
 
-
 	}
 
     @Override
@@ -71,11 +74,8 @@ public class Robot extends IterativeRobot {
     public void teleopPeriodic() {
 
 		//driveSubsystem.teleopDrive();
-		encoderMotor.set(.15);
+		encoderMotor.set(.1);
 		SmartDashboard.putNumber("distance", sensorSubsystem.Encoder("Distance"));
-		SmartDashboard.putNumber("raw value", sensorSubsystem.Encoder("Raw Value"));
-		SmartDashboard.putNumber("rate", sensorSubsystem.Encoder("Rate"));
-
 		SmartDashboard.putBoolean("Limit Switch", sensorSubsystem.LimitSwitch());
 	}
 

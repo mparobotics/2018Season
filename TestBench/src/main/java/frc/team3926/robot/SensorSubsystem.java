@@ -12,8 +12,10 @@ public class SensorSubsystem extends Subsystem {
     // Put methods for controlling this subsystem
     // here. Call these from Commands.
 
-    private Encoder enc;
+    Encoder enc;
     private DigitalInput limitSwitch;
+
+
     public void initDefaultCommand() {
         limitSwitch = new DigitalInput(RobotMap.LIMIT_SWITCH);
         enc = new Encoder(RobotMap.ENCODER_ID_1, RobotMap.ENCODER_ID_2, false, Encoder.EncodingType.k4X);
@@ -23,12 +25,11 @@ public class SensorSubsystem extends Subsystem {
 
         double outputValue = 0;
 
-           enc.setMaxPeriod(.1);
+           enc.setMaxPeriod(.05);
            enc.setMinRate(10);
            enc.setDistancePerPulse(20);
            enc.setReverseDirection(false);
            enc.setSamplesToAverage(20); //TODO test to find better value
-
 
 
            switch(output) {
@@ -37,7 +38,7 @@ public class SensorSubsystem extends Subsystem {
                 outputValue = enc.getRaw();
 
                case "Distance" :
-                   outputValue = enc.getDistance();
+                   outputValue = enc.getDistance() * RobotMap.RADIUS_OF_ROTATION;
 
                case "Rate" :
                    outputValue = enc.getRate();
