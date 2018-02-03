@@ -43,7 +43,7 @@ public class DriveSubsystem extends Subsystem {
 
     public void autonomous() {
 
-        //if (desiredSwitchOnRight) {
+        if (desiredSwitchOnRight) {
             if (centerPosition) {
 
                 m_myRobot.tankDrive(.5, .5);
@@ -68,7 +68,7 @@ public class DriveSubsystem extends Subsystem {
                 m_myRobot.tankDrive(.5, .5);
                 Timer.delay(6);
             }
-        /*} else {
+        } else {
             if (centerPosition) {
 
             }
@@ -80,7 +80,7 @@ public class DriveSubsystem extends Subsystem {
 
 
             }
-        } */
+        }
 
        m_myRobot.tankDrive(0, 0);
     }

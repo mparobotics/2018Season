@@ -1,33 +1,33 @@
 package frc.team3926.robot;
 
+import edu.wpi.first.wpilibj.DigitalInput;
 import edu.wpi.first.wpilibj.Encoder;
 import edu.wpi.first.wpilibj.command.Subsystem;
 
 /**
- *import static frc.team3926.robot.Robot.*;
- * */
+ *
+ */
 public class SensorSubsystem extends Subsystem {
 
     // Put methods for controlling this subsystem
     // here. Call these from Commands.
 
     private Encoder enc;
-    //private AnalogInput limitSwitch;
+    private DigitalInput limitSwitch;
     public void initDefaultCommand() {
-
-
+        limitSwitch = new DigitalInput(RobotMap.LIMIT_SWITCH);
+        enc = new Encoder(RobotMap.ENCODER_ID_1, RobotMap.ENCODER_ID_2, false, Encoder.EncodingType.k4X);
     }
 
     public double Encoder(String output) {
 
-        enc = new Encoder(RobotMap.ENCODER_ID_1, RobotMap.ENCODER_ID_2, false, Encoder.EncodingType.k4X);
         double outputValue = 0;
 
            enc.setMaxPeriod(.1);
            enc.setMinRate(10);
-           enc.setDistancePerPulse(6.3); //TODO find better value
-           enc.setReverseDirection(true);
-           enc.setSamplesToAverage(7); //TODO test to find better value
+           enc.setDistancePerPulse(20);
+           enc.setReverseDirection(false);
+           enc.setSamplesToAverage(20); //TODO test to find better value
 
 
 
@@ -46,11 +46,11 @@ public class SensorSubsystem extends Subsystem {
             return outputValue;
         }
 
-   /* public boolean LimitSwitch(){
-        Boolean isPressed = false;
+      public boolean LimitSwitch(){
 
+        Boolean isPressed = limitSwitch.get();
 
         return isPressed;
-    }*/
-}
+    }
+ }
 
