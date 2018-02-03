@@ -1,31 +1,30 @@
-/**
- * package frc.team3926.robot;
+package frc.team3926.robot;
 
 import edu.wpi.first.wpilibj.command.Command;
+import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 
-import static frc.team3926.robot.Robot.LSSubsystem;
-
-
+/**
  *
+ */
+public class EncoderCommand extends Command {
 
-public class LimitSwitchCommand extends Command {
+    public EncoderCommand() {
 
-    public LimitSwitchCommand() {
-
-        requires(LSSubsystem);
-        // Use requires() here to declare subsystem dependencies
-        // eg. requires(chassis);
+        requires(Robot.sensorSubsystem);
     }
 
     // Called just before this Command runs the first time
     protected void initialize() {
 
+        Robot.sensorSubsystem.enc.reset();
     }
 
     // Called repeatedly when this Command is scheduled to run
     protected void execute() {
 
-        LSSubsystem.initDefaultCommand();
+        SmartDashboard.putNumber("distance", Robot.sensorSubsystem.Encoder("Distance"));
+        //SmartDashboard.putNumber("raw value", Robot.sensorSubsystem.Encoder("Raw Value"));
+        //SmartDashboard.putNumber("rate", Robot.sensorSubsystem.Encoder("Rate"));
     }
 
     // Make this return true when this Command no longer needs to run execute()
@@ -45,4 +44,4 @@ public class LimitSwitchCommand extends Command {
 
     }
 
-}*/
+}
