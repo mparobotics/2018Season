@@ -5,6 +5,7 @@ import edu.wpi.cscore.CvSource;
 import edu.wpi.cscore.UsbCamera;
 import edu.wpi.first.wpilibj.CameraServer;
 import edu.wpi.first.wpilibj.IterativeRobot;
+import edu.wpi.first.wpilibj.command.Scheduler;
 import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 import org.opencv.core.Mat;
 import org.opencv.core.Point;
@@ -24,7 +25,7 @@ public class Robot extends IterativeRobot {
 	public final static OI OI = new OI();
 	public final static LimitSwitchSubsystem LSSubsystem = new LimitSwitchSubsystem();
 	public final static DriveSubsystem driveSubsystem = new DriveSubsystem();
-	public final static AutonomousSpeedPIDSubsystem autonomousSpeedPIDSubsystem = new AutonomousSpeedPIDSubsystem();
+
 
 	Thread m_visionThread;
 
@@ -103,6 +104,10 @@ public class Robot extends IterativeRobot {
     public void teleopPeriodic() {
 	}
 
-    @Override
-    public void testPeriodic() { }
+
+    public void testPeriodic() {
+
+		Scheduler.getInstance().run();
+
+	}
 }
