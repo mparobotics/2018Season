@@ -1,12 +1,12 @@
-package frc.team3926.robot;
+/*package frc.team3926.robot;
 
 import edu.wpi.first.wpilibj.DigitalInput;
 import edu.wpi.first.wpilibj.command.Subsystem;
-import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
+import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard; */
 
 /**
  *
- */
+ *
 public class LimitSwitchSubsystem extends Subsystem {
 
     // Put methods for controlling this subsystem
@@ -21,5 +21,5 @@ public class LimitSwitchSubsystem extends Subsystem {
         SmartDashboard.putBoolean("Limit Switch", limitSwitch.get());
     }
 
-}
+} */
 
