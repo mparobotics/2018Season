@@ -19,18 +19,17 @@ public class SensorSubsystem extends Subsystem {
     public void initDefaultCommand() {
         limitSwitch = new DigitalInput(RobotMap.LIMIT_SWITCH);
         enc = new Encoder(RobotMap.ENCODER_ID_1, RobotMap.ENCODER_ID_2, false, Encoder.EncodingType.k4X);
+        enc.setMaxPeriod(.05);
+        enc.setMinRate(10);
+        enc.setDistancePerPulse(20);
+        enc.setReverseDirection(false);
+        enc.setSamplesToAverage(20); //TODO test to find better value
+
     }
 
     public double Encoder(String output) {
 
         double outputValue = 0;
-
-           enc.setMaxPeriod(.05);
-           enc.setMinRate(10);
-           enc.setDistancePerPulse(20);
-           enc.setReverseDirection(false);
-           enc.setSamplesToAverage(20); //TODO test to find better value
-
 
            switch(output) {
 

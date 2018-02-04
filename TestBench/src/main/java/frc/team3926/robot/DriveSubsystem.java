@@ -22,6 +22,12 @@ public class DriveSubsystem extends Subsystem {
     private SpeedControllerGroup m_left;
     private DifferentialDrive m_myRobot;
 
+    private double ESC;
+    private double leftStickYaxis;
+    private double rightStickYaxis;
+
+    private double leftSpeed;
+    private double rightSpeed;
 
     public void initDefaultCommand() {
 
@@ -34,12 +40,36 @@ public class DriveSubsystem extends Subsystem {
         m_left = new SpeedControllerGroup(FL, BL);
         m_myRobot = new DifferentialDrive(m_left, m_right);
 
+        ESC = RobotMap.EXPONENTIAL_SPEED_CONSTANT;//must be kept between 0 and 1
+        leftStickYaxis = Robot.oi.leftStick.getY();
+        rightStickYaxis = Robot.oi.rightStick.getY();
     }
 
+    //takes in data from the position of the joysticks to determine speeds for drive system. As a joystick is pushed
+    //forward, the speed goes up exponentially
     public void teleopDrive() {
 
-        m_myRobot.tankDrive(-oi.leftStick.getY(), -oi.rightStick.getY());
+        leftSpeed = ESC * (Math.pow(leftStickYaxis, 3))
+                    + (1 - ESC) * leftStickYaxis;
+        rightSpeed = ESC * (Math.pow(rightStickYaxis, 3))
+                     + (1 - ESC) * rightStickYaxis;
+
+        ESC = RobotMap.EXPONENTIAL_SPEED_CONSTANT; // constant used to determine the exponential curve for the speed. must be kept between 0 & 1
+
+        leftStickYaxis = Robot.oi.leftStick.getY();
+        rightStickYaxis = Robot.oi.rightStick.getY();
+
+        leftSpeed = ESC * (Math.pow(leftStickYaxis, 3))
+                    + (1 - ESC) * leftStickYaxis;
+        rightSpeed = ESC * (Math.pow(rightStickYaxis, 3))
+                     + (1 - ESC) * rightStickYaxis;
+
+        m_myRobot.tankDrive(-leftSpeed, -rightSpeed);
+
+       //m_myRobot.tankDrive(-Robot.oi.leftStick.getY(), -Robot.oi.rightStick.getY());
+
     }
+
 
     public void autonomous() {
 

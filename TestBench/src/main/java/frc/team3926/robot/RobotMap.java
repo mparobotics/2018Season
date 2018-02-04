@@ -31,5 +31,7 @@ public class RobotMap {
     public static int CAMERA_RES_WIDTH = 640;
     public static int FPS = 20;
 
+    public static double EXPONENTIAL_SPEED_CONSTANT = .5; //TODO find better value
+
 
 }

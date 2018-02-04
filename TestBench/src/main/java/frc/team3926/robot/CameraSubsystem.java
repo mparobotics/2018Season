@@ -24,6 +24,7 @@ public class CameraSubsystem extends Subsystem {
         m_visionThread = new Thread(() -> {
             // Get the UsbCamera from CameraServer
             UsbCamera camera = CameraServer.getInstance().startAutomaticCapture();
+
             // Set the resolution
             //camera.setResolution(320, 240);
 
