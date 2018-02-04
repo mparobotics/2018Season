@@ -1,7 +1,9 @@
 package frc.team3926.robot;
 
 import com.ctre.phoenix.motorcontrol.can.WPI_TalonSRX;
+import edu.wpi.first.wpilibj.GenericHID;
 import edu.wpi.first.wpilibj.IterativeRobot;
+import edu.wpi.first.wpilibj.Timer;
 import edu.wpi.first.wpilibj.command.Scheduler;
 
 /**
@@ -15,6 +17,7 @@ public class Robot extends IterativeRobot {
 	public final static DriveSubsystem driveSubsystem = new DriveSubsystem();
 	public final static CameraSubsystem cameraSubsystem = new CameraSubsystem();
 	public final static SensorSubsystem sensorSubsystem = new SensorSubsystem();
+	public final static ILWSubsystem ilwSubsystem = new ILWSubsystem();
 
 	public final static EncoderCommand encoderCommand = new EncoderCommand();
 
@@ -34,7 +37,7 @@ public class Robot extends IterativeRobot {
 
 		//SmartDashboard.putBoolean("Desired Switch on Right", desiredSwitchOnRight);
 
-		Robot.cameraSubsystem.initDefaultCommand();
+		Robot.cameraSubsystem.initDefaultCommand(); //starts camera
 
 	}
 
@@ -47,7 +50,7 @@ public class Robot extends IterativeRobot {
     @Override
     public void teleopInit() {
 
-		encoderMotor = new WPI_TalonSRX(RobotMap.ENCODER_MOTOR);
+		encoderMotor = new WPI_TalonSRX(RobotMap.ENCODER_MOTOR); //encoder test motor
 	}
 
     public void testInit() {
@@ -76,14 +79,14 @@ public class Robot extends IterativeRobot {
 		//SmartDashboard.putNumber("distance", sensorSubsystem.Encoder("Distance"));
 		//SmartDashboard.putBoolean("Limit Switch", sensorSubsystem.LimitSwitch());
 
-		/*if (sensorSubsystem.LimitSwitch()) {
+		if (sensorSubsystem.LimitSwitch()) {
 			oi.xboxController.setRumble(GenericHID.RumbleType.kLeftRumble, .5);
 			oi.xboxController.setRumble(GenericHID.RumbleType.kRightRumble, .5);
 			Timer.delay(.3);
 
 			oi.xboxController.setRumble(GenericHID.RumbleType.kLeftRumble, 0);
 			oi.xboxController.setRumble(GenericHID.RumbleType.kRightRumble, 0);
-		} */
+		}
 	}
 
     @Override

@@ -12,9 +12,9 @@ public class OI {
     int xboxRightAxis;
     int xboxLeftAxis; //contols the lift
 
-    JoystickButton X; //controls winch motor
-    JoystickButton LB; //controls left side of intake
-    JoystickButton RB; //controls right side of intake
+    JoystickButton X; //controls winch motors
+    JoystickButton LB; //spits out cube (backwards)
+    JoystickButton RB; //pulls in cube (forewords)
 
     OI() {
 
@@ -22,7 +22,7 @@ public class OI {
         leftStick = new Joystick(RobotMap.LEFT_JOYSTICK);
         xboxController = new Joystick(RobotMap.XBOX_CONTROLLER);
 
-        xboxLeftAxis = 2;
+        xboxLeftAxis = 1;
 
         X = new JoystickButton(xboxController, 3);
         LB = new JoystickButton(xboxController, 5);

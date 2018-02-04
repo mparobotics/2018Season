@@ -45,19 +45,8 @@ public class DriveSubsystem extends Subsystem {
         rightStickYaxis = Robot.oi.rightStick.getY();
     }
 
-    //takes in data from the position of the joysticks to determine speeds for drive system. As a joystick is pushed
-    //forward, the speed goes up exponentially
+    //takes in data from the position of the joysticks to determine speeds for drive system. As a joystick is pushed forward, the speed goes up exponentially
     public void teleopDrive() {
-
-        leftSpeed = ESC * (Math.pow(leftStickYaxis, 3))
-                    + (1 - ESC) * leftStickYaxis;
-        rightSpeed = ESC * (Math.pow(rightStickYaxis, 3))
-                     + (1 - ESC) * rightStickYaxis;
-
-        ESC = RobotMap.EXPONENTIAL_SPEED_CONSTANT; // constant used to determine the exponential curve for the speed. must be kept between 0 & 1
-
-        leftStickYaxis = Robot.oi.leftStick.getY();
-        rightStickYaxis = Robot.oi.rightStick.getY();
 
         leftSpeed = ESC * (Math.pow(leftStickYaxis, 3))
                     + (1 - ESC) * leftStickYaxis;

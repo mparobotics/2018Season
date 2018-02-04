@@ -17,6 +17,8 @@ public class SensorSubsystem extends Subsystem {
 
 
     public void initDefaultCommand() {
+
+        //new EncoderCommand();
         limitSwitch = new DigitalInput(RobotMap.LIMIT_SWITCH);
         enc = new Encoder(RobotMap.ENCODER_ID_1, RobotMap.ENCODER_ID_2, false, Encoder.EncodingType.k4X);
         enc.setMaxPeriod(.05);
