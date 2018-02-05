@@ -25,6 +25,8 @@ public class RobotMap {
     public static double WINCH_SPEED = .90;
 
     public static int LIFT_MOTOR = 5; //change id, adjustable up to 75% speed
+    public static int UP_LIFT_LIMIT_SWITCH = 0; //change id
+    public static int DOWN_LIFT_LIMIT_SWITCH = 1; //change id
 
 //////////////////////////////joysticks/////////////////////////////////////////////////////////////////
     public static int RIGHT_JOYSTICK = 0;

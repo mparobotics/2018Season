@@ -17,7 +17,11 @@ public class Robot extends IterativeRobot {
 	public final static DriveSubsystem driveSubsystem = new DriveSubsystem();
 	public final static CameraSubsystem cameraSubsystem = new CameraSubsystem();
 	public final static SensorSubsystem sensorSubsystem = new SensorSubsystem();
-	public final static ILWSubsystem ilwSubsystem = new ILWSubsystem();
+
+	public final static IntakeArmSubsystem intakeArmSubsystem = new IntakeArmSubsystem();
+	public final static ClimbingSubsystem climbingSubsystem = new ClimbingSubsystem();
+	public final static LiftSubsystem liftSubsystem = new LiftSubsystem();
+
 
 	public final static EncoderCommand encoderCommand = new EncoderCommand();
 
@@ -75,6 +79,9 @@ public class Robot extends IterativeRobot {
     public void teleopPeriodic() {
 
 		driveSubsystem.teleopDrive();
+		Scheduler.getInstance().run();
+
+
 		//encoderMotor.set(.1);
 		//SmartDashboard.putNumber("distance", sensorSubsystem.Encoder("Distance"));
 		//SmartDashboard.putBoolean("Limit Switch", sensorSubsystem.LimitSwitch());

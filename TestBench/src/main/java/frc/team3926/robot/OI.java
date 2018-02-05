@@ -13,6 +13,7 @@ public class OI {
     int xboxLeftAxis; //contols the lift
 
     JoystickButton X; //controls winch motors
+    JoystickButton Y; //controls winch motors down
     JoystickButton LB; //spits out cube (backwards)
     JoystickButton RB; //pulls in cube (forewords)
 
@@ -25,6 +26,7 @@ public class OI {
         xboxLeftAxis = 1;
 
         X = new JoystickButton(xboxController, 3);
+        Y = new JoystickButton(xboxController, 4);
         LB = new JoystickButton(xboxController, 5);
         RB = new JoystickButton(xboxController, 6);
 
