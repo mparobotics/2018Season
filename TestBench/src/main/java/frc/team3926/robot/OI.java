@@ -5,9 +5,9 @@ import edu.wpi.first.wpilibj.buttons.JoystickButton;
 
 public class OI {
 
-    public Joystick rightStick;
-    public Joystick leftStick;
-    public Joystick xboxController;
+    public        Joystick rightStick;
+    public        Joystick leftStick;
+    public        Joystick xboxController;
 
     int xboxRightAxis;
     int xboxLeftAxis; //contols the lift

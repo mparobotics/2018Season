@@ -2,13 +2,12 @@ package frc.team3926.robot;
 
 import com.ctre.phoenix.motorcontrol.can.WPI_TalonSRX;
 import edu.wpi.first.wpilibj.Encoder;
+import edu.wpi.first.wpilibj.Preferences;
 import edu.wpi.first.wpilibj.SpeedControllerGroup;
 import edu.wpi.first.wpilibj.Timer;
 import edu.wpi.first.wpilibj.command.Subsystem;
 import edu.wpi.first.wpilibj.drive.DifferentialDrive;
 import edu.wpi.first.wpilibj.interfaces.Gyro;
-
-import static frc.team3926.robot.Robot.OI;
 
 /**
  *
@@ -38,7 +37,23 @@ public class DriveSubsystem extends Subsystem {
 
     private Gyro gyro;
 
+    Preferences prefs;
+
     public void initDefaultCommand() {
+
+        prefs = Preferences.getInstance();
+
+        exponentialSpeedConstant = prefs.getDouble("Exponential Speed Constant", 0.0); //must be kept between 0 and 1
+
+        if (exponentialSpeedConstant > 1){
+
+            exponentialSpeedConstant = 1;
+
+        } else if (exponentialSpeedConstant < 0){
+
+            exponentialSpeedConstant = 0;
+
+        }
 
         FR = new WPI_TalonSRX(RobotMap.FRONT_RIGHT);
         BR = new WPI_TalonSRX(RobotMap.BACK_RIGHT);
@@ -49,8 +64,10 @@ public class DriveSubsystem extends Subsystem {
         m_left = new SpeedControllerGroup(FL, BL);
         m_myRobot = new DifferentialDrive(m_left, m_right);
 
-        rightDriveEnc = new Encoder(0, 1, false, Encoder.EncodingType.k4X);
-        leftDriveEnc = new Encoder(0, 1, false, Encoder.EncodingType.k4X);
+        rightDriveEnc = new Encoder(RobotMap.RIGHT_DRIVE_ENC_PORT_ONE, RobotMap.RIGHT_DRIVE_ENC_PORT_TWO, false,
+                                    Encoder.EncodingType.k4X);
+        leftDriveEnc = new Encoder(RobotMap.LEFT_DRIVE_ENC_PORT_ONE, RobotMap.LEFT_DRIVE_ENC_PORT_TWO, false,
+                                   Encoder.EncodingType.k4X);
 
     }
 
@@ -58,21 +75,16 @@ public class DriveSubsystem extends Subsystem {
     //forward, the speed goes up exponentially
     public void teleopDrive() {
 
-        exponentialSpeedConstant = RobotMap.EXPONENTIAL_SPEED_CONSTANT;//must be kept between 0 and 1
-        leftStickYaxis = OI.leftStick.getY();
-        rightStickYaxis = OI.rightStick.getY();
-        leftSpeed = exponentialSpeedConstant * (Math.pow(leftStickYaxis, 3)) + (1 - exponentialSpeedConstant) * leftStickYaxis;
-        rightSpeed = exponentialSpeedConstant * (Math.pow(rightStickYaxis, 3)) + (1 - exponentialSpeedConstant) * rightStickYaxis;
 
-        exponentialSpeedConstant = RobotMap.EXPONENTIAL_SPEED_CONSTANT; // constant used to determine the exponential curve for the speed. must be kept between 0 & 1
 
-        leftStickYaxis = OI.leftStick.getY();
-        rightStickYaxis = OI.rightStick.getY();
 
-        leftSpeed = exponentialSpeedConstant * (Math.pow(leftStickYaxis, 3)) + (1 - exponentialSpeedConstant) * leftStickYaxis;
-        rightSpeed = exponentialSpeedConstant * (Math.pow(rightStickYaxis, 3)) + (1 - exponentialSpeedConstant) * rightStickYaxis;
+        leftStickYaxis = Robot.oi.leftStick.getY();
+        rightStickYaxis = Robot.oi.rightStick.getY();
+        leftSpeed = exponentialSpeedConstant * (Math.pow(leftStickYaxis, 3))
+                    + (1 - exponentialSpeedConstant) * leftStickYaxis;
+        rightSpeed = exponentialSpeedConstant * (Math.pow(rightStickYaxis, 3))
+                     + (1 - exponentialSpeedConstant) * rightStickYaxis;
 
-        m_myRobot.tankDrive(-leftSpeed, -rightSpeed);
 
 
 
@@ -98,7 +110,7 @@ public class DriveSubsystem extends Subsystem {
         */
             /* if (centerPosition) {
 
-                m_myRobot.tankDrive(.5, .5);
+            m_myRobot.tankDrive(.5, .5);
                 Timer.delay(3);
                 m_myRobot.tankDrive(-.5, .5);
                 Timer.delay(.5);
@@ -216,13 +228,13 @@ public class DriveSubsystem extends Subsystem {
         rightDriveEnc.reset();
         leftDriveEnc.reset();
 
-        float rightError;
-        float rightPV = 0; // value tbd
-        float rightIntegral = 0; // value tbd
-        float rightDerivative;
-        float rightOutput;
-        float rightPreError = 0; // value tbd
-        float rightDt = 0; // value tdb
+        double rightError;
+        double rightPV = 0; // value tbd
+        double rightIntegral = 0; // value tbd
+        double rightDerivative;
+        double rightOutput;
+        double rightPreError = 0; // value tbd
+        double rightDt = 0; // value tdb
 
         double leftError;
         double leftPV = 0; // value tbd
@@ -247,7 +259,7 @@ public class DriveSubsystem extends Subsystem {
             FL.set(leftOutput);
             BL.set(leftOutput);
 
-            rightError = RobotMap.FORWARD_SPEED_SETPOINT - rightPV;
+            rightError = RobotMap.FORWARD_SPEED_SETPOINT - rightDriveEnc.getRate();
 
             rightIntegral = rightIntegral + (rightError * rightDt);
 
@@ -266,6 +278,78 @@ public class DriveSubsystem extends Subsystem {
         return 0;
 
     }
+
+    /*public double turn(String direction){
+
+        rightDriveEnc.reset();
+        leftDriveEnc.reset();
+        // reset gyro
+
+        double rightError;
+        double rightIntegral = 0; // value tbd
+        double rightDerivative;
+        double rightOutput;
+        double rightPreError = 0; // value tbd
+        double rightDt = 0; // value tdb
+
+        double leftError;
+        double leftIntegral = 0; // value tbd
+        double leftDerivative;
+        double leftOutput;
+        double leftPreError = 0; // value tbd
+        double leftDt = 0; // value tbd
+
+        double rightSetPoint;
+        double leftSetPoint;
+
+        if(direction == "right"){
+
+            rightSetPoint = -RobotMap.TURNING_SPEED_SETPOINT;
+            leftSetPoint = RobotMap.TURNING_SPEED_SETPOINT;
+
+        } else {
+
+            rightSetPoint = RobotMap.TURNING_SPEED_SETPOINT;
+            leftSetPoint = -RobotMap.TURNING_SPEED_SETPOINT;
+
+        }
+
+
+        while(){ // the while loop goes until the gyro says that the robot has turned 90 degrees
+
+            leftError = leftSetPoint - leftDriveEnc.getRate();
+
+            leftIntegral = leftIntegral + (leftError * leftDt);
+
+            leftDerivative = (leftError - leftPreError) / leftDt;
+
+            leftOutput = (RobotMap.TURNING_KP * leftError) + (RobotMap.TURNING_KI * leftIntegral)
+                         + (RobotMap.TURNING_KD * leftDerivative);
+
+            leftPreError = leftError;
+
+            FL.set(leftOutput);
+            BL.set(leftOutput);
+
+            rightError = rightSetPoint - rightDriveEnc.getRate();
+
+            rightIntegral = rightIntegral + (rightError * rightDt);
+
+            rightDerivative = (rightError - rightPreError) / rightDt;
+
+            rightOutput = (RobotMap.TURNING_KP * rightError) + (RobotMap.TURNING_KI * rightIntegral)
+                          + (RobotMap.TURNING_KD * rightDerivative);
+
+            rightPreError = rightError;
+
+            FR.set(rightOutput);
+            BR.set(rightOutput);
+
+        }
+
+        return 0;
+
+    }*/
 
     public void hitSomething() {
 
