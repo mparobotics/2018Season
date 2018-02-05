@@ -5,9 +5,9 @@ import edu.wpi.first.wpilibj.command.Command;
 /**
  *
  */
-public class ControlLift extends Command {
+public class ControlLiftCommand extends Command {
 
-    public ControlLift() {
+    public ControlLiftCommand() {
         // Use requires() here to declare subsystem dependencies
         // eg. requires(chassis);
 

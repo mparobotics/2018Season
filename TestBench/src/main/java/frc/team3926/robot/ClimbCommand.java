@@ -5,23 +5,22 @@ import edu.wpi.first.wpilibj.command.Command;
 /**
  *
  */
-public class ControlIntake extends Command {
+public class ClimbCommand extends Command {
 
-    public ControlIntake() {
+    public ClimbCommand() {
 
-        requires(Robot.intakeArmSubsystem);
+        requires(Robot.climbingSubsystem);
     }
 
     // Called just before this Command runs the first time
     protected void initialize() {
-
 
     }
 
     // Called repeatedly when this Command is scheduled to run
     protected void execute() {
 
-        Robot.intakeArmSubsystem.teleopIntake();
+        Robot.climbingSubsystem.teleopClimb();
     }
 
     // Make this return true when this Command no longer needs to run execute()
@@ -33,6 +32,7 @@ public class ControlIntake extends Command {
     // Called once after isFinished returns true
     protected void end() {
 
+        Robot.climbingSubsystem.ClimbDown();
     }
 
     // Called when another command which requires one or more of the same
