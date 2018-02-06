@@ -19,10 +19,12 @@ public class Robot extends IterativeRobot {
 
 	public final static EncoderCommand encoderCommand = new EncoderCommand();
 
-	public static boolean rightPosition;
-	public static boolean leftPosition;
-	public static boolean centerPosition;
-	public static boolean desiredSwitchOnRight; //right = true    left = false
+	//public static boolean rightPosition;
+	//public static boolean leftPosition;
+	//public static boolean centerPosition;
+	//public static boolean desiredSwitchOnRight; //right = true    left = false
+
+
 
 	double speed;
 
