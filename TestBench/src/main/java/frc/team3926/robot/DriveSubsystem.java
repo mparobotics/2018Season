@@ -30,7 +30,8 @@ public class DriveSubsystem extends Subsystem {
     double rightStickYaxis;
     double leftSpeed;
     double rightSpeed;
-    double exponentialSpeedConstant;
+    double ESC;
+    double ESP;
 
     Encoder rightDriveEnc;
     Encoder leftDriveEnc;
@@ -43,18 +44,10 @@ public class DriveSubsystem extends Subsystem {
 
         prefs = Preferences.getInstance();
 
-        exponentialSpeedConstant = prefs.getDouble("Exponential Speed Constant", 0.0); //must be kept between 0 and 1
-
-        if (exponentialSpeedConstant > 1){
-
-            exponentialSpeedConstant = 1;
-
-        } else if (exponentialSpeedConstant < 0){
-
-            exponentialSpeedConstant = 0;
-
-        }
-
+        //exponentialSpeedConstant = prefs.getDouble("Exponential Speed Constant", 0.0); //must be kept between 0 and 1
+        ESC = RobotMap.EXPONENTIAL_SPEED_CONSTANT;
+        //exponentialSpeedPower = prefs.getDouble("Exponential Speed Power",0.0); // must not go lower than 0
+        ESP = RobotMap.EXPONENTIAL_SPEED_POWER;
         FR = new WPI_TalonSRX(RobotMap.FRONT_RIGHT);
         BR = new WPI_TalonSRX(RobotMap.BACK_RIGHT);
         FL = new WPI_TalonSRX(RobotMap.FRONT_LEFT);
@@ -64,29 +57,62 @@ public class DriveSubsystem extends Subsystem {
         m_left = new SpeedControllerGroup(FL, BL);
         m_myRobot = new DifferentialDrive(m_left, m_right);
 
-        rightDriveEnc = new Encoder(RobotMap.RIGHT_DRIVE_ENC_PORT_ONE, RobotMap.RIGHT_DRIVE_ENC_PORT_TWO, false,
-                                    Encoder.EncodingType.k4X);
-        leftDriveEnc = new Encoder(RobotMap.LEFT_DRIVE_ENC_PORT_ONE, RobotMap.LEFT_DRIVE_ENC_PORT_TWO, false,
-                                   Encoder.EncodingType.k4X);
+        //rightDriveEnc = new Encoder(RobotMap.RIGHT_DRIVE_ENC_PORT_ONE, RobotMap.RIGHT_DRIVE_ENC_PORT_TWO, false,
+                                    //Encoder.EncodingType.k4X);
+        //leftDriveEnc = new Encoder(RobotMap.LEFT_DRIVE_ENC_PORT_ONE, RobotMap.LEFT_DRIVE_ENC_PORT_TWO, false,
+                                   //Encoder.EncodingType.k4X);
 
     }
 
-    //takes in data from the position of the joysticks to determine speeds for drive system. As a joystick is pushed
-    //forward, the speed goes up exponentially
+
     public void teleopDrive() {
 
+        // takes in data from the position of the joysticks to determine speeds for drive system. As a joystick is
+        // pushed forward, the speed goes up exponentially (works with pushing joystick backward and going in reverse
+        // in the same way
+        exponentialDrive();
+
+       /* if (exponentialSpeedConstant > 1){
+
+            exponentialSpeedConstant = 1;
+
+        } else if (exponentialSpeedConstant < 0){
+
+            exponentialSpeedConstant = 0;
+
+        }
+
+        if(exponentialSpeedPower < 0){
+
+            exponentialSpeedPower = 0;
+
+        }*/
 
 
+
+    }
+
+    // takes in data from the position of the joysticks to determine speeds for drive system. As a joystick is
+    // pushed forward, the speed goes up exponentially (works with pushing joystick backward and going in reverse
+    // in the same way
+
+    public double exponentialDrive(){
+
+        ESC = RobotMap.EXPONENTIAL_SPEED_CONSTANT;
+        ESP = RobotMap.EXPONENTIAL_SPEED_POWER;
 
         leftStickYaxis = Robot.oi.leftStick.getY();
         rightStickYaxis = Robot.oi.rightStick.getY();
-        leftSpeed = exponentialSpeedConstant * (Math.pow(leftStickYaxis, 3))
-                    + (1 - exponentialSpeedConstant) * leftStickYaxis;
-        rightSpeed = exponentialSpeedConstant * (Math.pow(rightStickYaxis, 3))
-                     + (1 - exponentialSpeedConstant) * rightStickYaxis;
 
+        // plugs the y axis of the joysticks into a cubic equation, resulting in the speed
+        leftSpeed = ESC * (Math.pow(leftStickYaxis, ESP))
+                    + (1 - ESC) * leftStickYaxis;
+        rightSpeed = ESC * (Math.pow(rightStickYaxis, ESP))
+                     + (1 - ESC) * rightStickYaxis;
 
+        m_myRobot.tankDrive(-leftSpeed, -rightSpeed);
 
+        return 0;
 
     }
 
@@ -279,11 +305,11 @@ public class DriveSubsystem extends Subsystem {
 
     }
 
-    /*public double turn(String direction){
+    public double turn(String direction){
 
         rightDriveEnc.reset();
         leftDriveEnc.reset();
-        // reset gyro
+        gyro.reset();
 
         double rightError;
         double rightIntegral = 0; // value tbd
@@ -302,20 +328,28 @@ public class DriveSubsystem extends Subsystem {
         double rightSetPoint;
         double leftSetPoint;
 
+        double angle;
+
         if(direction == "right"){
 
             rightSetPoint = -RobotMap.TURNING_SPEED_SETPOINT;
             leftSetPoint = RobotMap.TURNING_SPEED_SETPOINT;
+
 
         } else {
 
             rightSetPoint = RobotMap.TURNING_SPEED_SETPOINT;
             leftSetPoint = -RobotMap.TURNING_SPEED_SETPOINT;
 
+
         }
 
 
-        while(){ // the while loop goes until the gyro says that the robot has turned 90 degrees
+        while(gyro.getAngle() < 90 && gyro.getAngle() > -90){
+            //  ^ according to the documentation about getAngle
+            // "The angle is based on the current accumulator value corrected by the oversampling rate, the gyro type
+            // and the A/D calibration values"
+            // so those values should be set
 
             leftError = leftSetPoint - leftDriveEnc.getRate();
 
@@ -349,7 +383,7 @@ public class DriveSubsystem extends Subsystem {
 
         return 0;
 
-    }*/
+    }
 
     public void hitSomething() {
 

@@ -73,8 +73,8 @@ public class Robot extends IterativeRobot {
     @Override
     public void teleopPeriodic() {
 
-		//driveSubsystem.teleopDrive();
-		encoderMotor.set(.1);
+		driveSubsystem.teleopDrive();
+		//encoderMotor.set(.1);
 		SmartDashboard.putNumber("distance", sensorSubsystem.Encoder("Distance"));
 		SmartDashboard.putBoolean("Limit Switch", sensorSubsystem.LimitSwitch());
 	}

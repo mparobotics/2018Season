@@ -11,9 +11,9 @@ public class RobotMap {
     public static double RADIUS_OF_ROTATION = 7.62; //cm
 
     public static int FRONT_RIGHT    = 8;
-    public static int FRONT_LEFT     = 0;
+    public static int FRONT_LEFT     = 22;
     public static int BACK_RIGHT     = 7;
-    public static int BACK_LEFT      = 22;
+    public static int BACK_LEFT      = 0;
 
     public static int INTAKE_MOTOR_1 = 1; //change
     public static int INTAKE_MOTOR_2 = 2; //change
@@ -32,6 +32,7 @@ public class RobotMap {
     public static int FPS = 20;
     public static double EXPONENTIAL_SPEED_CONSTANT = 0.5; // a constant used for exponential speed growth as the
     // joystick goes forward
+    public static double EXPONENTIAL_SPEED_POWER = 3; // must be a whole odd number
 
 
     public static double AUTONOMOUS_SPEED_TOLERANCE = 1; //tbd
