@@ -2,6 +2,7 @@ package frc.team3926.robot;
 
 import com.ctre.phoenix.motorcontrol.can.WPI_TalonSRX;
 import edu.wpi.first.wpilibj.IterativeRobot;
+import edu.wpi.first.wpilibj.Preferences;
 import edu.wpi.first.wpilibj.command.Scheduler;
 import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 
@@ -10,6 +11,8 @@ import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
  *  */
 
 public class Robot extends IterativeRobot {
+
+
 
 	public final static OI oi = new OI();
 	//public final static LimitSwitchSubsystem LSSubsystem = new LimitSwitchSubsystem();
@@ -24,18 +27,22 @@ public class Robot extends IterativeRobot {
 	//public static boolean centerPosition;
 	//public static boolean desiredSwitchOnRight; //right = true    left = false
 
-
-
 	double speed;
 
 	WPI_TalonSRX encoderMotor;
+
+	double test;
+
+	static Preferences smartDashPrefs;
+
+	double ESC;
+	double ESP;
 
 	public void robotInit() {
 
 		//SmartDashboard.putBoolean("Right Position", rightPosition);
 		//SmartDashboard.putBoolean("Left Position", leftPosition);
 		//SmartDashboard.putBoolean("Center Position", centerPosition);
-
 		//SmartDashboard.putBoolean("Desired Switch on Right", desiredSwitchOnRight);
 
 		Robot.cameraSubsystem.initDefaultCommand();
@@ -43,7 +50,9 @@ public class Robot extends IterativeRobot {
 	}
 
     @Override
-    public void disabledInit() { }
+	public void disabledInit() {
+
+	}
 
     @Override
     public void autonomousInit() { }
@@ -79,11 +88,17 @@ public class Robot extends IterativeRobot {
 		//encoderMotor.set(.1);
 		SmartDashboard.putNumber("distance", sensorSubsystem.Encoder("Distance"));
 		SmartDashboard.putBoolean("Limit Switch", sensorSubsystem.LimitSwitch());
+
 	}
 
     @Override
     public void testPeriodic() {
 
+		driveSubsystem.teleopDrive();
+
+		//encoderMotor.set(.1);
+		SmartDashboard.putNumber("distance", sensorSubsystem.Encoder("Distance"));
+		SmartDashboard.putBoolean("Limit Switch", sensorSubsystem.LimitSwitch());
 
 	}
 }
