@@ -1,11 +1,11 @@
-package frc.team3926.robot;
+//package frc.team3926.robot;
 
-import edu.wpi.first.wpilibj.command.Command;
-import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
+//import edu.wpi.first.wpilibj.command.Command;
+//import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 
 /**
  *
- */
+ *
 public class EncoderCommand extends Command {
 
     public EncoderCommand() {
@@ -44,4 +44,4 @@ public class EncoderCommand extends Command {
 
     }
 
-}
+}*/

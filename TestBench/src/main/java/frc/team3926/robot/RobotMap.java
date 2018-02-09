@@ -25,13 +25,15 @@ public class RobotMap {
     public static double WINCH_SPEED = .90;
 
     public static int LIFT_MOTOR = 5; //change id, adjustable up to 75% speed
-    public static int UP_LIFT_LIMIT_SWITCH = 0; //change id
-    public static int DOWN_LIFT_LIMIT_SWITCH = 1; //change id
+    public static int UP_LIFT_LIMIT_SWITCH = 4; //change id
+    public static int DOWN_LIFT_LIMIT_SWITCH = 2; //change id
 
 //////////////////////////////joysticks/////////////////////////////////////////////////////////////////
     public static int RIGHT_JOYSTICK = 0;
     public static int LEFT_JOYSTICK = 1;
     public static int XBOX_CONTROLLER = 3;
+
+    public static int HALF_DRIVE_BUTTON = 1;
 
 /////////////////////////////camera////////////////////////////////////////////////////////////////////
     public static int CAMERA_RES_HIGHT = 480;

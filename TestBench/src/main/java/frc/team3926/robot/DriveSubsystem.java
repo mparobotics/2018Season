@@ -6,8 +6,6 @@ import edu.wpi.first.wpilibj.Timer;
 import edu.wpi.first.wpilibj.command.Subsystem;
 import edu.wpi.first.wpilibj.drive.DifferentialDrive;
 
-import static frc.team3926.robot.Robot.*;
-
 /**
  *
  */
@@ -41,26 +39,38 @@ public class DriveSubsystem extends Subsystem {
         m_myRobot = new DifferentialDrive(m_left, m_right);
 
         ESC = RobotMap.EXPONENTIAL_SPEED_CONSTANT;//must be kept between 0 and 1
-        leftStickYaxis = Robot.oi.leftStick.getY();
-        rightStickYaxis = Robot.oi.rightStick.getY();
+
+        setDefaultCommand(new DriveCommand());
     }
 
     //takes in data from the position of the joysticks to determine speeds for drive system. As a joystick is pushed forward, the speed goes up exponentially
     public void teleopDrive() {
+
+        leftStickYaxis = Robot.oi.leftStick.getY();
+        rightStickYaxis = Robot.oi.rightStick.getY();
 
         leftSpeed = ESC * (Math.pow(leftStickYaxis, 3))
                     + (1 - ESC) * leftStickYaxis;
         rightSpeed = ESC * (Math.pow(rightStickYaxis, 3))
                      + (1 - ESC) * rightStickYaxis;
 
-        m_myRobot.tankDrive(-leftSpeed, -rightSpeed);
+        m_myRobot.tankDrive(leftSpeed, rightSpeed);
 
        //m_myRobot.tankDrive(-Robot.oi.leftStick.getY(), -Robot.oi.rightStick.getY());
 
     }
 
+    //drive at half speed when trigger on the right joystick is held down
+    public void halfDrive() {
 
-    public void autonomous() {
+        leftStickYaxis = Robot.oi.leftStick.getY()/ 2;
+        rightStickYaxis = Robot.oi.rightStick.getY()/ 2;
+
+        m_myRobot.tankDrive(leftStickYaxis, rightStickYaxis);
+    }
+
+
+   /* public void autonomous() {
 
         if (desiredSwitchOnRight) {
             if (centerPosition) {
@@ -106,9 +116,9 @@ public class DriveSubsystem extends Subsystem {
 
     public double setSpeed(double leftSpeed, double rightSpeed) {
 
-        m_myRobot.tankDrive(leftSpeed, rightSpeed);
+        m_myRobot.tankDrive(-leftSpeed, -rightSpeed);
         return 0;
-    }
+    }*/
 
     public void hitSomething() {
 
@@ -117,6 +127,22 @@ public class DriveSubsystem extends Subsystem {
         Timer.delay(1);
         m_myRobot.tankDrive(0, 0);
         Timer.delay(3);
+    }
+
+    public double getRightRPM() {
+
+        return m_right.get();
+    }
+
+    public double getLeftRPM() {
+
+        return m_left.get();
+    }
+
+    @Override
+    public void periodic() {
+
+
     }
 }
 

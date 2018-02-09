@@ -12,10 +12,12 @@ public class OI {
     int xboxRightAxis;
     int xboxLeftAxis; //contols the lift
 
-    JoystickButton X; //controls winch motors
-    JoystickButton Y; //controls winch motors down
-    JoystickButton LB; //spits out cube (backwards)
-    JoystickButton RB; //pulls in cube (forewords)
+    public JoystickButton X; //controls winch motors
+    public JoystickButton Y; //controls winch motors down
+    public JoystickButton LB; //spits out cube (backwards)
+    public JoystickButton RB; //pulls in cube (forewords)
+
+    public JoystickButton halfSpeedTrigger; //controls half speed mode
 
     OI() {
 
@@ -29,6 +31,11 @@ public class OI {
         Y = new JoystickButton(xboxController, 4);
         LB = new JoystickButton(xboxController, 5);
         RB = new JoystickButton(xboxController, 6);
+
+        halfSpeedTrigger = new JoystickButton(rightStick, 1);
+
+
+        //halfSpeedTrigger.whenPressed(new DriveCommand());
 
     }
 }

@@ -11,37 +11,39 @@ public class ControlLiftCommand extends Command {
         // Use requires() here to declare subsystem dependencies
         // eg. requires(chassis);
 
-        requires(Robot.liftSubsystem);
+        //requires(Robot.liftSubsystem);
     }
 
     // Called just before this Command runs the first time
     protected void initialize() {
 
-        Robot.liftSubsystem.setLiftSpeed(0);
+        //Robot.liftSubsystem.setLiftSpeed(0);
     }
 
     // Called repeatedly when this Command is scheduled to run
     protected void execute() {
 
-        Robot.liftSubsystem.controlLiftTeleop();
+        return;
+        //Robot.liftSubsystem.controlLiftTeleop();
     }
 
     // Make this return true when this Command no longer needs to run execute()
     protected boolean isFinished() {
-        Boolean limitSwitchIsHit = false;
+       /* Boolean limitSwitchIsHit = false;
 
         if(Robot.sensorSubsystem.HeightLimit() || Robot.sensorSubsystem.DownLimit()) {
 
             limitSwitchIsHit = true;
         }
 
-        return limitSwitchIsHit;
+        return limitSwitchIsHit; */
+       return true;
     }
 
     // Called once after isFinished returns true
     protected void end() {
 
-        Robot.liftSubsystem.setLiftSpeed(0);
+       // Robot.liftSubsystem.setLiftSpeed(0);
     }
 
     // Called when another command which requires one or more of the same

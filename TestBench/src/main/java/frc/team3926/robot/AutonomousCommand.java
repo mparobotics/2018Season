@@ -1,10 +1,13 @@
+/*
 package frc.team3926.robot;
 
 import edu.wpi.first.wpilibj.command.Command;
 
+*/
 /**
  *
- */
+ *//*
+
 public class AutonomousCommand extends Command {
 
     boolean hittingSomething;
@@ -21,14 +24,17 @@ public class AutonomousCommand extends Command {
     // Called repeatedly when this Command is scheduled to run
     protected void execute() {
 
-        Robot.driveSubsystem.autonomous();
+        return;
+        //Robot.driveSubsystem.autonomous();
 
         //SmartDashboard.putBoolean("Hitting Something", Robot.OI.limitSwitch.get()); //.get() is not working
-        if(hittingSomething) {
+       */
+/* if(hittingSomething) {
 
             Robot.driveSubsystem.hitSomething();
             //then needs to do something else
-        }
+        }*//*
+
     }
 
     // Make this return true when this Command no longer needs to run execute()
@@ -50,3 +56,4 @@ public class AutonomousCommand extends Command {
     }
 
 }
+*/

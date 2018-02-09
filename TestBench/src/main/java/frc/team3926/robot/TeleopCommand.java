@@ -1,12 +1,12 @@
-package frc.team3926.robot;
+//package frc.team3926.robot;
 
-import edu.wpi.first.wpilibj.command.Command;
+//import edu.wpi.first.wpilibj.command.Command;
 
-import static frc.team3926.robot.Robot.driveSubsystem;
+//import static frc.team3926.robot.Robot.driveSubsystem;
 
 /**
  *
- */
+ *
 public class TeleopCommand extends Command {
 
     boolean hittingSomething;
@@ -50,4 +50,4 @@ public class TeleopCommand extends Command {
 
     }
 
-}
+}*/
