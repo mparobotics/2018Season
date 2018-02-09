@@ -13,14 +13,12 @@ public class OI {
     int            xboxLeftAxis; //contols the lift
 
     double         leftStickYaxis;
-    double         rightStickYaxis;
+    double         rightStickYAxis;
     double         leftSpeed;
     double         rightSpeed;
 
     double         ESC;
-    double         ESP;
-
-
+    double         ESDB;
 
     JoystickButton X; //controls winch motor
     JoystickButton LB; //controls left side of intake
@@ -42,46 +40,125 @@ public class OI {
 
     }
 
+    //the constant is used to determine the curve used by the exponential drive function
     public double ExponentialSpeedConstant(){
 
-        return Robot.smartDashPrefs.getDouble("ESC",0);
+        //retreives the constant from the smart dashboard
+        return Robot.smartDashPrefs.getDouble("ESC",RobotMap.EXPONENTIAL_SPEED_CONSTANT);
 
     }
 
-    public double ExponentialSpeedPower(){
+    //dead band represents the undefined area in the middle of the curve. For our purposes it will be treated as 0.
+    //This is so that shakey hands to not move the robot
+    public double ExponentialSpeedDeadBand(){
 
-        return Robot.smartDashPrefs.getDouble("ESP",3);
+
+        return Robot.smartDashPrefs.getDouble("ESDB",RobotMap.EXPONENTIAL_SPEED_DEAD_BAND);
 
     }
 
-    public double exponentialDriveRight(){
+    // calculates the speed of a given side so that it goes up exponentially as the corresponding joystick is pushed
+    // forward give joystick goes up the joystick is pushed forward
+    public double exponentialDriveCalc(String robotSide){
 
         ESC = ExponentialSpeedConstant();
-        ESP = ExponentialSpeedPower();
+        ESDB = ExponentialSpeedDeadBand();
 
-        rightStickYaxis = Robot.oi.rightStick.getY();
+        double joystickYAxis;
+        double speed;
 
-        // plugs the y axis of the right joystick into a cubic equation, resulting in the speed
-        rightSpeed = ESC * (Math.pow(rightStickYaxis, ESP))
-                     + (1 - ESC) * rightStickYaxis;
+        if(robotSide.equals("right")){
 
-        return rightSpeed;
+            joystickYAxis = Robot.oi.rightStick.getY();
+
+        } else {
+
+            joystickYAxis = Robot.oi.leftStick.getY();
+
+        }
+
+
+
+        if(!(joystickYAxis <= ESDB && joystickYAxis >= -ESDB)) { //setting the speed to zero if in dead band
+
+            return 0;
+
+        } else if (joystickYAxis < 0) { // if the joystick y axis is out of the dead band and negative
+
+            // plugs the y axis of the right joystick into a cubic equation, resulting in the speed
+            speed = (ESC * Math.pow((-joystickYAxis - ESDB) / (1 - ESDB), 3)) +
+                         ((1 - ESC) * (joystickYAxis + ESDB) / (1 - ESDB));
+
+        } else { // if the joystick y axis is out of the dead band and positive
+
+            // plugs the y axis of the right joystick into a cubic equation, resulting in the speed
+            speed = (ESC * Math.pow((joystickYAxis - ESDB) / (1 - ESDB), 3)) +
+                         ((1 - ESC) * (joystickYAxis - ESDB) / (1 - ESDB));
+
+        }
+
+        return speed;
 
     }
 
-    public double exponentialDriveLeft(){
+    /*public double exponentialDriveLeft(){
 
-        ESC = ExponentialSpeedConstant();
-        ESP = ExponentialSpeedPower();
+        ESC  = ExponentialSpeedConstant();
+        ESDB = ExponentialSpeedDeadBand();
 
         leftStickYaxis = Robot.oi.leftStick.getY();
 
-        // plugs the y axis of the left joystick into a cubic equation, resulting in the speed
-        leftSpeed = ESC * (Math.pow(leftStickYaxis, ESP))
-                    + (1 - ESC) * leftStickYaxis;
+        if(!(leftStickYaxis <= ESDB && leftStickYaxis >= -ESDB)) { //setting the speed to zero if in dead band
+
+            return 0;
+
+        } else if (leftStickYaxis < 0) { // if the joystick y axis is out of the dead band and negative
+
+            // plugs the y axis of the right joystick into a cubic equation, resulting in the speed
+            leftSpeed = (ESC * Math.pow((-leftStickYaxis - ESDB) / (1 - ESDB), 3)) +
+                         ((1 - ESC) * (leftStickYaxis + ESDB) / (1 - ESDB));
+
+        } else { // if the joystick y axis is out of the dead band and positive
+
+            // plugs the y axis of the right joystick into a cubic equation, resulting in the speed
+            leftSpeed = (ESC * Math.pow((leftStickYaxis - ESDB) / (1 - ESDB), 3)) +
+                         ((1 - ESC) * (leftStickYaxis - ESDB) / (1 - ESDB));
+
+        }
 
         return leftSpeed;
 
-    }
+    }*/
+
+    // plugs the y axis of the right joystick into a cubic equation, resulting in the speed
+    /*public double exponentialDriveRight(){
+
+        ESC = ExponentialSpeedConstant();
+        ESDB = ExponentialSpeedDeadBand();
+
+        rightStickYAxis = Robot.oi.rightStick.getY();
+
+
+        if(!(rightStickYAxis <= ESDB && rightStickYAxis >= -ESDB)) { //setting the speed to zero if in dead band
+
+            return 0;
+
+        } else if (rightStickYAxis < 0) { // if the joystick y axis is out of the dead band and negative
+
+            // plugs the y axis of the right joystick into a cubic equation, resulting in the speed
+            rightSpeed = (ESC * Math.pow((-rightStickYAxis - ESDB) / (1 - ESDB), 3)) +
+                         ((1 - ESC) * (rightStickYAxis + ESDB) / (1 - ESDB));
+
+        } else { // if the joystick y axis is out of the dead band and positive
+
+            // plugs the y axis of the right joystick into a cubic equation, resulting in the speed
+            rightSpeed = (ESC * Math.pow((rightStickYAxis - ESDB) / (1 - ESDB), 3)) +
+                         ((1 - ESC) * (rightStickYAxis - ESDB) / (1 - ESDB));
+
+        }
+
+        return rightSpeed;
+
+    }*/
 
 }

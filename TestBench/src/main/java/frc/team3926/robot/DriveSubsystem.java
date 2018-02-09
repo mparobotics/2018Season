@@ -29,9 +29,12 @@ public class DriveSubsystem extends Subsystem {
 
     private Gyro gyro;
 
+    String currentOrientation = "forward";
+
+    double XPosition          = RobotMap.STARTING_X_POSITION; // left side of the field is 0
+    double YPosition          = RobotMap.STARTING_Y_POSITION; // starting side of the field is 0
+
     public void initDefaultCommand() {
-
-
 
         FR = new WPI_TalonSRX(RobotMap.FRONT_RIGHT);
         BR = new WPI_TalonSRX(RobotMap.BACK_RIGHT);
@@ -43,10 +46,10 @@ public class DriveSubsystem extends Subsystem {
         m_myRobot = new DifferentialDrive(m_left, m_right);
         SmartDashboard.putData(Robot.driveSubsystem);
 
-        //rightDriveEnc = new Encoder(RobotMap.RIGHT_DRIVE_ENC_PORT_ONE, RobotMap.RIGHT_DRIVE_ENC_PORT_TWO, false,
-                                    //Encoder.EncodingType.k4X);
-        //leftDriveEnc = new Encoder(RobotMap.LEFT_DRIVE_ENC_PORT_ONE, RobotMap.LEFT_DRIVE_ENC_PORT_TWO, false,
-                                   //Encoder.EncodingType.k4X);
+        /*rightDriveEnc = new Encoder(RobotMap.RIGHT_DRIVE_ENC_PORT_ONE, RobotMap.RIGHT_DRIVE_ENC_PORT_TWO, false,
+            Encoder.EncodingType.k4X);
+        leftDriveEnc = new Encoder(RobotMap.LEFT_DRIVE_ENC_PORT_ONE, RobotMap.LEFT_DRIVE_ENC_PORT_TWO, false,
+            Encoder.EncodingType.k4X);*/
 
     }
 
@@ -55,7 +58,7 @@ public class DriveSubsystem extends Subsystem {
         // takes in data from the position of the joysticks to determine speeds for drive system. As a joystick is
         // pushed forward, the speed goes up exponentially (works with pushing joystick backward and going in reverse
         // in the same way
-        m_myRobot.tankDrive(Robot.oi.exponentialDriveLeft(), Robot.oi.exponentialDriveRight());
+        m_myRobot.tankDrive(Robot.oi.exponentialDriveCalc("left"), Robot.oi.exponentialDriveCalc("right"));
 
         //m_myRobot.tankDrive(Robot.oi.leftStick.getY(), Robot.oi.rightStick.getY());
 
@@ -68,7 +71,7 @@ public class DriveSubsystem extends Subsystem {
 
     }
 
-    public double goForward(int distance){
+    public double goForward(int DesiredDistance){
 
         rightDriveEnc.reset();
         leftDriveEnc.reset();
@@ -87,7 +90,7 @@ public class DriveSubsystem extends Subsystem {
         double leftPreError = 0; // value tbd
         double leftDt = 0; // value tbd
 
-        while(leftDriveEnc.getDistance() < distance){
+        while(leftDriveEnc.getDistance() < DesiredDistance){
 
             leftError = RobotMap.FORWARD_SPEED_SETPOINT - leftDriveEnc.getRate();
 
@@ -100,9 +103,6 @@ public class DriveSubsystem extends Subsystem {
 
             leftPreError = leftError;
 
-            FL.set(leftOutput);
-            BL.set(leftOutput);
-
             rightError = RobotMap.FORWARD_SPEED_SETPOINT - rightDriveEnc.getRate();
 
             rightIntegral = rightIntegral + (rightError * rightDt);
@@ -114,8 +114,38 @@ public class DriveSubsystem extends Subsystem {
 
             rightPreError = rightError;
 
-            FR.set(rightOutput);
-            BR.set(rightOutput);
+            m_myRobot.tankDrive(leftOutput,rightOutput);
+
+        }
+        //this changes the coordinates of the robot based off the distance that the robot has just travelled
+        changeCords(DesiredDistance);
+
+        return 0;
+
+    }
+
+
+
+    //this changes the coordinates of the robot based off the distance that the robot has just travelled
+    public double changeCords(double distance){
+
+        switch (currentOrientation){
+
+            case "forward":
+                YPosition += distance;
+                break;
+
+            case "right":
+                XPosition += distance;
+                break;
+
+            case "backward":
+                YPosition -= distance;
+                break;
+
+            case "left":
+                XPosition -= distance;
+                break;
 
         }
 
@@ -123,7 +153,32 @@ public class DriveSubsystem extends Subsystem {
 
     }
 
-    public double turn(String direction){
+    //turns to a specific orientation. only words for turning 90 or -90 degrees from current position
+    public double turnOrientation(String desiredOrienation){
+
+        //sees if the robot has to move right to get to its destination
+        if(   (currentOrientation.equals("forward")  && desiredOrienation.equals("right")   )
+           || (currentOrientation.equals("right")    && desiredOrienation.equals("backward"))
+           || (currentOrientation.equals("backward") && desiredOrienation.equals("left")    )
+           || (currentOrientation.equals("left")     && desiredOrienation.equals("forward") ) ){
+
+            turnDirection("right");
+
+            //sees if the robot has to move left to get to its destination
+        } else if(   (currentOrientation.equals("forward")  && desiredOrienation.equals("left")    )
+                  || (currentOrientation.equals("left")     && desiredOrienation.equals("backward"))
+                  || (currentOrientation.equals("backward") && desiredOrienation.equals("right")   )
+                  || (currentOrientation.equals("right")    && desiredOrienation.equals("forward") ) ){
+
+            turnDirection("left");
+
+        }
+
+        return 0;
+
+    }
+
+    public double turnDirection(String turningDirection){
 
         rightDriveEnc.reset();
         leftDriveEnc.reset();
@@ -148,17 +203,15 @@ public class DriveSubsystem extends Subsystem {
 
         double angle;
 
-        if( direction.equals("right") ){
+        if( turningDirection.equals("right") ){
 
             rightSetPoint = -RobotMap.TURNING_SPEED_SETPOINT;
             leftSetPoint = RobotMap.TURNING_SPEED_SETPOINT;
-
 
         } else {
 
             rightSetPoint = RobotMap.TURNING_SPEED_SETPOINT;
             leftSetPoint = -RobotMap.TURNING_SPEED_SETPOINT;
-
 
         }
 
@@ -180,9 +233,6 @@ public class DriveSubsystem extends Subsystem {
 
             leftPreError = leftError;
 
-            FL.set(leftOutput);
-            BL.set(leftOutput);
-
             rightError = rightSetPoint - rightDriveEnc.getRate();
 
             rightIntegral = rightIntegral + (rightError * rightDt);
@@ -194,8 +244,66 @@ public class DriveSubsystem extends Subsystem {
 
             rightPreError = rightError;
 
-            FR.set(rightOutput);
-            BR.set(rightOutput);
+            m_myRobot.tankDrive(leftOutput, rightOutput);
+
+        }
+
+        //this changes what directino the robot thinks it is facing after a turn. This will be used for the go to a
+        // point method if and when it is implemented
+        changeStoredDirection(turningDirection);
+
+        return 0;
+
+    }
+
+    // this changes what direction the robot thinks it is facing after a turn. This will be used for the go to a point
+    // method if and when it is implemented
+    public double changeStoredDirection(String turningDirection){
+
+        if(turningDirection.equals("right")){
+
+            switch(turningDirection){
+
+                case "forward":
+                    currentOrientation = "right";
+                    break;
+
+                case "right":
+                    currentOrientation = "backward";
+                    break;
+
+                case "backward":
+                    currentOrientation = "left";
+                    break;
+
+
+                case "left":
+                    currentOrientation = "forward";
+                    break;
+
+            }
+
+        } else { //to be run if turning direction is left
+
+            switch(turningDirection){
+
+                case "forward":
+                    currentOrientation = "left";
+                    break;
+
+                case "right":
+                    currentOrientation = "forward";
+                    break;
+
+                case "backward":
+                    currentOrientation = "right";
+                    break;
+
+                case "left":
+                    currentOrientation = "backward";
+                    break;
+
+            }
 
         }
 

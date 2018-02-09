@@ -23,37 +23,41 @@ public class RobotMap {
 
     public static int LIFT_MOTOR = 5; //change
 
-    public static int RIGHT_JOYSTICK  = 0;
-    public static int LEFT_JOYSTICK   = 1;
-    public static int XBOX_CONTROLLER = 3;
+    public static int    RIGHT_JOYSTICK              = 0;
+    public static int    LEFT_JOYSTICK               = 1;
+    public static int    XBOX_CONTROLLER             = 3;
 
-    public static int CAMERA_RES_HIGHT = 480;
-    public static int CAMERA_RES_WIDTH = 640;
-    public static int FPS = 20;
-    public static double EXPONENTIAL_SPEED_CONSTANT = 0.5; // a constant used for exponential speed growth as the
-    // joystick goes forward
-    public static double EXPONENTIAL_SPEED_POWER = 3; // must be a whole odd number
+    public static int    CAMERA_RES_HIGHT = 480;
+    public static int    CAMERA_RES_WIDTH            = 640;
+    public static int    FPS                         = 20;
+    public static double EXPONENTIAL_SPEED_CONSTANT  = 0.5; // a constant used for exponential speed growth as the
+    /* joystick goes forward */
+    public static double EXPONENTIAL_SPEED_POWER     = 3; // must be a whole odd number
+    public static double EXPONENTIAL_SPEED_DEAD_BAND = 0.1; // must be between 0 and 1
 
 
-    public static double AUTONOMOUS_SPEED_TOLERANCE = 1; //tbd
+    public static double AUTONOMOUS_SPEED_TOLERANCE  = 1; //tbd
 
-    public static double AUTO_LINE_DISTANCE_METERS  = 1; //tbd
-    public static String STARTING_POSITION          = "right"; //tbd
-    public static String FREINDLY_SCALE_SIDE        = "right"; //tbd
+    public static double AUTO_LINE_DISTANCE_METERS   = 1; //tbd
+    public static String STARTING_POSITION           = "right"; //tbd
+    public static String FREINDLY_SCALE_SIDE         = "right"; //tbd
 
-    public static int FORWARD_KP                    = 1; //tbd
-    public static int FORWARD_KI                    = 1; //tbd
-    public static int FORWARD_KD                    = 1; //tbd
-    public static int FORWARD_SPEED_SETPOINT        = 1; //tbd
+    public static int    FORWARD_KP                  = 1; //tbd
+    public static int    FORWARD_KI                  = 1; //tbd
+    public static int    FORWARD_KD                  = 1; //tbd
+    public static int    FORWARD_SPEED_SETPOINT      = 1; //tbd
 
-    public static int TURNING_KP                    = 1; //tbd
-    public static int TURNING_KI                    = 1; //tbd
-    public static int TURNING_KD                    = 1; //tbd
-    public static int TURNING_SPEED_SETPOINT        = 1; //tbd
+    public static int TURNING_KP                     = 1; //tbd
+    public static int TURNING_KI                     = 1; //tbd
+    public static int TURNING_KD                     = 1; //tbd
+    public static int TURNING_SPEED_SETPOINT         = 1; //tbd
 
-    public static int LEFT_DRIVE_ENC_PORT_ONE       = 1; //tbd
-    public static int LEFT_DRIVE_ENC_PORT_TWO       = 1; //tbd
-    public static int RIGHT_DRIVE_ENC_PORT_ONE      = 1; //tbd
-    public static int RIGHT_DRIVE_ENC_PORT_TWO      = 1; //tbd
+    public static int LEFT_DRIVE_ENC_PORT_ONE        = 1; //tbd
+    public static int LEFT_DRIVE_ENC_PORT_TWO        = 1; //tbd
+    public static int RIGHT_DRIVE_ENC_PORT_ONE       = 1; //tbd
+    public static int RIGHT_DRIVE_ENC_PORT_TWO       = 1; //tbd
+
+    public static double STARTING_X_POSITION         = 0; //tbd
+    public static double STARTING_Y_POSITION         = 0; //tbd
 
 }
