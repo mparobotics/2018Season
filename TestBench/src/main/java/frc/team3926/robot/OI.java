@@ -12,6 +12,13 @@ public class OI {
     int            xboxRightAxis;
     int            xboxLeftAxis; //contols the lift
 
+    public JoystickButton X; //controls winch motors
+    public JoystickButton Y; //controls winch motors down
+    public JoystickButton LB; //spits out cube (backwards)
+    public JoystickButton RB; //pulls in cube (forewords)
+
+    public JoystickButton halfSpeedTrigger; //controls half speed mode
+
     double         leftStickYaxis;
     double         rightStickYAxis;
     double         leftSpeed;
@@ -20,23 +27,23 @@ public class OI {
     double         ESC;
     double         ESDB;
 
-    JoystickButton X; //controls winch motor
-    JoystickButton LB; //controls left side of intake
-    JoystickButton RB; //controls right side of intake
-
     OI() {
 
         rightStick = new Joystick(RobotMap.RIGHT_JOYSTICK);
         leftStick = new Joystick(RobotMap.LEFT_JOYSTICK);
         xboxController = new Joystick(RobotMap.XBOX_CONTROLLER);
 
-        xboxLeftAxis = 2;
+        xboxLeftAxis = 1;
 
         X = new JoystickButton(xboxController, 3);
+        Y = new JoystickButton(xboxController, 4);
         LB = new JoystickButton(xboxController, 5);
         RB = new JoystickButton(xboxController, 6);
 
+        halfSpeedTrigger = new JoystickButton(rightStick, 1);
+
         Robot.smartDashPrefs.getInstance();
+        //halfSpeedTrigger.whenPressed(new DriveCommand());
 
     }
 

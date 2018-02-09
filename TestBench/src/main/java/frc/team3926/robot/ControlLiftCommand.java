@@ -2,46 +2,48 @@ package frc.team3926.robot;
 
 import edu.wpi.first.wpilibj.command.Command;
 
-import static frc.team3926.robot.Robot.driveSubsystem;
-
 /**
  *
  */
-public class TeleopCommand extends Command {
+public class ControlLiftCommand extends Command {
 
-    boolean hittingSomething;
+    public ControlLiftCommand() {
+        // Use requires() here to declare subsystem dependencies
+        // eg. requires(chassis);
 
-    public TeleopCommand() {
-
-       requires(driveSubsystem);
-
+        //requires(Robot.liftSubsystem);
     }
 
     // Called just before this Command runs the first time
     protected void initialize() {
 
-
+        //Robot.liftSubsystem.setLiftSpeed(0);
     }
 
     // Called repeatedly when this Command is scheduled to run
     protected void execute() {
 
-        driveSubsystem.teleopDrive();
-
-        //SmartDashboard.putBoolean("Hitting Something", Robot.OI.limitSwitch.get()); //.get() is not working
-
+        return;
+        //Robot.liftSubsystem.controlLiftTeleop();
     }
 
     // Make this return true when this Command no longer needs to run execute()
     protected boolean isFinished() {
+       /* Boolean limitSwitchIsHit = false;
 
+        if(Robot.sensorSubsystem.HeightLimit() || Robot.sensorSubsystem.DownLimit()) {
 
-        return false;
+            limitSwitchIsHit = true;
+        }
+
+        return limitSwitchIsHit; */
+       return true;
     }
 
     // Called once after isFinished returns true
     protected void end() {
 
+       // Robot.liftSubsystem.setLiftSpeed(0);
     }
 
     // Called when another command which requires one or more of the same

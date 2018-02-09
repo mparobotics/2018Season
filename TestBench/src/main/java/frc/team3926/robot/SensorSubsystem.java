@@ -15,22 +15,30 @@ public class SensorSubsystem extends Subsystem {
     Encoder enc;
     private DigitalInput limitSwitch;
 
+    private DigitalInput liftSwitchUp;
+    private DigitalInput liftSwitchDown;
+
 
     public void initDefaultCommand() {
+
+        //new EncoderCommand();
         limitSwitch = new DigitalInput(RobotMap.LIMIT_SWITCH);
+
+        //liftSwitchUp = new DigitalInput(RobotMap.UP_LIFT_LIMIT_SWITCH);
+        //liftSwitchDown = new DigitalInput(RobotMap.DOWN_LIFT_LIMIT_SWITCH);
+
         enc = new Encoder(RobotMap.ENCODER_ID_1, RobotMap.ENCODER_ID_2, false, Encoder.EncodingType.k4X);
+        enc.setMaxPeriod(.05);
+        enc.setMinRate(10);
+        enc.setDistancePerPulse(20);
+        enc.setReverseDirection(false);
+        enc.setSamplesToAverage(20); //TODO test to find better value
+
     }
 
     public double Encoder(String output) {
 
         double outputValue = 0;
-
-           enc.setMaxPeriod(.05);
-           enc.setMinRate(10);
-           enc.setDistancePerPulse(20);
-           enc.setReverseDirection(false);
-           enc.setSamplesToAverage(20); //TODO test to find better value
-
 
            switch(output) {
 
@@ -52,6 +60,16 @@ public class SensorSubsystem extends Subsystem {
         Boolean isPressed = limitSwitch.get();
 
         return isPressed;
+    }
+    public boolean HeightLimit() {
+
+        Boolean upIsPressed = liftSwitchUp.get();
+        return upIsPressed;
+    }
+    public boolean DownLimit(){
+
+        Boolean downIsPressed = liftSwitchDown.get();
+        return downIsPressed;
     }
  }
 

@@ -1,18 +1,17 @@
 package frc.team3926.robot;
 
 import com.ctre.phoenix.motorcontrol.can.WPI_TalonSRX;
+import edu.wpi.first.networktables.NetworkTableInstance;
 import edu.wpi.first.wpilibj.IterativeRobot;
-import edu.wpi.first.wpilibj.Preferences;
 import edu.wpi.first.wpilibj.command.Scheduler;
+import edu.wpi.first.wpilibj.PowerDistributionPanel;
 import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
-
+import edu.wpi.first.wpilibj.Preferences;
 /**
  *  *
  *  */
 
 public class Robot extends IterativeRobot {
-
-
 
 	public final static OI oi = new OI();
 	//public final static LimitSwitchSubsystem LSSubsystem = new LimitSwitchSubsystem();
@@ -20,32 +19,33 @@ public class Robot extends IterativeRobot {
 	public final static CameraSubsystem cameraSubsystem = new CameraSubsystem();
 	public final static SensorSubsystem sensorSubsystem = new SensorSubsystem();
 
-	public final static EncoderCommand encoderCommand = new EncoderCommand();
+	public final static IntakeArmSubsystem intakeArmSubsystem = new IntakeArmSubsystem();
+	public final static ClimbingSubsystem climbingSubsystem = new ClimbingSubsystem();
+	public final static LiftSubsystem liftSubsystem = new LiftSubsystem();
 
-	//public static boolean rightPosition;
-	//public static boolean leftPosition;
-	//public static boolean centerPosition;
-	//public static boolean desiredSwitchOnRight; //right = true    left = false
+	public PowerDistributionPanel pdp = new PowerDistributionPanel(3);
 
-	double speed;
+	public boolean week0;
 
 	WPI_TalonSRX encoderMotor;
 
-	double test;
-
-	static Preferences smartDashPrefs;
-
-	double ESC;
-	double ESP;
-
 	public void robotInit() {
 
-		//SmartDashboard.putBoolean("Right Position", rightPosition);
-		//SmartDashboard.putBoolean("Left Position", leftPosition);
-		//SmartDashboard.putBoolean("Center Position", centerPosition);
-		//SmartDashboard.putBoolean("Desired Switch on Right", desiredSwitchOnRight);
+		week0 = false;
 
-		Robot.cameraSubsystem.initDefaultCommand();
+		Robot.cameraSubsystem.initDefaultCommand(); //starts camera
+
+		if (week0) {
+			NetworkTableInstance offSeasonNetworkTable =
+					NetworkTableInstance.create();
+			offSeasonNetworkTable.startClient("10.0.100.5");
+			String gameData = offSeasonNetworkTable
+					.getTable("OffseasonFMSInfo")
+					.getEntry("GameData")
+					.getString("defaultValue");
+		}
+
+		SmartDashboard.putData("PowerDistributionPanel", pdp);
 
 	}
 
@@ -84,16 +84,21 @@ public class Robot extends IterativeRobot {
     @Override
     public void teleopPeriodic() {
 
-		driveSubsystem.teleopDrive();
-		//encoderMotor.set(.1);
-		SmartDashboard.putNumber("distance", sensorSubsystem.Encoder("Distance"));
-		SmartDashboard.putBoolean("Limit Switch", sensorSubsystem.LimitSwitch());
+		Scheduler.getInstance().run();
+        driveSubsystem.teleopDrive();
+
+
+		encoderMotor.set(.1);
+		//SmartDashboard.putNumber("distance", sensorSubsystem.Encoder("Distance"));
+		//SmartDashboard.putBoolean("Limit Switch", sensorSubsystem.LimitSwitch());
+
 
 	}
 
     @Override
     public void testPeriodic() {
 
+	    Scheduler.getInstance().run()
 		driveSubsystem.teleopDrive();
 
 		//encoderMotor.set(.1);
