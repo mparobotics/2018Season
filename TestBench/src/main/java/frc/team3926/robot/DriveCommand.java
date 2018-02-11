@@ -1,6 +1,7 @@
 
 package frc.team3926.robot;
 
+import edu.wpi.first.wpilibj.Preferences;
 import edu.wpi.first.wpilibj.command.Command;
 import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 
@@ -9,6 +10,9 @@ import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
  */
 
 public class DriveCommand extends Command {
+
+    public Preferences dashboardPreferences;
+    public boolean safeMode = true;
 
     public DriveCommand() {
 
@@ -20,8 +24,9 @@ public class DriveCommand extends Command {
     @Override
     protected void initialize() {
 
-        //Robot.driveSubsystem.initDefaultCommand();
-
+       /* dashboardPreferences = Preferences.getInstance();
+        dashboardPreferences.putBoolean("Safe Mode: ", safeMode);
+        SmartDashboard.putBoolean("Safe Mode: ", safeMode);*/
 
     }
 
@@ -31,15 +36,12 @@ public class DriveCommand extends Command {
 
         SmartDashboard.putNumber("Left RPM: ", Robot.driveSubsystem.getLeftRPM());
         SmartDashboard.putNumber("Right RPM: ", Robot.driveSubsystem.getRightRPM());
+        //safeMode = dashboardPreferences.getBoolean("Safe Mode: ", safeMode);
 
-        if(Robot.oi.halfSpeedTrigger.get()) {
-
-                Robot.driveSubsystem.halfDrive();
-
-            } else {
+        SmartDashboard.putBoolean("half speed trigger: ", Robot.oi.halfSpeedTrigger.get());
 
                 Robot.driveSubsystem.teleopDrive();
-            }
+
 
         /*if (Robot.sensorSubsystem.LimitSwitch()) {
             Robot.oi.xboxController.setRumble(GenericHID.RumbleType.kLeftRumble, .5);

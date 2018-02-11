@@ -18,6 +18,7 @@ public class OI {
     public JoystickButton RB; //pulls in cube (forewords)
 
     public JoystickButton halfSpeedTrigger; //controls half speed mode
+    public JoystickButton straightModeTrigger; //controls straight mode
 
     OI() {
 
@@ -33,9 +34,7 @@ public class OI {
         RB = new JoystickButton(xboxController, 6);
 
         halfSpeedTrigger = new JoystickButton(rightStick, 1);
-
-
-        //halfSpeedTrigger.whenPressed(new DriveCommand());
+        straightModeTrigger = new JoystickButton(leftStick, 1);
 
     }
 }

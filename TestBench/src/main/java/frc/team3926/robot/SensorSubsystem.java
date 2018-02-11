@@ -45,11 +45,18 @@ public class SensorSubsystem extends Subsystem {
                case "Raw Count" :
                 outputValue = enc.getRaw();
 
+                break;
+
                case "Distance" :
                    outputValue = enc.getDistance() * RobotMap.RADIUS_OF_ROTATION;
 
+                   break;
+
                case "Rate" :
+
                    outputValue = enc.getRate();
+                   break;
+
            }
 
             return outputValue;

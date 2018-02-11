@@ -5,6 +5,11 @@ import edu.wpi.first.wpilibj.SpeedControllerGroup;
 import edu.wpi.first.wpilibj.Timer;
 import edu.wpi.first.wpilibj.command.Subsystem;
 import edu.wpi.first.wpilibj.drive.DifferentialDrive;
+import edu.wpi.first.wpilibj.smartdashboard.SendableChooser;
+import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
+
+import static edu.wpi.first.wpilibj.GenericHID.RumbleType.kLeftRumble;
+import static edu.wpi.first.wpilibj.GenericHID.RumbleType.kRightRumble;
 
 /**
  *
@@ -27,6 +32,13 @@ public class DriveSubsystem extends Subsystem {
     private double leftSpeed;
     private double rightSpeed;
 
+    public int driveMode = 1;
+
+    public int defaultDriveID = 1;
+    public int halfDriveID = 2;
+    public int straightDriveID = 3;
+    public SendableChooser driveChooser;
+
     public void initDefaultCommand() {
 
         FR = new WPI_TalonSRX(RobotMap.FRONT_RIGHT);
@@ -40,33 +52,95 @@ public class DriveSubsystem extends Subsystem {
 
         ESC = RobotMap.EXPONENTIAL_SPEED_CONSTANT;//must be kept between 0 and 1
 
+        driveChooser = new SendableChooser();
+
+        driveChooser.addDefault("Default Drive ", defaultDriveID);
+        driveChooser.addObject("Half Drive ", halfDriveID);
+        driveChooser.addObject("Straight Drive", straightDriveID);
+
+        SmartDashboard.putData("Drive Mode: ", driveChooser);
+
         setDefaultCommand(new DriveCommand());
     }
 
     //takes in data from the position of the joysticks to determine speeds for drive system. As a joystick is pushed forward, the speed goes up exponentially
     public void teleopDrive() {
 
+        driveMode = (int) driveChooser.getSelected();
+
+        if(Robot.sensorSubsystem.LimitSwitch()) { // just messing around w/ xbox rumble
+
+            Robot.oi.xboxController.setRumble(kLeftRumble, 1.5);
+            Robot.oi.xboxController.setRumble(kRightRumble, 1.5);
+            Timer.delay(.075);
+            Robot.oi.xboxController.setRumble(kLeftRumble, 0);
+            Robot.oi.xboxController.setRumble(kRightRumble, 0);
+        }
+
         leftStickYaxis = Robot.oi.leftStick.getY();
         rightStickYaxis = Robot.oi.rightStick.getY();
 
-        leftSpeed = ESC * (Math.pow(leftStickYaxis, 3))
-                    + (1 - ESC) * leftStickYaxis;
-        rightSpeed = ESC * (Math.pow(rightStickYaxis, 3))
-                     + (1 - ESC) * rightStickYaxis;
+        if(driveMode == defaultDriveID) {
+
+            leftSpeed = leftStickYaxis;
+            rightSpeed = rightStickYaxis;
+        }
+        else if (driveMode == halfDriveID) {
+
+            if (Robot.oi.halfSpeedTrigger.get()) {
+
+                leftSpeed = leftStickYaxis / 2;
+                rightSpeed = rightStickYaxis / 2;
+            } else {
+
+                leftSpeed = leftStickYaxis;
+                rightSpeed = rightStickYaxis;
+            }
+        }
+        else if (driveMode == straightDriveID) {
+
+            if (Robot.oi.straightModeTrigger.get()) {
+
+                leftSpeed = leftStickYaxis;
+                rightSpeed = leftStickYaxis;
+            } else {
+
+                leftSpeed = leftStickYaxis;
+                rightSpeed = rightStickYaxis;
+            }
+        }
 
         m_myRobot.tankDrive(leftSpeed, rightSpeed);
-
-       //m_myRobot.tankDrive(-Robot.oi.leftStick.getY(), -Robot.oi.rightStick.getY());
-
     }
 
     //drive at half speed when trigger on the right joystick is held down
     public void halfDrive() {
 
-        leftStickYaxis = Robot.oi.leftStick.getY()/ 2;
-        rightStickYaxis = Robot.oi.rightStick.getY()/ 2;
+        if(Robot.oi.halfSpeedTrigger.get()) {
 
+            leftStickYaxis = Robot.oi.leftStick.getY() / 2;
+            rightStickYaxis = Robot.oi.rightStick.getY() / 2;
+        } else {
+
+            leftStickYaxis = Robot.oi.leftStick.getY();
+            rightStickYaxis = Robot.oi.rightStick.getY();
+        }
         m_myRobot.tankDrive(leftStickYaxis, rightStickYaxis);
+    }
+
+    //drive stright when trigger oin left joystick is held (right & left motors speed both set by the right joystick)
+    public void straightDrive() {
+
+        leftStickYaxis = Robot.oi.leftStick.getY();
+        rightStickYaxis = Robot.oi.rightStick.getY();
+
+        if(Robot.oi.straightModeTrigger.get()) {
+
+        m_myRobot.tankDrive(rightStickYaxis, rightStickYaxis);
+        } else {
+
+            m_myRobot.tankDrive(leftStickYaxis, rightStickYaxis);
+        }
     }
 
 
@@ -127,6 +201,7 @@ public class DriveSubsystem extends Subsystem {
         Timer.delay(1);
         m_myRobot.tankDrive(0, 0);
         Timer.delay(3);
+
     }
 
     public double getRightRPM() {

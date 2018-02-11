@@ -13,7 +13,7 @@ import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 public class Robot extends IterativeRobot {
 
 	public final static OI oi = new OI();
-	//public final static LimitSwitchSubsystem LSSubsystem = new LimitSwitchSubsystem();
+
 	public final static DriveSubsystem driveSubsystem = new DriveSubsystem();
 	public final static CameraSubsystem cameraSubsystem = new CameraSubsystem();
 	public final static SensorSubsystem sensorSubsystem = new SensorSubsystem();
@@ -22,7 +22,7 @@ public class Robot extends IterativeRobot {
 	public final static ClimbingSubsystem climbingSubsystem = new ClimbingSubsystem();
 	public final static LiftSubsystem liftSubsystem = new LiftSubsystem();
 
-	public PowerDistributionPanel pdp = new PowerDistributionPanel(3);
+	public PowerDistributionPanel pdp = new PowerDistributionPanel();
 
 	public boolean week0;
 
@@ -31,7 +31,7 @@ public class Robot extends IterativeRobot {
 
 	public void robotInit() {
 
-		week0 = false;
+		week0 = false; //if true enables FMS for week zero competition
 
 		Robot.cameraSubsystem.initDefaultCommand(); //starts camera
 

@@ -31,7 +31,7 @@ public class RobotMap {
 //////////////////////////////joysticks/////////////////////////////////////////////////////////////////
     public static int RIGHT_JOYSTICK = 0;
     public static int LEFT_JOYSTICK = 1;
-    public static int XBOX_CONTROLLER = 3;
+    public static int XBOX_CONTROLLER = 2;
 
     public static int HALF_DRIVE_BUTTON = 1;
 
@@ -42,5 +42,9 @@ public class RobotMap {
 ////////////////////////////other/////////////////////////////////////////////////////////////////////
     public static double EXPONENTIAL_SPEED_CONSTANT = .5; //TODO find better value
 
+
+    public static int DRIVE_MODE_STRAIGHT = 3;
+    public static int DRIVE_MODE_HALF = 2;
+    public static int DRIVE_MODE_DEFAULT = 1;
 
 }
