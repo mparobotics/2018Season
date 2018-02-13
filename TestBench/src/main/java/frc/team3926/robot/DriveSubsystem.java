@@ -50,7 +50,7 @@ public class DriveSubsystem extends Subsystem {
         m_left = new SpeedControllerGroup(FL, BL);
         m_myRobot = new DifferentialDrive(m_left, m_right);
 
-        ESC = RobotMap.EXPONENTIAL_SPEED_CONSTANT;//must be kept between 0 and 1
+        ESC = RobotMap.OI_GAIN;//must be kept between 0 and 1
 
         driveChooser = new SendableChooser();
 
@@ -77,13 +77,14 @@ public class DriveSubsystem extends Subsystem {
             Robot.oi.xboxController.setRumble(kRightRumble, 0);
         }
 
-        leftStickYaxis = Robot.oi.leftStick.getY();
-        rightStickYaxis = Robot.oi.rightStick.getY();
+        leftStickYaxis = Robot.oi.getJoystickLeftY();
+        rightStickYaxis = Robot.oi.getJoystickRightY();
 
         if(driveMode == defaultDriveID) {
 
             leftSpeed = leftStickYaxis;
             rightSpeed = rightStickYaxis;
+
         }
         else if (driveMode == halfDriveID) {
 
@@ -112,37 +113,6 @@ public class DriveSubsystem extends Subsystem {
 
         m_myRobot.tankDrive(leftSpeed, rightSpeed);
     }
-
-    //drive at half speed when trigger on the right joystick is held down
-    public void halfDrive() {
-
-        if(Robot.oi.halfSpeedTrigger.get()) {
-
-            leftStickYaxis = Robot.oi.leftStick.getY() / 2;
-            rightStickYaxis = Robot.oi.rightStick.getY() / 2;
-        } else {
-
-            leftStickYaxis = Robot.oi.leftStick.getY();
-            rightStickYaxis = Robot.oi.rightStick.getY();
-        }
-        m_myRobot.tankDrive(leftStickYaxis, rightStickYaxis);
-    }
-
-    //drive stright when trigger oin left joystick is held (right & left motors speed both set by the right joystick)
-    public void straightDrive() {
-
-        leftStickYaxis = Robot.oi.leftStick.getY();
-        rightStickYaxis = Robot.oi.rightStick.getY();
-
-        if(Robot.oi.straightModeTrigger.get()) {
-
-        m_myRobot.tankDrive(rightStickYaxis, rightStickYaxis);
-        } else {
-
-            m_myRobot.tankDrive(leftStickYaxis, rightStickYaxis);
-        }
-    }
-
 
    /* public void autonomous() {
 

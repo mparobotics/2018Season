@@ -33,14 +33,13 @@ public class RobotMap {
     public static int LEFT_JOYSTICK = 1;
     public static int XBOX_CONTROLLER = 2;
 
-    public static int HALF_DRIVE_BUTTON = 1;
-
 /////////////////////////////camera////////////////////////////////////////////////////////////////////
-    public static int CAMERA_RES_HIGHT = 480;
+    public static int CAMERA_RES_HEIGHT = 480;
     public static int CAMERA_RES_WIDTH = 640;
     public static int FPS = 20;
 ////////////////////////////other/////////////////////////////////////////////////////////////////////
-    public static double EXPONENTIAL_SPEED_CONSTANT = .5; //TODO find better value
+    public static double OI_GAIN = .2; //TODO find better value
+    public static double OI_DEAD_BAND = .1;
 
 
     public static int DRIVE_MODE_STRAIGHT = 3;

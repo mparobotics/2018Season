@@ -2,11 +2,13 @@ package frc.team3926.robot;
 
 import edu.wpi.first.wpilibj.Joystick;
 import edu.wpi.first.wpilibj.buttons.JoystickButton;
+import edu.wpi.first.wpilibj.smartdashboard.SendableChooser;
+import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 
 public class OI {
 
-    public Joystick rightStick;
-    public Joystick leftStick;
+    private Joystick rightStick;
+    private Joystick leftStick;
     public Joystick xboxController;
 
     int xboxRightAxis;
@@ -19,6 +21,12 @@ public class OI {
 
     public JoystickButton halfSpeedTrigger; //controls half speed mode
     public JoystickButton straightModeTrigger; //controls straight mode
+
+    public SendableChooser gainChooser;
+    public SendableChooser deadBandChooser;
+
+    private double gain = 0;
+    private double deadBand = 0;
 
     OI() {
 
@@ -36,5 +44,57 @@ public class OI {
         halfSpeedTrigger = new JoystickButton(rightStick, 1);
         straightModeTrigger = new JoystickButton(leftStick, 1);
 
+        /*gainChooser = new SendableChooser();
+        deadBandChooser = new SendableChooser();
+
+        gainChooser.addDefault("Gain", gain);
+        deadBandChooser.addDefault("Dead Band", deadBand);*/
+
+        //SmartDashboard.putData("Gain", gainChooser);
+        //SmartDashboard.putData("Dead Band", deadBandChooser);
+
+        //gain = (double) gainChooser.getSelected();
+        //deadBand = (double) deadBandChooser.getSelected();
+
+        SmartDashboard.putNumber("Gain", gain);
+        SmartDashboard.putNumber("Dead Band", deadBand);
     }
+
+    public final double getJoystickLeftY() {
+
+        double rawY = leftStick.getY();
+        return apply_gain_deadzone_exponential(rawY);
+    }
+
+    public final double getJoystickRightY() {
+
+        double rawY = rightStick.getY();
+        return apply_gain_deadzone_exponential(rawY);
+    }
+
+    private double apply_gain_deadzone_exponential(double rawY) {
+
+        double absY = Math.abs(rawY);
+        gain = SmartDashboard.getNumber("Gain", RobotMap.OI_GAIN);
+        deadBand = SmartDashboard.getNumber("Dead Band", RobotMap.OI_DEAD_BAND);
+
+        if(absY <= deadBand) {
+
+            return 0;
+
+        } else {
+
+             absY = (gain * Math.pow((absY - deadBand) / (1 - deadBand), 3)) +
+                         ((1 - gain) * (absY - deadBand) / (1 - deadBand));
+        }
+
+        if(rawY < 0) {
+
+            return -absY;
+        } else {
+
+            return absY;
+        }
+    }
+
 }

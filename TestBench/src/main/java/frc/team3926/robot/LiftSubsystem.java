@@ -20,14 +20,11 @@ public class LiftSubsystem extends Subsystem {
         // Set the default command for a subsystem here.
 
         liftMotor = new WPI_TalonSRX(RobotMap.LIFT_MOTOR);
-
-        ESC = RobotMap.EXPONENTIAL_SPEED_CONSTANT;
     }
 
     public void controlLiftTeleop(){
 
-        rawAxis = Robot.oi.xboxController.getRawAxis(Robot.oi.xboxLeftAxis);
-        liftMotor.set(ESC * (Math.pow(rawAxis, 3)) + (1 - ESC) * rawAxis);
+        liftMotor.set(Robot.oi.xboxController.getRawAxis(Robot.oi.xboxLeftAxis)/ 2);
     }
 
     public void autoLiftToSwitch(){ //TODO test
