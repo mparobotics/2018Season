@@ -8,9 +8,6 @@ import edu.wpi.first.wpilibj.drive.DifferentialDrive;
 import edu.wpi.first.wpilibj.smartdashboard.SendableChooser;
 import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 
-import static edu.wpi.first.wpilibj.GenericHID.RumbleType.kLeftRumble;
-import static edu.wpi.first.wpilibj.GenericHID.RumbleType.kRightRumble;
-
 /**
  *
  */
@@ -68,14 +65,14 @@ public class DriveSubsystem extends Subsystem {
 
         driveMode = (int) driveChooser.getSelected();
 
-        if(Robot.sensorSubsystem.LimitSwitch()) { // just messing around w/ xbox rumble
+       /* if(Robot.sensorSubsystem.LimitSwitch()) { // just messing around w/ xbox rumble
 
             Robot.oi.xboxController.setRumble(kLeftRumble, 1.5);
             Robot.oi.xboxController.setRumble(kRightRumble, 1.5);
             Timer.delay(.075);
             Robot.oi.xboxController.setRumble(kLeftRumble, 0);
             Robot.oi.xboxController.setRumble(kRightRumble, 0);
-        }
+        } */
 
         leftStickYaxis = Robot.oi.getJoystickLeftY();
         rightStickYaxis = Robot.oi.getJoystickRightY();
@@ -111,7 +108,7 @@ public class DriveSubsystem extends Subsystem {
             }
         }
 
-        m_myRobot.tankDrive(leftSpeed, rightSpeed);
+        m_myRobot.tankDrive(-leftSpeed, -rightSpeed);
     }
 
    /* public void autonomous() {

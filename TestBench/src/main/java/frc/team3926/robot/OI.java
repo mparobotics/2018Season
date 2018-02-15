@@ -25,8 +25,8 @@ public class OI {
     public SendableChooser gainChooser;
     public SendableChooser deadBandChooser;
 
-    private double gain = 0;
-    private double deadBand = 0;
+    //private double gain = 0;
+    //private double deadBand = 0;
 
     OI() {
 
@@ -35,6 +35,7 @@ public class OI {
         xboxController = new Joystick(RobotMap.XBOX_CONTROLLER);
 
         xboxLeftAxis = 1;
+        xboxRightAxis = 5;
 
         X = new JoystickButton(xboxController, 3);
         Y = new JoystickButton(xboxController, 4);
@@ -56,27 +57,43 @@ public class OI {
         //gain = (double) gainChooser.getSelected();
         //deadBand = (double) deadBandChooser.getSelected();
 
-        SmartDashboard.putNumber("Gain", gain);
-        SmartDashboard.putNumber("Dead Band", deadBand);
+       /* SmartDashboard.putNumber("Gain", gain);
+        SmartDashboard.putNumber("Dead Band", deadBand);*/
     }
 
     public final double getJoystickLeftY() {
 
         double rawY = leftStick.getY();
-        return apply_gain_deadzone_exponential(rawY);
+        return apply_gain_deadzone_exponential(rawY, RobotMap.OI_GAIN, RobotMap.OI_DEAD_BAND);
     }
 
     public final double getJoystickRightY() {
 
         double rawY = rightStick.getY();
-        return apply_gain_deadzone_exponential(rawY);
+        return apply_gain_deadzone_exponential(rawY, RobotMap.OI_GAIN, RobotMap.OI_DEAD_BAND);
     }
 
-    private double apply_gain_deadzone_exponential(double rawY) {
+    public final double getXboxLeftY() {
+
+        double rawY = xboxController.getRawAxis(xboxLeftAxis);
+        return apply_gain_deadzone_exponential(rawY, RobotMap.OI_XBOX_GAIN, RobotMap.OI_DEAD_BAND);
+    }
+
+    public final double getXboxRightY() {
+
+        double rawY = xboxController.getRawAxis(xboxRightAxis);
+        return apply_gain_deadzone_exponential(rawY, RobotMap.OI_XBOX_GAIN, RobotMap.OI_DEAD_BAND);
+    }
+
+    private double apply_gain_deadzone_exponential(double rawY, double gain, double deadBand) {
 
         double absY = Math.abs(rawY);
-        gain = SmartDashboard.getNumber("Gain", RobotMap.OI_GAIN);
-        deadBand = SmartDashboard.getNumber("Dead Band", RobotMap.OI_DEAD_BAND);
+        /*gain = SmartDashboard.getNumber("Gain", gain);
+        deadBand = SmartDashboard.getNumber("Dead Band", deadBand);*/
+
+        SmartDashboard.putNumber("Gain:",  gain);
+        SmartDashboard.putNumber("Dead Band:", deadBand);
+        SmartDashboard.putNumber("Raw Y:", rawY);
 
         if(absY <= deadBand) {
 

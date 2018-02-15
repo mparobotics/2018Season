@@ -1,5 +1,6 @@
 package frc.team3926.robot;
 
+import com.ctre.phoenix.motorcontrol.can.WPI_TalonSRX;
 import edu.wpi.first.networktables.NetworkTableInstance;
 import edu.wpi.first.wpilibj.IterativeRobot;
 import edu.wpi.first.wpilibj.PowerDistributionPanel;
@@ -15,7 +16,7 @@ public class Robot extends IterativeRobot {
 	public final static OI oi = new OI();
 
 	public final static DriveSubsystem driveSubsystem = new DriveSubsystem();
-	public final static CameraSubsystem cameraSubsystem = new CameraSubsystem();
+	//public final static CameraSubsystem cameraSubsystem = new CameraSubsystem();
 	public final static SensorSubsystem sensorSubsystem = new SensorSubsystem();
 
 	public final static IntakeArmSubsystem intakeArmSubsystem = new IntakeArmSubsystem();
@@ -27,13 +28,13 @@ public class Robot extends IterativeRobot {
 	public boolean week0;
 
 
-	//WPI_TalonSRX encoderMotor;
+	WPI_TalonSRX encoderMotor;
 
 	public void robotInit() {
 
 		week0 = false; //if true enables FMS for week zero competition
 
-		Robot.cameraSubsystem.initDefaultCommand(); //starts camera
+		//Robot.cameraSubsystem.initDefaultCommand(); //starts camera
 
 		if (week0) {
 			NetworkTableInstance offSeasonNetworkTable =
@@ -58,12 +59,11 @@ public class Robot extends IterativeRobot {
     @Override
     public void teleopInit() {
 
-		//encoderMotor = new WPI_TalonSRX(RobotMap.ENCODER_MOTOR); //encoder test motor
-
 	}
 
     public void testInit() {
 
+		encoderMotor = new WPI_TalonSRX(RobotMap.ENCODER_MOTOR); //encoder test motor
 	}
 
     @Override
@@ -97,5 +97,7 @@ public class Robot extends IterativeRobot {
     public void testPeriodic() {
 
 		Scheduler.getInstance().run();
+		encoderMotor.set(Robot.oi.xboxController.getRawAxis(Robot.oi.xboxLeftAxis));
+		encoderMotor.set(Robot.oi.xboxController.getRawAxis(Robot.oi.xboxLeftAxis));
 	}
 }

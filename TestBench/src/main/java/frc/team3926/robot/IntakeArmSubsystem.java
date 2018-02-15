@@ -14,6 +14,8 @@ public class IntakeArmSubsystem extends Subsystem {
     private WPI_TalonSRX intakeMotor1;
     private WPI_TalonSRX intakeMotor2;
 
+    private double rightAxis;
+
     public void initDefaultCommand() {
         // Set the default command for a subsystem here.
         //setDefaultCommand(new MySpecialCommand());
@@ -25,7 +27,7 @@ public class IntakeArmSubsystem extends Subsystem {
     public void teleopIntake() {
 
 
-        if(Robot.oi.RB.get()) {
+        /*if(Robot.oi.RB.get()) {
 
             intakeMotor1.set(RobotMap.INTAKE_SPEED);
             intakeMotor2.set(RobotMap.INTAKE_SPEED);
@@ -34,7 +36,13 @@ public class IntakeArmSubsystem extends Subsystem {
 
             intakeMotor1.set(-RobotMap.INTAKE_SPEED);
             intakeMotor2.set(-RobotMap.INTAKE_SPEED);
-        }
+        }*/
+
+        rightAxis = Robot.oi.getXboxRightY();
+
+        intakeMotor1.set(rightAxis / 2);
+        intakeMotor2.set(rightAxis / 2);
+
     }
 
     public void autoReleaseCube() {

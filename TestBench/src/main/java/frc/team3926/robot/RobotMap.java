@@ -10,21 +10,21 @@ public class RobotMap {
     public static int ENCODER_MOTOR = 2; //testing motor
 
 ///////////////////////////////drive train motors///////////////////////////////////////////////////////
-    public static int FRONT_RIGHT = 8;  //(BMO)
-    public static int FRONT_LEFT = 22;
-    public static int BACK_RIGHT = 7;
-    public static int BACK_LEFT = 0;
+    public static int FRONT_RIGHT = 2;  //(Qbert)
+    public static int FRONT_LEFT = 6;
+    public static int BACK_RIGHT = 5;
+    public static int BACK_LEFT = 4;
 
 ///////////////////////////////intake, winch, and lift motors and values////////////////////////////////
-    public static int INTAKE_MOTOR_1 = 1; //change id, left,   25% to 30% speed
-    public static int INTAKE_MOTOR_2 = 2; //change id, right,  25% to 30% speed
+    public static int INTAKE_MOTOR_1 = 3; //change id, left,   25% to 30% speed
+    public static int INTAKE_MOTOR_2 = 7; //change id, right,  25% to 30% speed
     public static double INTAKE_SPEED = .30;
 
-    public static int WINCH_MOTOR_1 = 3; //change id,      90% speed
-    public static int WINCH_MOTOR_2 = 4; //change id,      90% speed
+    //public static int WINCH_MOTOR_1 = 8; //change id,      90% speed
+    public static int CLIMBING_WINCH_MOTOR_2 = 9; //change id,      90% speed
     public static double WINCH_SPEED = .90;
 
-    public static int LIFT_MOTOR = 5; //change id, adjustable up to 75% speed
+    public static int LIFT_MOTOR = 8; //change id, adjustable up to 75% speed
     public static int UP_LIFT_LIMIT_SWITCH = 4; //change id
     public static int DOWN_LIFT_LIMIT_SWITCH = 2; //change id
 
@@ -40,6 +40,9 @@ public class RobotMap {
 ////////////////////////////other/////////////////////////////////////////////////////////////////////
     public static double OI_GAIN = .2; //TODO find better value
     public static double OI_DEAD_BAND = .1;
+
+    public static double OI_XBOX_GAIN = .2;
+    public static double OI_XBOX_DEAD_BAND = .1;
 
 
     public static int DRIVE_MODE_STRAIGHT = 3;

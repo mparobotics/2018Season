@@ -16,6 +16,8 @@ public class LiftSubsystem extends Subsystem {
     private double ESC;
     private double rawAxis;
 
+    private double leftAxis;
+
     public void initDefaultCommand() {
         // Set the default command for a subsystem here.
 
@@ -24,7 +26,9 @@ public class LiftSubsystem extends Subsystem {
 
     public void controlLiftTeleop(){
 
-        liftMotor.set(Robot.oi.xboxController.getRawAxis(Robot.oi.xboxLeftAxis)/ 2);
+        leftAxis = Robot.oi.getXboxLeftY();
+
+        liftMotor.set(leftAxis/ 2);
     }
 
     public void autoLiftToSwitch(){ //TODO test
