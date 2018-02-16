@@ -23,7 +23,9 @@ public class Robot extends IterativeRobot {
 	public final static ClimbingSubsystem climbingSubsystem = new ClimbingSubsystem();
 	public final static LiftSubsystem liftSubsystem = new LiftSubsystem();
 
-	public PowerDistributionPanel pdp = new PowerDistributionPanel(3);
+	static Preferences smartDashPrefs;
+
+	public PowerDistributionPanel pdp = new PowerDistributionPanel(RobotMap.POWER_DISTRIBUTION_PANEL_ID);
 
 	public boolean week0;
 
@@ -36,6 +38,7 @@ public class Robot extends IterativeRobot {
 		Robot.cameraSubsystem.initDefaultCommand(); //starts camera
 
 		if (week0) {
+
 			NetworkTableInstance offSeasonNetworkTable =
 					NetworkTableInstance.create();
 			offSeasonNetworkTable.startClient("10.0.100.5");
@@ -43,6 +46,7 @@ public class Robot extends IterativeRobot {
 					.getTable("OffseasonFMSInfo")
 					.getEntry("GameData")
 					.getString("defaultValue");
+
 		}
 
 		SmartDashboard.putData("PowerDistributionPanel", pdp);
@@ -60,7 +64,7 @@ public class Robot extends IterativeRobot {
     @Override
     public void teleopInit() {
 
-		encoderMotor = new WPI_TalonSRX(RobotMap.ENCODER_MOTOR);
+		//encoderMotor = new WPI_TalonSRX(RobotMap.ENCODER_MOTOR);
 	}
 
     public void testInit() {
@@ -69,8 +73,8 @@ public class Robot extends IterativeRobot {
 
     @Override
     public void disabledPeriodic() {
-		Scheduler.getInstance().run();
 
+		Scheduler.getInstance().run();
 
 	}
     
@@ -78,6 +82,7 @@ public class Robot extends IterativeRobot {
     public void autonomousPeriodic() {
 
 		Scheduler.getInstance().run();
+		new AutonomousCommandGroup();
 
 	}
 
@@ -87,18 +92,16 @@ public class Robot extends IterativeRobot {
 		Scheduler.getInstance().run();
         driveSubsystem.teleopDrive();
 
-
 		encoderMotor.set(.1);
 		//SmartDashboard.putNumber("distance", sensorSubsystem.Encoder("Distance"));
 		//SmartDashboard.putBoolean("Limit Switch", sensorSubsystem.LimitSwitch());
-
 
 	}
 
     @Override
     public void testPeriodic() {
 
-	    Scheduler.getInstance().run()
+	    Scheduler.getInstance().run();
 		driveSubsystem.teleopDrive();
 
 		//encoderMotor.set(.1);

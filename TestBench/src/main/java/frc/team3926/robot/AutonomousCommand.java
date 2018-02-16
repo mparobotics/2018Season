@@ -26,63 +26,60 @@ public class AutonomousCommand extends Command {
         //Robot.driveSubsystem.autonomous();
 
         //SmartDashboard.putBoolean("Hitting Something", Robot.OI.limitSwitch.get()); //.get() is not working
-        if(hittingSomething) {
+        /*if(hittingSomething) {
 
             Robot.driveSubsystem.hitSomething();
             //then needs to do something else
         }
 
-
         switch(RobotMap.STARTING_POSITION){
 
             case "right":
-                switch(RobotMap.FREINDLY_SCALE_SIDE){
+                switch(RobotMap.FRIENDLY_SWITCH_SIDE){
 
                     case "left":
+                        //DriveSubsystem.autonomous(0,0,0,0,0,0,0,0,0,0,0,0,0,0,0);
                         break;
 
                     case "right":
+                        //DriveSubsystem.autonomous(0,0,0,0,0,0,0,0,0,0,0,0,0,0,0);
                         break;
-
-                    case "notGettingScale":
-                        break;
-
                 }
+
                 break;
 
             case "left":
-                switch(RobotMap.FREINDLY_SCALE_SIDE){
+                switch(RobotMap.FRIENDLY_SWITCH_SIDE){
 
                     case "left":
+                        //DriveSubsystem.autonomous(0,0,0,0,0,0,0,0,0,0,0,0,0,0,0);
                         break;
+
 
                     case "right":
+                                //DriveSubsystem.autonomous(0,0,0,0,0,0,0,0,0,0,0,0,0,0,0);
                         break;
 
-                    case "notGettingScale":
-                        break;
-
-                }
-                break;
+                    }
+                    break;
 
             case "middle":
-                switch(RobotMap.FREINDLY_SCALE_SIDE){
+                switch(RobotMap.FRIENDLY_SWITCH_SIDE) {
 
                     case "left":
+                        //DriveSubsystem.autonomous(0,0,0,0,0,0,0,0,0,0,0,0,0,0,0);
                         break;
 
                     case "right":
-                        break;
-
-                    case "notGettingScale":
+                        //DriveSubsystem.autonomous(0,0,0,0,0,0,0,0,0,0,0,0,0,0
                         break;
 
                 }
                 break;
 
         }
-
-
+        */
+        //the above is temporarily commented out for testing
 
 
     }
@@ -90,8 +87,8 @@ public class AutonomousCommand extends Command {
     // Make this return true when this Command no longer needs to run execute()
     protected boolean isFinished() {
 
-
         return false;
+
     }
 
     // Called once after isFinished returns true
