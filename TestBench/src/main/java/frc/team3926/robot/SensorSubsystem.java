@@ -3,8 +3,10 @@ package frc.team3926.robot;
 import edu.wpi.first.wpilibj.AnalogGyro;
 import edu.wpi.first.wpilibj.DigitalInput;
 import edu.wpi.first.wpilibj.Encoder;
+import edu.wpi.first.wpilibj.Servo;
 import edu.wpi.first.wpilibj.command.Subsystem;
 import edu.wpi.first.wpilibj.interfaces.Gyro;
+
 
 /**
  *
@@ -20,10 +22,11 @@ public class SensorSubsystem extends Subsystem {
     private DigitalInput liftSwitchUp;
     private DigitalInput liftSwitchDown;
 
-    static  Encoder      rightDriveEnc;
-    static  Encoder      leftDriveEnc;
+    private Servo wingServo = new Servo (RobotMap.WING_SERVO_ID);
+    static Encoder rightDriveEnc;
+    static Encoder leftDriveEnc;
 
-    static  Gyro         gyro; // TODO must set some values for this to set the gyro up
+    static Gyro    gyro; // TODO must set some values for this to set the gyro up
 
 
     public void initDefaultCommand() {
@@ -37,7 +40,6 @@ public class SensorSubsystem extends Subsystem {
 
         //liftSwitchUp = new DigitalInput(RobotMap.UP_LIFT_LIMIT_SWITCH);
         //liftSwitchDown = new DigitalInput(RobotMap.DOWN_LIFT_LIMIT_SWITCH);
-
 
         enc = new Encoder(RobotMap.ENCODER_ID_1, RobotMap.ENCODER_ID_2, false, Encoder.EncodingType.k4X);
         enc.setMaxPeriod(.05);
@@ -66,6 +68,13 @@ public class SensorSubsystem extends Subsystem {
 
     }
 
+    public void servoWings() {
+
+        if(Robot.oi.LB.get()) { // TODO wings
+
+            wingServo.setAngle(180);
+        }
+    }
     public double Encoder(String output) {
 
         double outputValue = 0;
@@ -192,15 +201,11 @@ public class SensorSubsystem extends Subsystem {
                 TODO so those values should be set
                 break;*/
 
-
-
-
         }
 
         return 0;
     }
 
-    //sees if the robot has turned a given angle
     public boolean turnedAngle(double angle){
 
         if(angle >= 0.0){ // tests if the robot is moving to a positive angle

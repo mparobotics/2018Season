@@ -6,12 +6,12 @@ import edu.wpi.first.wpilibj.Timer;
 import edu.wpi.first.wpilibj.command.Subsystem;
 import edu.wpi.first.wpilibj.drive.DifferentialDrive;
 import edu.wpi.first.wpilibj.interfaces.Gyro;
+import edu.wpi.first.wpilibj.smartdashboard.SendableChooser;
 import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 
 /**
  *
  */
-
 public class DriveSubsystem extends Subsystem {
 
     private WPI_TalonSRX         FR;
@@ -50,6 +50,12 @@ public class DriveSubsystem extends Subsystem {
 
     public void initDefaultCommand() {
 
+        if(RobotMap.QBERT) {
+
+            FR = new WPI_TalonSRX(RobotMap.FRONT_RIGHT);
+            BR = new WPI_TalonSRX(RobotMap.BACK_RIGHT);
+            FL = new WPI_TalonSRX(RobotMap.FRONT_LEFT);
+            BL = new WPI_TalonSRX(RobotMap.BACK_LEFT);
         rightCalcTimer.start();
         leftCalcTimer.start();
 
@@ -57,6 +63,17 @@ public class DriveSubsystem extends Subsystem {
         BR = new WPI_TalonSRX(RobotMap.BACK_RIGHT);
         FL = new WPI_TalonSRX(RobotMap.FRONT_LEFT);
         BL = new WPI_TalonSRX(RobotMap.BACK_LEFT);
+
+        } else if(RobotMap.BMO) {
+
+            FR = new WPI_TalonSRX(RobotMap.BMO_FRONT_RIGHT);
+            BR = new WPI_TalonSRX(RobotMap.BMO_BACK_RIGHT);
+            FL = new WPI_TalonSRX(RobotMap.BMO_FRONT_LEFT);
+            BL = new WPI_TalonSRX(RobotMap.BMO_BACK_LEFT);
+        } else {
+
+            throw new IllegalStateException("Robot Map has no robot set to true");
+        }
 
         m_right = new SpeedControllerGroup(FR, BR);
         m_left = new SpeedControllerGroup(FL, BL);
@@ -73,9 +90,11 @@ public class DriveSubsystem extends Subsystem {
             Encoder.EncodingType.k4X);
         leftDriveEnc = new Encoder(RobotMap.LEFT_DRIVE_ENC_PORT_ONE, RobotMap.LEFT_DRIVE_ENC_PORT_TWO, false,
             Encoder.EncodingType.k4X);*/
+        setDefaultCommand(new DriveCommand());
 
     }
 
+    //takes in data from the position of the joysticks to determine speeds for drive system. As a joystick is pushed forward, the speed goes up exponentially
     public void teleopDrive() {
 
         // takes in data from the position of the joysticks to determine speeds for drive system. As a joystick is
@@ -92,31 +111,12 @@ public class DriveSubsystem extends Subsystem {
         m_myRobot.tankDrive(leftSpeed, rightSpeed);
         return 0;
 
+       //m_myRobot.tankDrive(-Robot.oi.leftStick.getY(), -Robot.oi.rightStick.getY());
+
     }
 
-    /*public double goForward(int DesiredDistance) {
-
-        SensorSubsystem.ResetRightDriveEncoder();
-        SensorSubsystem.ResetLeftDriveEncoder();
-
-        double rightOutput;
-        double leftOutput;
-
-        while (SensorSubsystem.LeftDriveEncoder("Distance") < DesiredDistance) {
-
-            leftOutput = leftMotorPID(RobotMap.FORWARD_SPEED_SETPOINT, 0, RobotMap.FORWARD_KP, RobotMap.FORWARD_KI,
-                                      RobotMap.FORWARD_KD, 0);
-            rightOutput = rightMotorPID(RobotMap.FORWARD_SPEED_SETPOINT, 0, RobotMap.FORWARD_KP, RobotMap.FORWARD_KI,
-                                        RobotMap.FORWARD_KD, 0);
-
-            m_myRobot.tankDrive(leftOutput, rightOutput);
-
-        }
-        //this changes the coordinates of the robot based off the distance that the robot has just travelled
-        changeCords(DesiredDistance);
-
-        rightPreError = 0;
-        leftPreError = 0;
+    //drive at half speed when trigger on the right joystick is held down
+    public void halfDrive() {
 
         return 0;
 
@@ -584,4 +584,11 @@ public class DriveSubsystem extends Subsystem {
          m_myRobot.tankDrive(0, 0);
     }*/
 
-}
+    public void hitSomething() {
+
+        m_myRobot.tankDrive(0, 0);
+        m_myRobot.tankDrive(-.5, -.5);
+        Timer.delay(1);
+        m_myRobot.tankDrive(0, 0);
+        Timer.delay(3);
+    }
