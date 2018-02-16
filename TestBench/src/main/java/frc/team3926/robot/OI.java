@@ -1,5 +1,6 @@
 package frc.team3926.robot;
 
+import edu.wpi.first.wpilibj.GenericHID;
 import edu.wpi.first.wpilibj.Joystick;
 import edu.wpi.first.wpilibj.buttons.JoystickButton;
 import edu.wpi.first.wpilibj.smartdashboard.SendableChooser;
@@ -61,6 +62,19 @@ public class OI {
         SmartDashboard.putNumber("Dead Band", deadBand);*/
     }
 
+    public final void setXboxRumble(boolean rumbleOn) {
+
+        if(rumbleOn) {
+
+            xboxController.setRumble(GenericHID.RumbleType.kLeftRumble, 1);
+            xboxController.setRumble(GenericHID.RumbleType.kRightRumble, 1);
+        } else {
+
+            xboxController.setRumble(GenericHID.RumbleType.kLeftRumble, 0);
+            xboxController.setRumble(GenericHID.RumbleType.kRightRumble, 0);
+        }
+    }
+
     public final double getJoystickLeftY() {
 
         double rawY = leftStick.getY();
@@ -76,13 +90,13 @@ public class OI {
     public final double getXboxLeftY() {
 
         double rawY = xboxController.getRawAxis(xboxLeftAxis);
-        return apply_gain_deadzone_exponential(rawY, RobotMap.OI_XBOX_GAIN, RobotMap.OI_DEAD_BAND);
+        return apply_gain_deadzone_exponential(rawY, RobotMap.OI_XBOX_GAIN, RobotMap.OI_XBOX_DEAD_BAND);
     }
 
     public final double getXboxRightY() {
 
         double rawY = xboxController.getRawAxis(xboxRightAxis);
-        return apply_gain_deadzone_exponential(rawY, RobotMap.OI_XBOX_GAIN, RobotMap.OI_DEAD_BAND);
+        return apply_gain_deadzone_exponential(rawY, RobotMap.OI_XBOX_GAIN, RobotMap.OI_XBOX_DEAD_BAND);
     }
 
     private double apply_gain_deadzone_exponential(double rawY, double gain, double deadBand) {

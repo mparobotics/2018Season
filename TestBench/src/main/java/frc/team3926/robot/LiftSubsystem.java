@@ -28,7 +28,15 @@ public class LiftSubsystem extends Subsystem {
 
         leftAxis = Robot.oi.getXboxLeftY();
 
-        liftMotor.set(leftAxis/ 2);
+        liftMotor.set(leftAxis);
+
+        if(Robot.sensorSubsystem.HeightLimit() || Robot.sensorSubsystem.DownLimit()) {
+            
+            Robot.oi.setXboxRumble(true);
+        } else {
+
+            Robot.oi.setXboxRumble(false);
+        }
     }
 
     public void autoLiftToSwitch(){ //TODO test

@@ -1,6 +1,7 @@
 package frc.team3926.robot;
 
 import edu.wpi.first.networktables.NetworkTableInstance;
+import edu.wpi.first.wpilibj.DriverStation;
 import edu.wpi.first.wpilibj.IterativeRobot;
 import edu.wpi.first.wpilibj.PowerDistributionPanel;
 import edu.wpi.first.wpilibj.command.Scheduler;
@@ -25,6 +26,9 @@ public class Robot extends IterativeRobot {
 	public PowerDistributionPanel pdp = new PowerDistributionPanel();
 
 	public boolean week0;
+
+	public double autoWaitTime;
+	public double autoDriveTime;
 
 
 	//WPI_TalonSRX encoderMotor;
@@ -53,7 +57,11 @@ public class Robot extends IterativeRobot {
     public void disabledInit() { }
 
     @Override
-    public void autonomousInit() { }
+    public void autonomousInit() {
+
+		autoWaitTime = SmartDashboard.getNumber("Wait Timer", 0);
+		autoDriveTime = 2;
+	}
 
     @Override
     public void teleopInit() {
@@ -75,8 +83,14 @@ public class Robot extends IterativeRobot {
     @Override
     public void autonomousPeriodic() {
 
-		Scheduler.getInstance().run();
+		double timeElapsed = 15 - DriverStation.getInstance().getMatchTime(); // The DriverStation gives an approximate time until the end of the period
 
+		if (timeElapsed >= autoWaitTime) {
+			if (timeElapsed <= autoWaitTime + autoDriveTime) {
+
+				driveSubsystem.setSpeed(-.5, -.5);
+			}
+		}
 	}
 
     @Override

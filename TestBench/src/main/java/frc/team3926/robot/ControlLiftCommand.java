@@ -1,10 +1,6 @@
 package frc.team3926.robot;
 
-import edu.wpi.first.wpilibj.Timer;
 import edu.wpi.first.wpilibj.command.Command;
-
-import static edu.wpi.first.wpilibj.GenericHID.RumbleType.kLeftRumble;
-import static edu.wpi.first.wpilibj.GenericHID.RumbleType.kRightRumble;
 
 /**
  *
@@ -32,7 +28,7 @@ public class ControlLiftCommand extends Command {
 
     // Make this return true when this Command no longer needs to run execute()
     protected boolean isFinished() {
-        Boolean limitSwitchIsHit = false;
+        /*Boolean limitSwitchIsHit = false;
 
         if(Robot.sensorSubsystem.HeightLimit() || Robot.sensorSubsystem.DownLimit()) {
 
@@ -45,7 +41,9 @@ public class ControlLiftCommand extends Command {
             Robot.oi.xboxController.setRumble(kRightRumble, 0);
         }
 
-        return limitSwitchIsHit;
+        return limitSwitchIsHit;*/
+
+        return true;
     }
 
     // Called once after isFinished returns true

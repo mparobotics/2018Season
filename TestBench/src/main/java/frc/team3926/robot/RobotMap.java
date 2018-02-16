@@ -49,7 +49,7 @@ public class RobotMap {
     public static double OI_GAIN = .2;
     public static double OI_DEAD_BAND = .1;
 
-    public static double OI_XBOX_GAIN = .2;
+    public static double OI_XBOX_GAIN = .05;
     public static double OI_XBOX_DEAD_BAND = .1;
 
 
