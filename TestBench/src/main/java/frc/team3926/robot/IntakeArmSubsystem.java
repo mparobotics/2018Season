@@ -41,14 +41,14 @@ public class IntakeArmSubsystem extends Subsystem {
         rightAxis = Robot.oi.getXboxRightY();
 
         intakeMotor1.set(rightAxis / 2);
-        intakeMotor2.set(rightAxis / 2);
+        intakeMotor2.set(-rightAxis / 2);
 
     }
 
     public void autoReleaseCube() {
 
         intakeMotor1.set(-RobotMap.INTAKE_SPEED);
-        intakeMotor2.set(-RobotMap.INTAKE_SPEED);
+        intakeMotor2.set(RobotMap.INTAKE_SPEED);
 
         Timer.delay(2);
 

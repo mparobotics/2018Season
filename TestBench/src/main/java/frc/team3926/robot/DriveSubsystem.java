@@ -8,6 +8,8 @@ import edu.wpi.first.wpilibj.drive.DifferentialDrive;
 import edu.wpi.first.wpilibj.smartdashboard.SendableChooser;
 import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 
+import java.lang.instrument.IllegalClassFormatException;
+
 /**
  *
  */
@@ -38,10 +40,23 @@ public class DriveSubsystem extends Subsystem {
 
     public void initDefaultCommand() {
 
-        FR = new WPI_TalonSRX(RobotMap.FRONT_RIGHT);
-        BR = new WPI_TalonSRX(RobotMap.BACK_RIGHT);
-        FL = new WPI_TalonSRX(RobotMap.FRONT_LEFT);
-        BL = new WPI_TalonSRX(RobotMap.BACK_LEFT);
+        if(RobotMap.QBERT) {
+
+            FR = new WPI_TalonSRX(RobotMap.FRONT_RIGHT);
+            BR = new WPI_TalonSRX(RobotMap.BACK_RIGHT);
+            FL = new WPI_TalonSRX(RobotMap.FRONT_LEFT);
+            BL = new WPI_TalonSRX(RobotMap.BACK_LEFT);
+
+        } else if(RobotMap.BMO) {
+
+            FR = new WPI_TalonSRX(RobotMap.BMO_FRONT_RIGHT);
+            BR = new WPI_TalonSRX(RobotMap.BMO_BACK_RIGHT);
+            FL = new WPI_TalonSRX(RobotMap.BMO_FRONT_LEFT);
+            BL = new WPI_TalonSRX(RobotMap.BMO_BACK_LEFT);
+        } else {
+
+            throw new IllegalStateException("Robot Map has no robot set to true");
+        }
 
         m_right = new SpeedControllerGroup(FR, BR);
         m_left = new SpeedControllerGroup(FL, BL);

@@ -1,6 +1,9 @@
 package frc.team3926.robot;
 
 public class RobotMap {
+
+    public static boolean BMO = false;
+    public static boolean QBERT = true;
 ////////////////////////////////test sensors, motors, and values////////////////////////////////////////
     public static int LIMIT_SWITCH = 0;
     public static int ENCODER_ID_1 = 1;
@@ -14,6 +17,11 @@ public class RobotMap {
     public static int FRONT_LEFT = 6;
     public static int BACK_RIGHT = 5;
     public static int BACK_LEFT = 4;
+
+    public static int BMO_FRONT_RIGHT = 8; // (BMO)
+    public static int BMO_FRONT_LEFT = 22;
+    public static int BMO_BACK_RIGHT = 7;
+    public static int BMO_BACK_LEFT = 0;
 
 ///////////////////////////////intake, winch, and lift motors and values////////////////////////////////
     public static int INTAKE_MOTOR_1 = 3; //change id, left,   25% to 30% speed
