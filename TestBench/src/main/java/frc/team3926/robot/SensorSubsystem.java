@@ -38,12 +38,15 @@ public class SensorSubsystem extends Subsystem {
         enc.setSamplesToAverage(20); //TODO test to find better value
 
     }
-
     public void servoWings() {
 
-        if(Robot.oi.LB.get()) { // TODO wings
+        if(Robot.oi.X.get() && Robot.oi.Y.get()) { // TODO wings
 
-            wingServo.setAngle(180);
+            wingServo.set(1);
+
+        } else if(Robot.oi.X.get()) {
+
+            wingServo.set(0);
         }
     }
     public double Encoder(String output) {
