@@ -25,7 +25,29 @@ public class AutonomousCommandGroup extends CommandGroup {
         // a CommandGroup containing them would require both the chassis and the
         // arm.
 
-        addSequential(new AutonomousForwardCommand(4)); //TODO value tbd
-        // add more commands to go throught the complete routine. For now this will be used to test
+        switch(RobotMap.STARTING_POSITION){
+
+            case "right":
+                // crosses auto line
+                addSequential
+                        (new AutonomousForwardCommand(RobotMap.AUTO_LINE_DISTANCE_FEET - RobotMap.ROBOT_LENGTH_FEET));
+                // add more commands to go through the complete routine. For now this will be used to test
+                break;
+
+            case "middle":
+                // add more commands to go through the complete routine. For now this will be used to test
+                break;
+
+            case "left":
+                // crosses auto line
+                addSequential
+                        (new AutonomousForwardCommand(RobotMap.AUTO_LINE_DISTANCE_FEET - RobotMap.ROBOT_LENGTH_FEET));
+                // add more commands to go through the complete routine. For now this will be used to test
+                break;
+
+        }
+        //crosses start line if not in middle
+
+
     }
 }

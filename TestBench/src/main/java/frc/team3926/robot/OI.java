@@ -42,7 +42,7 @@ public class OI {
         LB = new JoystickButton(xboxController, 5);
         RB = new JoystickButton(xboxController, 6);
 
-        halfSpeedTrigger = new JoystickButton(rightStick, 1);
+        halfSpeedTrigger = new JoystickButton(rightStick, RobotMap.HALF_DRIVE_BUTTON);
 
         Robot.smartDashPrefs.getInstance();
         //halfSpeedTrigger.whenPressed(new DriveCommand());
@@ -90,6 +90,12 @@ public class OI {
 
         }
 
+        //sets the speed to half the normal if the halfSpeedTrigger is pressed
+        if(halfSpeedTrigger.get()) {
+
+            rightSpeed = rightSpeed/2;
+
+        }
 
         return rightSpeed;
 
@@ -117,6 +123,13 @@ public class OI {
             // plugs the y axis of the right joystick into a cubic equation, resulting in the speed
             leftSpeed = (ESC * Math.pow((leftStickYaxis - ESDB) / (1 - ESDB), 3)) +
                          ((1 - ESC) * (leftStickYaxis - ESDB) / (1 - ESDB));
+
+        }
+
+        //sets the speed to half the normal if the halfSpeedTrigger is pressed
+        if(halfSpeedTrigger.get()) {
+
+            rightSpeed = rightSpeed/2;
 
         }
 
