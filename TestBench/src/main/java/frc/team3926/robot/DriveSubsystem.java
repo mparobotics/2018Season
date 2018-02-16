@@ -123,10 +123,13 @@ public class DriveSubsystem extends Subsystem {
         m_myRobot.tankDrive(-leftSpeed, -rightSpeed);
     }
 
-    public void autonomous() {
+    public void autonomousStart() {
 
        setSpeed(-.5, -.5);
+    }
+    public void autonomousStop() {
 
+       setSpeed(0, 0);
     }
 
     public double setSpeed(double leftSpeed, double rightSpeed) {
@@ -160,5 +163,6 @@ public class DriveSubsystem extends Subsystem {
 
 
     }
+
 }
 

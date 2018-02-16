@@ -2,6 +2,7 @@ package frc.team3926.robot;
 
 import edu.wpi.first.wpilibj.DigitalInput;
 import edu.wpi.first.wpilibj.Encoder;
+import edu.wpi.first.wpilibj.Servo;
 import edu.wpi.first.wpilibj.command.Subsystem;
 
 /**
@@ -17,6 +18,8 @@ public class SensorSubsystem extends Subsystem {
 
     private DigitalInput liftSwitchUp;
     private DigitalInput liftSwitchDown;
+
+    private Servo wingServo = new Servo (RobotMap.WING_SERVO_ID);
 
 
     public void initDefaultCommand() {
@@ -36,6 +39,13 @@ public class SensorSubsystem extends Subsystem {
 
     }
 
+    public void servoWings() {
+
+        if(Robot.oi.LB.get()) { // TODO wings
+
+            wingServo.setAngle(180);
+        }
+    }
     public double Encoder(String output) {
 
         double outputValue = 0;

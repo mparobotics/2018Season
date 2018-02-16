@@ -30,16 +30,16 @@ public class LiftSubsystem extends Subsystem {
 
         liftMotor.set(leftAxis);
 
-        if(Robot.sensorSubsystem.HeightLimit() || Robot.sensorSubsystem.DownLimit()) {
-            
+        /*if(Robot.sensorSubsystem.DownLimit()) { //TODO add back in when limit switches are added
+
             Robot.oi.setXboxRumble(true);
         } else {
 
             Robot.oi.setXboxRumble(false);
-        }
+        }*/
     }
 
-    public void autoLiftToSwitch(){ //TODO test
+    public void autoLiftToSwitch(){
 
         liftMotor.set(.10);
         Timer.delay(1);

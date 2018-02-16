@@ -2,8 +2,8 @@ package frc.team3926.robot;
 
 public class RobotMap {
 
-    public static boolean BMO = false;
-    public static boolean QBERT = true;
+    public static boolean BMO = true;
+    public static boolean QBERT = false;
 ////////////////////////////////test sensors, motors, and values////////////////////////////////////////
     public static int LIMIT_SWITCH = 0;
     public static int ENCODER_ID_1 = 1;
@@ -21,7 +21,7 @@ public class RobotMap {
     public static int BMO_FRONT_RIGHT = 8; // (BMO)
     public static int BMO_FRONT_LEFT = 22;
     public static int BMO_BACK_RIGHT = 7;
-    public static int BMO_BACK_LEFT = 0;
+    public static int BMO_BACK_LEFT = 2;
 
 ///////////////////////////////intake, winch, and lift motors and values////////////////////////////////
     public static int INTAKE_MOTOR_1 = 3; //change id, left,   25% to 30% speed
@@ -33,8 +33,8 @@ public class RobotMap {
     public static double WINCH_SPEED = .90;
 
     public static int LIFT_MOTOR = 8; //change id, adjustable up to 75% speed
-    public static int UP_LIFT_LIMIT_SWITCH = 4; //change id
-    public static int DOWN_LIFT_LIMIT_SWITCH = 2; //change id
+    public static int UP_LIFT_LIMIT_SWITCH = 4; // TODO change id
+    public static int DOWN_LIFT_LIMIT_SWITCH = 2; // TODO change id
 
 //////////////////////////////joysticks/////////////////////////////////////////////////////////////////
     public static int RIGHT_JOYSTICK = 0;
@@ -51,6 +51,8 @@ public class RobotMap {
 
     public static double OI_XBOX_GAIN = .05;
     public static double OI_XBOX_DEAD_BAND = .1;
+
+    public static int WING_SERVO_ID = 0; //TODO change
 
 
     public static int DRIVE_MODE_STRAIGHT = 3;

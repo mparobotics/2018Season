@@ -1,9 +1,9 @@
 package frc.team3926.robot;
 
 import edu.wpi.first.networktables.NetworkTableInstance;
-import edu.wpi.first.wpilibj.DriverStation;
 import edu.wpi.first.wpilibj.IterativeRobot;
 import edu.wpi.first.wpilibj.PowerDistributionPanel;
+import edu.wpi.first.wpilibj.Servo;
 import edu.wpi.first.wpilibj.command.Scheduler;
 import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 
@@ -29,6 +29,8 @@ public class Robot extends IterativeRobot {
 
 	public double autoWaitTime;
 	public double autoDriveTime;
+
+	public Servo wingServo;
 
 
 	//WPI_TalonSRX encoderMotor;
@@ -59,7 +61,7 @@ public class Robot extends IterativeRobot {
     @Override
     public void autonomousInit() {
 
-		autoWaitTime = SmartDashboard.getNumber("Wait Timer", 0);
+		autoWaitTime = 0;
 		autoDriveTime = 2;
 	}
 
@@ -71,6 +73,7 @@ public class Robot extends IterativeRobot {
     public void testInit() {
 
 		//encoderMotor = new WPI_TalonSRX(RobotMap.ENCODER_MOTOR); //encoder test motor
+		wingServo = new Servo (RobotMap.WING_SERVO_ID);
 	}
 
     @Override
@@ -83,14 +86,17 @@ public class Robot extends IterativeRobot {
     @Override
     public void autonomousPeriodic() {
 
-		double timeElapsed = 15 - DriverStation.getInstance().getMatchTime(); // The DriverStation gives an approximate time until the end of the period
+		/*double timeElapsed = 15 - DriverStation.getInstance().getMatchTime(); // The DriverStation gives an approximate time until the end of the period
 
 		if (timeElapsed >= autoWaitTime) {
 			if (timeElapsed <= autoWaitTime + autoDriveTime) {
 
 				driveSubsystem.setSpeed(-.5, -.5);
 			}
-		}
+		}*/
+
+
+
 	}
 
     @Override
