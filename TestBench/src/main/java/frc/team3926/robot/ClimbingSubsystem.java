@@ -40,7 +40,7 @@ public class ClimbingSubsystem extends Subsystem {
                 winchOn = true;
             }*/
 
-            winchMotor2.set(-RobotMap.WINCH_SPEED);
+            //winchMotor2.set(-RobotMap.WINCH_SPEED);
        /* } else {
 
             winchMotor2.set(0);
