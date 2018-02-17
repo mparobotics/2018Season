@@ -17,6 +17,8 @@ public class OI {
 
     public JoystickButton X; //controls winch motors
     public JoystickButton Y; //controls winch motors down
+    public JoystickButton A;
+    public JoystickButton B;
     public JoystickButton LB; //spits out cube (backwards)
     public JoystickButton RB; //pulls in cube (forewords)
     public JoystickButton xboxButton; //releases the wings
@@ -41,6 +43,8 @@ public class OI {
 
         X = new JoystickButton(xboxController, 3);
         Y = new JoystickButton(xboxController, 4);
+        A = new JoystickButton(xboxController, 1);
+        B = new JoystickButton(xboxController, 2);
         LB = new JoystickButton(xboxController, 5);
         RB = new JoystickButton(xboxController, 6);
         xboxButton = new JoystickButton(xboxController, 7);

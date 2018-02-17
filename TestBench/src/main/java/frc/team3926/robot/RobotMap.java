@@ -2,8 +2,8 @@ package frc.team3926.robot;
 
 public class RobotMap {
 
-    public static boolean BMO = true;
-    public static boolean QBERT = false;
+    public static boolean BMO = false;
+    public static boolean QBERT = true;
 ////////////////////////////////test sensors, motors, and values////////////////////////////////////////
     public static int LIMIT_SWITCH = 0;
     public static int ENCODER_ID_1 = 1;

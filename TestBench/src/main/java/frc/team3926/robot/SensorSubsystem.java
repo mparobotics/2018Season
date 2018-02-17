@@ -19,7 +19,7 @@ public class SensorSubsystem extends Subsystem {
     private DigitalInput liftSwitchUp;
     private DigitalInput liftSwitchDown;
 
-    private Servo wingServo = new Servo (RobotMap.WING_SERVO_ID);
+    private Servo wingServo;
 
 
     public void initDefaultCommand() {
@@ -37,14 +37,16 @@ public class SensorSubsystem extends Subsystem {
         enc.setReverseDirection(false);
         enc.setSamplesToAverage(20); //TODO test to find better value
 
+        wingServo = new Servo (RobotMap.WING_SERVO_ID);
+
     }
     public void servoWings() {
 
-        if(Robot.oi.X.get() && Robot.oi.Y.get()) { // TODO wings
+        if(Robot.oi.A.get() && Robot.oi.B.get()) { // TODO wings
 
             wingServo.set(1);
 
-        } else if(Robot.oi.X.get()) {
+        } else if(Robot.oi.A.get()) {
 
             wingServo.set(0);
         }

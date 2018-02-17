@@ -36,7 +36,7 @@ public class Robot extends IterativeRobot {
 
 	public void robotInit() {
 
-		week0 = false; //if true enables FMS for week zero competition
+		week0 = true; //if true enables FMS for week zero competition
 
 		//Robot.cameraSubsystem.initDefaultCommand(); //starts camera
 
@@ -84,7 +84,7 @@ public class Robot extends IterativeRobot {
     
     @Override
     public void autonomousPeriodic() {
-
+		Scheduler.getInstance().run();
 		/*double timeElapsed = 15 - DriverStation.getInstance().getMatchTime(); // The DriverStation gives an approximate time until the end of the period
 
 		if (timeElapsed >= autoWaitTime) {
