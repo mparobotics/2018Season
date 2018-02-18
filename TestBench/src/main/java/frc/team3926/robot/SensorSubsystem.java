@@ -5,7 +5,6 @@ import edu.wpi.first.wpilibj.DigitalInput;
 import edu.wpi.first.wpilibj.Encoder;
 import edu.wpi.first.wpilibj.Servo;
 import edu.wpi.first.wpilibj.command.Subsystem;
-import edu.wpi.first.wpilibj.interfaces.Gyro;
 
 
 /**
@@ -26,7 +25,8 @@ public class SensorSubsystem extends Subsystem {
     static Encoder rightDriveEnc;
     static Encoder leftDriveEnc;
 
-    static Gyro    gyro; // TODO must set some values for this to set the gyro up
+    //TODO check wpilib to see if this should be declared as a Gyro or an AnalogGyro.
+    static AnalogGyro gyro; // TODO must set some values for this to set the gyro up
 
 
     public void initDefaultCommand() {
@@ -34,9 +34,10 @@ public class SensorSubsystem extends Subsystem {
         //new EncoderCommand();
         limitSwitch = new DigitalInput(RobotMap.LIMIT_SWITCH);
 
-        gyro = new AnalogGyro(0);
-        //gyro.setSensitivity(RobotMap.GYRO_VOLTS_PER_DEG_PER_SEC);
-        // TODO find out why setSensitivity is not being recognized and then uncomment sensitivity setting
+        gyro = new AnalogGyro(RobotMap.DRIVE_GYRO_ID);
+
+        //TODO check manual for our gyroscope or possibly something else to find out volts per degree per second
+        gyro.setSensitivity(RobotMap.GYRO_VOLTS_PER_DEG_PER_SEC);
 
         //liftSwitchUp = new DigitalInput(RobotMap.UP_LIFT_LIMIT_SWITCH);
         //liftSwitchDown = new DigitalInput(RobotMap.DOWN_LIFT_LIMIT_SWITCH);
@@ -49,21 +50,22 @@ public class SensorSubsystem extends Subsystem {
         enc.setSamplesToAverage(20); //TODO test to find better value
 
         // defining encoders and determining various values
-
         rightDriveEnc = new Encoder(RobotMap.RIGHT_DRIVE_ENC_PORT_ONE,RobotMap.RIGHT_DRIVE_ENC_PORT_TWO,false,
                                     Encoder.EncodingType.k4X);
         rightDriveEnc.setMaxPeriod(RobotMap.DRIVE_ENC_MAX_PERIOD);
         rightDriveEnc.setMinRate(RobotMap.DRIVE_ENC_MIN_RATE);
-        rightDriveEnc.setDistancePerPulse(RobotMap.DRIVE_ENC_DISTANCE_PER_PULSE);
-        rightDriveEnc.setReverseDirection(false);
+        // TODO use encoder manual to figure out pulses per revolution. this is multiplied
+        rightDriveEnc.setDistancePerPulse(RobotMap.WHEEL_CIRCUMFERENCE_FEET * RobotMap.DRIVE_ENC_PULSE_PER_REVOLUTION);
+        rightDriveEnc.setReverseDirection(RobotMap.DRIVE_ENC_REVERSE_DIRECTION);
         rightDriveEnc.setSamplesToAverage(RobotMap.DRIVE_ENC_AVERAGE_SAMPLES);
 
-        leftDriveEnc = new Encoder(RobotMap.LEFT_DRIVE_ENC_PORT_ONE,RobotMap.LEFT_DRIVE_ENC_PORT_TWO,false,
-                                   Encoder.EncodingType.k4X);
+        leftDriveEnc = new Encoder
+                (RobotMap.LEFT_DRIVE_ENC_PORT_ONE,RobotMap.LEFT_DRIVE_ENC_PORT_TWO,false, Encoder.EncodingType.k4X);
         leftDriveEnc.setMaxPeriod(RobotMap.DRIVE_ENC_MAX_PERIOD);
         leftDriveEnc.setMinRate(RobotMap.DRIVE_ENC_MIN_RATE);
-        leftDriveEnc.setDistancePerPulse(RobotMap.DRIVE_ENC_DISTANCE_PER_PULSE);
-        leftDriveEnc.setReverseDirection(false);
+        // TODO use encoder manual to figure out pulses per revolution.
+        leftDriveEnc.setDistancePerPulse(RobotMap.WHEEL_CIRCUMFERENCE_FEET * RobotMap.DRIVE_ENC_PULSE_PER_REVOLUTION);
+        leftDriveEnc.setReverseDirection(RobotMap.DRIVE_ENC_REVERSE_DIRECTION);
         leftDriveEnc.setSamplesToAverage(RobotMap.DRIVE_ENC_AVERAGE_SAMPLES);
 
     }
@@ -73,8 +75,11 @@ public class SensorSubsystem extends Subsystem {
         if(Robot.oi.LB.get()) { // TODO wings
 
             wingServo.setAngle(180);
+
         }
+
     }
+
     public double Encoder(String output) {
 
         double outputValue = 0;
@@ -109,6 +114,7 @@ public class SensorSubsystem extends Subsystem {
 
         Boolean upIsPressed = liftSwitchUp.get();
         return upIsPressed;
+
     }
     public boolean DownLimit(){
 
@@ -193,13 +199,13 @@ public class SensorSubsystem extends Subsystem {
 
         switch(output){
 
-            /*case "angle":
+            case "angle":
                 gyro.getAngle();
-                TODO ^ according to the documentation about getAngle
-                TODO "The angle is based on the currentaccumulator value corrected by the oversampling rate, the gyro
-                TODO type and the A/D calibration values"
-                TODO so those values should be set
-                break;*/
+                //TODO ^ according to the documentation about getAngle
+                //TODO "The angle is based on the current accumulator value corrected by the oversampling rate, the
+                //TODO gyro type and the A/D calibration values"
+                //TODO so those values should be set
+                break;
 
         }
 
@@ -210,12 +216,12 @@ public class SensorSubsystem extends Subsystem {
 
         if(angle >= 0.0){ // tests if the robot is moving to a positive angle
 
-            return gyro.getAngle() >= angle; //returns whether the robot has turned as much as or more than required
+            return Gyro("angle") >= angle; //returns whether the robot has turned as much as or more than required
 
 
         } else { //runs if the robot is moving to a negative angle
 
-            return gyro.getAngle() <= angle; //returns whether the robot has turned as much as or more than required
+            return Gyro("angle") <= angle; //returns whether the robot has turned as much as or more than required
 
         }
 
