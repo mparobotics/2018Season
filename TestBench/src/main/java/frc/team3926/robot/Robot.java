@@ -15,7 +15,7 @@ public class Robot extends IterativeRobot {
 	public final static OI oi = new OI();
 
 	public final static DriveSubsystem driveSubsystem = new DriveSubsystem();
-	//public final static CameraSubsystem cameraSubsystem = new CameraSubsystem();
+	public final static CameraSubsystem cameraSubsystem = new CameraSubsystem();
 	public final static SensorSubsystem sensorSubsystem = new SensorSubsystem();
 
 	public final static IntakeArmSubsystem intakeArmSubsystem = new IntakeArmSubsystem();
@@ -29,6 +29,7 @@ public class Robot extends IterativeRobot {
 	public double autoWaitTime;
 	public double autoDriveTime;
 
+
 	//public Servo wingServo;
 
 
@@ -36,9 +37,9 @@ public class Robot extends IterativeRobot {
 
 	public void robotInit() {
 
-		week0 = true; //if true enables FMS for week zero competition
+		week0 = false; //if true enables FMS for week zero competition
 
-		//Robot.cameraSubsystem.initDefaultCommand(); //starts camera
+		Robot.cameraSubsystem.initDefaultCommand(); //starts camera
 
 		if (week0) {
 			NetworkTableInstance offSeasonNetworkTable =
@@ -60,8 +61,7 @@ public class Robot extends IterativeRobot {
     @Override
     public void autonomousInit() {
 
-		/*autoWaitTime = 0;
-		autoDriveTime = 2;*/
+		//Scheduler.getInstance().add(new AutonomousCommand());
 	}
 
     @Override
@@ -84,7 +84,9 @@ public class Robot extends IterativeRobot {
     
     @Override
     public void autonomousPeriodic() {
+
 		Scheduler.getInstance().run();
+		Robot.driveSubsystem.sketchyAuto();
 		/*double timeElapsed = 15 - DriverStation.getInstance().getMatchTime(); // The DriverStation gives an approximate time until the end of the period
 
 		if (timeElapsed >= autoWaitTime) {

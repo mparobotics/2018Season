@@ -1,14 +1,22 @@
 
+/*
 package frc.team3926.robot;
 
+import edu.wpi.first.wpilibj.DriverStation;
 import edu.wpi.first.wpilibj.command.Command;
+import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 
+*/
 /**
  *
- */
+ *//*
+
 
 public class AutonomousCommand extends Command {
 
+    DriverStation ds;
+    double time;
+    int position;
     public AutonomousCommand() {
 
         requires(Robot.driveSubsystem);
@@ -17,12 +25,18 @@ public class AutonomousCommand extends Command {
     // Called just before this Command runs the first time
     protected void initialize() {
 
+        */
+/*ds = DriverStation.getInstance();
+        position = DriverStation.getInstance().getLocation();*//*
+
+
+        SmartDashboard.putNumber("Position: ", position);
     }
 
     // Called repeatedly when this Command is scheduled to run
     protected void execute() {
 
-        Robot.driveSubsystem.setSpeed(-.5, -.5);
+        Robot.driveSubsystem.sketchyAuto();
     }
 
     // Make this return true when this Command no longer needs to run execute()
@@ -45,3 +59,4 @@ public class AutonomousCommand extends Command {
 
 }
 
+*/

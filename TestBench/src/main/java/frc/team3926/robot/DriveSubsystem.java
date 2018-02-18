@@ -1,6 +1,7 @@
 package frc.team3926.robot;
 
 import com.ctre.phoenix.motorcontrol.can.WPI_TalonSRX;
+import edu.wpi.first.wpilibj.DriverStation;
 import edu.wpi.first.wpilibj.SpeedControllerGroup;
 import edu.wpi.first.wpilibj.command.Subsystem;
 import edu.wpi.first.wpilibj.drive.DifferentialDrive;
@@ -35,6 +36,10 @@ public class DriveSubsystem extends Subsystem {
     public int straightDriveID = 3;
     public SendableChooser driveChooser;
 
+    public DriverStation ds;
+    public double time;
+    public int position;
+
     public void initDefaultCommand() {
 
         if(RobotMap.QBERT) {
@@ -68,6 +73,10 @@ public class DriveSubsystem extends Subsystem {
         driveChooser.addObject("Straight Drive", straightDriveID);
 
         SmartDashboard.putData("Drive Mode: ", driveChooser);
+
+        position = DriverStation.getInstance().getLocation();
+
+        SmartDashboard.putNumber("Position: ", position);
 
         setDefaultCommand(new DriveCommand());
     }
@@ -132,9 +141,63 @@ public class DriveSubsystem extends Subsystem {
        setSpeed(0, 0);
     }
 
+    public void sketchyAuto() { //timer counting down
+
+        while (ds.isAutonomous()) {
+
+            //time = Timer.getMatchTime(); //FMS
+            ds = DriverStation.getInstance();
+            time = 15 - ds.getMatchTime();
+
+            SmartDashboard.putNumber("Timer", time);
+
+            if (position == 1 || position == 3) {
+
+                if (time > 13.25) {
+
+                    Robot.driveSubsystem.setAutoSpeed(.5, .5);
+                } else {
+
+                    Robot.driveSubsystem.setAutoSpeed(0, 0);
+                }
+
+            } else if (position == 2) {
+
+                if (time > 14.5) {
+
+                    Robot.driveSubsystem.setAutoSpeed(.5, .5);
+                }
+                if (14.5 > time && time > 14) {
+
+                    Robot.driveSubsystem.setAutoSpeed(.5, - .5);
+                }
+                if (14 > time && time > 13.25) {
+
+                    Robot.driveSubsystem.setAutoSpeed(.5, .5);
+                }
+                if (13.25 > time && time > 12.75) {
+
+                    Robot.driveSubsystem.setAutoSpeed(- .5, .5);
+                }
+                if (12.75 > time && time > 11.5) {
+
+                    Robot.driveSubsystem.setAutoSpeed(.5, .5);
+                } else {
+
+                    Robot.driveSubsystem.setAutoSpeed(0, 0);
+                }
+            }
+        }
+    }
+
     public double setSpeed(double leftSpeed, double rightSpeed) {
 
         m_myRobot.tankDrive(-leftSpeed, -rightSpeed);
+        return 0;
+    }
+    public double setAutoSpeed(double leftSpeed, double rightSpeed) {
+
+        m_myRobot.tankDrive(leftSpeed, rightSpeed);
         return 0;
     }
 

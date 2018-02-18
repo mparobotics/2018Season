@@ -26,8 +26,8 @@ public class CameraSubsystem extends Subsystem {
 
 
             // Set the resolution
-            camera.setResolution(320, 240);
-
+            camera.setResolution(RobotMap.CAMERA_RES_WIDTH, RobotMap.CAMERA_RES_HEIGHT);
+            camera.setFPS(RobotMap.FPS);
             /*VideoMode greyscale = new VideoMode(VideoMode.PixelFormat.kMJPEG, RobotMap.CAMERA_RES_WIDTH, RobotMap.CAMERA_RES_HEIGHT, RobotMap.FPS);
             camera.setVideoMode(greyscale);*/
 

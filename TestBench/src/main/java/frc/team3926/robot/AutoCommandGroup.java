@@ -1,10 +1,13 @@
+/*
 package frc.team3926.robot;
 
 import edu.wpi.first.wpilibj.command.CommandGroup;
 
+*/
 /**
  *
- */
+ *//*
+
 public class AutoCommandGroup extends CommandGroup {
 
     public AutoCommandGroup() {
@@ -25,5 +28,6 @@ public class AutoCommandGroup extends CommandGroup {
         // a CommandGroup containing them would require both the chassis and the
         // arm.
 
+        addSequential(new AutonomousCommand());
     }
-}
+}*/

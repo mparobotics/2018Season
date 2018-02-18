@@ -42,9 +42,9 @@ public class RobotMap {
     public static int XBOX_CONTROLLER = 2;
 
 /////////////////////////////camera////////////////////////////////////////////////////////////////////
-    public static int CAMERA_RES_HEIGHT = 480;
-    public static int CAMERA_RES_WIDTH = 640;
-    public static int FPS = 20;
+    public static int CAMERA_RES_HEIGHT = 240;
+    public static int CAMERA_RES_WIDTH = 320;
+    public static int FPS = 30;
 ////////////////////////////other/////////////////////////////////////////////////////////////////////
     public static double OI_GAIN = .2;
     public static double OI_DEAD_BAND = .1;
