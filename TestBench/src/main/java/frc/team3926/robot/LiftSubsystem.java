@@ -48,6 +48,8 @@ public class LiftSubsystem extends Subsystem {
     public void setLiftSpeed(double speed) {
 
         liftMotor.set(speed);
+
     }
+
 }
 

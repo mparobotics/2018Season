@@ -54,6 +54,8 @@ public class IntakeArmSubsystem extends Subsystem {
 
         intakeMotor1.set(0);
         intakeMotor2.set(0);
+
     }
+
 }
 

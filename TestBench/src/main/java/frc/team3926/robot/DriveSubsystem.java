@@ -185,9 +185,9 @@ public class DriveSubsystem extends Subsystem {
 
         rightCalcTimer.reset();
 
-        if (output > RobotMap.PID_SPEED_CAP) {
+        if (output > RobotMap.DRIVE_PID_SPEED_CAP) {
 
-            output = RobotMap.PID_SPEED_CAP;
+            output = RobotMap.DRIVE_PID_SPEED_CAP;
 
         }
 
@@ -228,9 +228,9 @@ public class DriveSubsystem extends Subsystem {
 
 
 
-        if (output > RobotMap.PID_SPEED_CAP) {
+        if (output > RobotMap.DRIVE_PID_SPEED_CAP) {
 
-            output = RobotMap.PID_SPEED_CAP;
+            output = RobotMap.DRIVE_PID_SPEED_CAP;
 
         }
 
@@ -250,30 +250,33 @@ public class DriveSubsystem extends Subsystem {
         double derivative;
         double preError;
         double encoderRate;
-
+        double speedCap;
 
         //creates temporary values used that are used for calculations and then reassigned
         switch(currentMotors){
 
             case "leftDrive":
-                integral = leftIntegral;
-                preError = leftPreError;
-                dt = leftCalcTimer.get(); //sets dt to the amount of time since the calculation was last done
+                integral    = leftIntegral;
+                preError    = leftPreError;
+                dt          = leftCalcTimer.get(); //sets dt to the amount of time since the calculation was last done
                 encoderRate = Robot.sensorSubsystem.RightDriveEncoder("Rate");
+                speedCap = RobotMap.DRIVE_PID_SPEED_CAP;
                 break;
 
             case "rightDrive":
-                integral = rightIntegral;
-                preError = rightPreError;
-                dt = rightCalcTimer.get(); //sets dt to the amount of time since the calculation was last done
+                integral    = rightIntegral;
+                preError    = rightPreError;
+                dt          = rightCalcTimer.get(); //sets dt to the amount of time since the calculation was last done
                 encoderRate = Robot.sensorSubsystem.LeftDriveEncoder("Rate");
+                speedCap = RobotMap.DRIVE_PID_SPEED_CAP;
                 break;
 
             default:
-                integral = 0;
-                dt = 0;
-                preError = 0;
+                integral    = 0;
+                dt          = 0;
+                preError    = 0;
                 encoderRate = 0;
+                speedCap = 0;
                 break;
 
         }
@@ -298,9 +301,13 @@ public class DriveSubsystem extends Subsystem {
 
         preError = error;
 
-        if (output > RobotMap.PID_SPEED_CAP) {
+        if (output > speedCap) {
 
-            output = RobotMap.PID_SPEED_CAP;
+            output = speedCap;
+
+        } else if (output < -speedCap) {
+
+            output = -speedCap;
 
         }
 
@@ -345,8 +352,8 @@ public class DriveSubsystem extends Subsystem {
 
         }
 
-        rightSpeed = rightMotorPID(rightSetPoint, RobotMap.TURNING_KP, RobotMap.TURNING_KI, RobotMap.TURNING_KD);
-        leftSpeed = leftMotorPID(leftSetPoint, RobotMap.TURNING_KP, RobotMap.TURNING_KI, RobotMap.TURNING_KD);
+        rightSpeed = rightMotorPID (rightSetPoint, RobotMap.TURNING_KP, RobotMap.TURNING_KI, RobotMap.TURNING_KD);
+        leftSpeed  = leftMotorPID (leftSetPoint, RobotMap.TURNING_KP, RobotMap.TURNING_KI, RobotMap.TURNING_KD);
 
         m_myRobot.tankDrive(leftSpeed, rightSpeed);
 
