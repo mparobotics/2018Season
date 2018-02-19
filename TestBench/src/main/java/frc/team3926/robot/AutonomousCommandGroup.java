@@ -52,7 +52,7 @@ public class AutonomousCommandGroup extends CommandGroup {
                 break;
 
         }
-
+        /*
         // goes forward to line up with switch
         addSequential(new AutonomousForwardCommand(RobotMap.AUTO_LINE_TO_SWITCH_FEET));
 
@@ -82,6 +82,7 @@ public class AutonomousCommandGroup extends CommandGroup {
 
         //goes forward to clear way for other robots
         addSequential(new AutonomousForwardCommand(8)); //TODO set better distance
+        */
 
     }
 
