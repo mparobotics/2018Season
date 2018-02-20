@@ -1,9 +1,11 @@
 
-package frc.team3926.robot;
+package frc.team3926.robot.command.teleop;
 
 import edu.wpi.first.wpilibj.Preferences;
 import edu.wpi.first.wpilibj.command.Command;
 import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
+import frc.team3926.robot.Robot;
+import frc.team3926.robot.RobotMap;
 
 /**
  *

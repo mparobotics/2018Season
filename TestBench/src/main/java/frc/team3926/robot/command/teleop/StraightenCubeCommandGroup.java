@@ -1,4 +1,4 @@
-package frc.team3926.robot;
+package frc.team3926.robot.command.teleop;
 
 import edu.wpi.first.wpilibj.command.CommandGroup;
 

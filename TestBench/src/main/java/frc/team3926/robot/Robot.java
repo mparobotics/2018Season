@@ -5,6 +5,15 @@ import edu.wpi.first.wpilibj.IterativeRobot;
 import edu.wpi.first.wpilibj.PowerDistributionPanel;
 import edu.wpi.first.wpilibj.command.Scheduler;
 import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
+import frc.team3926.robot.command.auto.SketchyAuto;
+import frc.team3926.robot.command.teleop.DeployWingsCommand;
+import frc.team3926.robot.command.teleop.StraightenCubeCommandGroup;
+import frc.team3926.robot.subsystem.CameraSubsystem;
+import frc.team3926.robot.subsystem.ClimbingSubsystem;
+import frc.team3926.robot.subsystem.DriveSubsystem;
+import frc.team3926.robot.subsystem.IntakeArmSubsystem;
+import frc.team3926.robot.subsystem.LiftSubsystem;
+import frc.team3926.robot.subsystem.Sensors;
 
 /**
  *  *
@@ -14,15 +23,16 @@ public class Robot extends IterativeRobot {
 
 	public final static OI oi = new OI();
 
-	public final static DriveSubsystem driveSubsystem = new DriveSubsystem();
-	public final static CameraSubsystem cameraSubsystem = new CameraSubsystem();
-	public final static SensorSubsystem sensorSubsystem = new SensorSubsystem();
+	public final static frc.team3926.robot.subsystem.DriveSubsystem driveSubsystem = new DriveSubsystem();
+	public final static frc.team3926.robot.subsystem.CameraSubsystem cameraSubsystem = new CameraSubsystem();
+	public final static Sensors sensorSubsystem = new Sensors();
 
-	public final static IntakeArmSubsystem intakeArmSubsystem = new IntakeArmSubsystem();
-	public final static ClimbingSubsystem climbingSubsystem = new ClimbingSubsystem();
-	public final static LiftSubsystem liftSubsystem = new LiftSubsystem();
+	public final static frc.team3926.robot.subsystem.IntakeArmSubsystem intakeArmSubsystem = new IntakeArmSubsystem();
+	public final static frc.team3926.robot.subsystem.ClimbingSubsystem climbingSubsystem = new ClimbingSubsystem();
+	public final static frc.team3926.robot.subsystem.LiftSubsystem liftSubsystem = new LiftSubsystem();
 
-	public final static StraightenCubeCommandGroup StraightenCube = new StraightenCubeCommandGroup();
+	public final static frc.team3926.robot.command.teleop.StraightenCubeCommandGroup
+			StraightenCube = new StraightenCubeCommandGroup();
 	public final static DeployWingsCommand fly = new DeployWingsCommand();
 
 	//public final static StraightenCubeOutCommand straightenOut = new StraightenCubeOutCommand();

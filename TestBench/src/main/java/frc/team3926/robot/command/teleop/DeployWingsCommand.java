@@ -1,18 +1,19 @@
-package frc.team3926.robot;
+package frc.team3926.robot.command.teleop;
 
 import edu.wpi.first.wpilibj.Timer;
 import edu.wpi.first.wpilibj.command.Command;
+import frc.team3926.robot.Robot;
 
 /**
  *
  */
-public class AutoStraightMiddle extends Command {
+public class DeployWingsCommand extends Command {
 
     private double time;
 
-    public AutoStraightMiddle() {
+    public DeployWingsCommand() {
 
-        requires(Robot.driveSubsystem);
+        requires(Robot.sensorSubsystem);
     }
 
     // Called just before this Command runs the first time
@@ -24,13 +25,13 @@ public class AutoStraightMiddle extends Command {
     // Called repeatedly when this Command is scheduled to run
     protected void execute() {
 
-        Robot.driveSubsystem.setSpeed(.5, .5);
+        Robot.sensorSubsystem.deployWings();
     }
 
     // Make this return true when this Command no longer needs to run execute()
     protected boolean isFinished() {
 
-        if (Timer.getFPGATimestamp() - time >= 2.15) {
+        if(Timer.getFPGATimestamp() - time >= 2) {
 
             return true;
         } else {
@@ -42,7 +43,7 @@ public class AutoStraightMiddle extends Command {
     // Called once after isFinished returns true
     protected void end() {
 
-        Robot.driveSubsystem.setSpeed(0, 0);
+        Robot.sensorSubsystem.resetWings();
     }
 
     // Called when another command which requires one or more of the same

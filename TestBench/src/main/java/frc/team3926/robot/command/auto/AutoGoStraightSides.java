@@ -1,7 +1,8 @@
-package frc.team3926.robot;
+package frc.team3926.robot.command.auto;
 
 import edu.wpi.first.wpilibj.Timer;
 import edu.wpi.first.wpilibj.command.Command;
+import frc.team3926.robot.Robot;
 
 /**
  *

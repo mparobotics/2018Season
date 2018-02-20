@@ -1,48 +1,41 @@
-package frc.team3926.robot;
 
-import edu.wpi.first.wpilibj.Timer;
+package frc.team3926.robot.command.teleop;
+
 import edu.wpi.first.wpilibj.command.Command;
+import frc.team3926.robot.Robot;
 
 /**
  *
- */
-public class AutoTurnRight extends Command {
+ **/
 
-    private double time;
+public class ControlIntakeCommand extends Command {
 
-    public AutoTurnRight() {
+    public ControlIntakeCommand() {
 
-        requires(Robot.driveSubsystem);
+        requires(Robot.intakeArmSubsystem);
     }
 
     // Called just before this Command runs the first time
     protected void initialize() {
 
-        time = Timer.getFPGATimestamp();
+
     }
 
     // Called repeatedly when this Command is scheduled to run
     protected void execute() {
 
-        Robot.driveSubsystem.setSpeed(-.5, .5);
+        Robot.intakeArmSubsystem.teleopIntake();
     }
 
     // Make this return true when this Command no longer needs to run execute()
     protected boolean isFinished() {
 
-        if (Timer.getFPGATimestamp() - time >= 1.25) {
-
-            return true;
-        } else {
-
-            return false;
-        }
+        return true;
     }
 
     // Called once after isFinished returns true
     protected void end() {
 
-        Robot.driveSubsystem.setSpeed(0, 0);
     }
 
     // Called when another command which requires one or more of the same
@@ -52,3 +45,4 @@ public class AutoTurnRight extends Command {
     }
 
 }
+

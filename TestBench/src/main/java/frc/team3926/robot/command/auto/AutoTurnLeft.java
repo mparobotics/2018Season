@@ -1,16 +1,17 @@
-package frc.team3926.robot;
+package frc.team3926.robot.command.auto;
 
 import edu.wpi.first.wpilibj.Timer;
 import edu.wpi.first.wpilibj.command.Command;
+import frc.team3926.robot.Robot;
 
 /**
  *
  */
-public class CenterSlam extends Command {
+public class AutoTurnLeft extends Command {
 
     private double time;
 
-    public CenterSlam() {
+    public AutoTurnLeft() {
 
         requires(Robot.driveSubsystem);
     }
@@ -24,13 +25,13 @@ public class CenterSlam extends Command {
     // Called repeatedly when this Command is scheduled to run
     protected void execute() {
 
-        Robot.driveSubsystem.setSpeed(.75, .75);
+        Robot.driveSubsystem.setSpeed(.5, -.5);
     }
 
     // Make this return true when this Command no longer needs to run execute()
     protected boolean isFinished() {
 
-        if (Timer.getFPGATimestamp() - time >= 1.5) {
+        if (Timer.getFPGATimestamp() - time >= 1.25) {
 
             return true;
         } else {

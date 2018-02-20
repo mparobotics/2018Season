@@ -1,5 +1,5 @@
 
-package frc.team3926.robot;
+package frc.team3926.robot.command.auto;
 
 import edu.wpi.first.wpilibj.DriverStation;
 import edu.wpi.first.wpilibj.Timer;
@@ -34,21 +34,27 @@ public class SketchyAuto extends CommandGroup {
         // a CommandGroup containing them would require both the chassis and the
         // arm.
 
-        posistion = DriverStation.getInstance().getLocation();
+        //posistion = DriverStation.getInstance().getLocation();
         switchPosistion = DriverStation.getInstance().getGameSpecificMessage();
-        //posistion = 2;
+        posistion = 2;
         time = Timer.getFPGATimestamp();
 
         //TODO diffrent things for diffrent posistions
 
         //sides
-        /*if(posistion == 1 && switchPosistion.startsWith("l")) {
+        if(posistion == 1 && switchPosistion.startsWith("l")) {
 
-            addSequential(new AutoGoStraightSides()); //score on switch
+            addSequential(new frc.team3926.robot.command.auto.AutoGoStraightSides()); //score on switch
 
         } else if (posistion == 1 && switchPosistion.startsWith("r")) {
 
-           //dont score on switch
+            addSequential(new frc.team3926.robot.command.auto.AutoStraightMiddle()); //dont score on switch (turn left)
+
+            addSequential(new AutoTurnLeft());
+            addSequential(new AutoStraightMiddle());
+
+            addSequential(new AutoTurnRight());
+            addSequential(new CenterSlam());
         }
         if(posistion == 3 && switchPosistion.startsWith("r")) {
 
@@ -56,33 +62,39 @@ public class SketchyAuto extends CommandGroup {
 
         } else if (posistion == 3 && switchPosistion.startsWith("l")) {
 
-            //dont score on switch
+            addSequential(new frc.team3926.robot.command.auto.AutoStraightMiddle()); //dont score on switch (turn right)
+
+            addSequential(new frc.team3926.robot.command.auto.AutoTurnRight());
+            addSequential(new frc.team3926.robot.command.auto.AutoStraightMiddle());
+
+            addSequential(new frc.team3926.robot.command.auto.AutoTurnLeft());
+            addSequential(new frc.team3926.robot.command.auto.CenterSlam());
         }
 
         //center
         if(posistion == 2 && switchPosistion.startsWith("r")) {
 
-            addSequential(new AutoStraightMiddle()); //turn right to score
+            addSequential(new frc.team3926.robot.command.auto.AutoStraightMiddle()); //turn right to score
 
-            addSequential(new AutoTurnRight());
-            addSequential(new AutoStraightMiddle());
+            addSequential(new frc.team3926.robot.command.auto.AutoTurnRight());
+            addSequential(new frc.team3926.robot.command.auto.AutoStraightMiddle());
 
-            addSequential(new AutoTurnLeft());
-            addSequential(new CenterSlam());
+            addSequential(new frc.team3926.robot.command.auto.AutoTurnLeft());
+            addSequential(new frc.team3926.robot.command.auto.CenterSlam());
 
         } else if(posistion == 2 && switchPosistion.startsWith("l")) {
 
-            addSequential(new AutoStraightMiddle());
+            addSequential(new frc.team3926.robot.command.auto.AutoStraightMiddle());
 
             addSequential(new AutoTurnLeft());
             addSequential(new AutoStraightMiddle());
 
             addSequential(new AutoTurnRight());
             addSequential(new CenterSlam());
-        }*/
+        }
 
 
-        if (posistion == 1 || posistion == 3) {
+        /*if (posistion == 1 || posistion == 3) {
 
             addSequential(new AutoGoStraightSides());
         } else if (posistion == 2) {
@@ -95,6 +107,6 @@ public class SketchyAuto extends CommandGroup {
             addSequential(new AutoTurnLeft());
             addSequential(new CenterSlam());
 
-        }
+        }*/
     }
 }

@@ -1,14 +1,15 @@
-package frc.team3926.robot;
+package frc.team3926.robot.subsystem;
 
 import edu.wpi.first.wpilibj.DigitalInput;
 import edu.wpi.first.wpilibj.Encoder;
 import edu.wpi.first.wpilibj.Servo;
 import edu.wpi.first.wpilibj.command.Subsystem;
+import frc.team3926.robot.RobotMap;
 
 /**
  *
  */
-public class SensorSubsystem extends Subsystem {
+public class Sensors extends Subsystem {
 
     // Put methods for controlling this subsystem
     // here. Call these from Commands.

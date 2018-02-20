@@ -1,7 +1,9 @@
-package frc.team3926.robot;
+package frc.team3926.robot.subsystem;
 
 import com.ctre.phoenix.motorcontrol.can.WPI_TalonSRX;
 import edu.wpi.first.wpilibj.command.Subsystem;
+import frc.team3926.robot.Robot;
+import frc.team3926.robot.RobotMap;
 
 /**
  *

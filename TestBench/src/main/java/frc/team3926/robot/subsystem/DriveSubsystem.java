@@ -1,4 +1,4 @@
-package frc.team3926.robot;
+package frc.team3926.robot.subsystem;
 
 import com.ctre.phoenix.motorcontrol.can.WPI_TalonSRX;
 import edu.wpi.first.wpilibj.DriverStation;
@@ -8,6 +8,9 @@ import edu.wpi.first.wpilibj.command.Subsystem;
 import edu.wpi.first.wpilibj.drive.DifferentialDrive;
 import edu.wpi.first.wpilibj.smartdashboard.SendableChooser;
 import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
+import frc.team3926.robot.command.teleop.DriveCommand;
+import frc.team3926.robot.Robot;
+import frc.team3926.robot.RobotMap;
 
 /**
  *
