@@ -41,13 +41,15 @@ public class DriveCommand extends Command {
         SmartDashboard.putBoolean("half speed trigger: ", Robot.oi.halfSpeedTrigger.get());
 
         Robot.driveSubsystem.teleopDrive();
-        Robot.sensorSubsystem.servoWings();
+        Robot.oi.BACK.whenPressed(Robot.fly);
 
         if(RobotMap.QBERT) {
 
             Robot.climbingSubsystem.teleopClimb();
             Robot.intakeArmSubsystem.teleopIntake();
             Robot.liftSubsystem.controlLiftTeleop();
+
+            Robot.oi.RB.whenPressed(Robot.StraightenCube);
         }
 
         /*if (Robot.sensorSubsystem.LimitSwitch()) {

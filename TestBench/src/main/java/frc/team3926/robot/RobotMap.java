@@ -46,7 +46,7 @@ public class RobotMap {
     public static int CAMERA_RES_WIDTH = 320;
     public static int FPS = 30;
 ////////////////////////////other/////////////////////////////////////////////////////////////////////
-    public static double OI_GAIN = .2;
+    public static double OI_GAIN = .3;
     public static double OI_DEAD_BAND = .1;
 
     public static double OI_XBOX_GAIN = .05;

@@ -3,6 +3,7 @@ package frc.team3926.robot;
 import com.ctre.phoenix.motorcontrol.can.WPI_TalonSRX;
 import edu.wpi.first.wpilibj.DriverStation;
 import edu.wpi.first.wpilibj.SpeedControllerGroup;
+import edu.wpi.first.wpilibj.Timer;
 import edu.wpi.first.wpilibj.command.Subsystem;
 import edu.wpi.first.wpilibj.drive.DifferentialDrive;
 import edu.wpi.first.wpilibj.smartdashboard.SendableChooser;
@@ -48,6 +49,7 @@ public class DriveSubsystem extends Subsystem {
             BR = new WPI_TalonSRX(RobotMap.BACK_RIGHT);
             FL = new WPI_TalonSRX(RobotMap.FRONT_LEFT);
             BL = new WPI_TalonSRX(RobotMap.BACK_LEFT);
+            System.out.println("RowBoat");
 
         } else if(RobotMap.BMO) {
 
@@ -55,6 +57,7 @@ public class DriveSubsystem extends Subsystem {
             BR = new WPI_TalonSRX(RobotMap.BMO_BACK_RIGHT);
             FL = new WPI_TalonSRX(RobotMap.BMO_FRONT_LEFT);
             BL = new WPI_TalonSRX(RobotMap.BMO_BACK_LEFT);
+            System.out.println("BMO");
         } else {
 
             throw new IllegalStateException("Robot Map has no robot set to true");
@@ -141,7 +144,7 @@ public class DriveSubsystem extends Subsystem {
        setSpeed(0, 0);
     }
 
-    public void sketchyAuto() { //timer counting down
+    /*public void sketchyAuto() { //timer counting down
 
         while (ds.isAutonomous()) {
 
@@ -186,6 +189,45 @@ public class DriveSubsystem extends Subsystem {
 
                     Robot.driveSubsystem.setAutoSpeed(0, 0);
                 }
+            }
+        }
+    }*/
+
+    public void autoDriveStraight(double setTime) {
+
+        time = Timer.getFPGATimestamp();
+
+        if (Timer.getFPGATimestamp() - time < setTime) {
+
+            setSpeed(.75, .75);
+        } else {
+
+            setSpeed(0, 0);
+        }
+    }
+
+    public void autoTurn(String direction) {
+
+        time = Timer.getFPGATimestamp();
+
+        if (direction == "right") {
+
+            if (Timer.getFPGATimestamp() - time < .75) {
+
+                setSpeed(.5, -.5);
+            } else {
+
+                setSpeed(0, 0);
+            }
+
+        } else if (direction == "left") {
+
+            if (Timer.getFPGATimestamp() - time < .75) {
+
+                setSpeed(-.5, .5);
+            } else {
+
+                setSpeed(0, 0);
             }
         }
     }

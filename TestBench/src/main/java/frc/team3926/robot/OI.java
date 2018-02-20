@@ -19,6 +19,7 @@ public class OI {
     public JoystickButton Y; //controls winch motors down
     public JoystickButton A;
     public JoystickButton B;
+    public JoystickButton BACK;
     public JoystickButton LB; //spits out cube (backwards)
     public JoystickButton RB; //pulls in cube (forewords)
     public JoystickButton xboxButton; //releases the wings
@@ -47,7 +48,7 @@ public class OI {
         B = new JoystickButton(xboxController, 2);
         LB = new JoystickButton(xboxController, 5);
         RB = new JoystickButton(xboxController, 6);
-        xboxButton = new JoystickButton(xboxController, 7);
+        BACK = new JoystickButton(xboxController, 7);
 
         halfSpeedTrigger = new JoystickButton(rightStick, 1);
         straightModeTrigger = new JoystickButton(leftStick, 1);
@@ -66,6 +67,8 @@ public class OI {
 
        /* SmartDashboard.putNumber("Gain", gain);
         SmartDashboard.putNumber("Dead Band", deadBand);*/
+
+       //X.whenPressed(Robot.StraightenCube);
     }
 
     public final void setXboxRumble(boolean rumbleOn) {

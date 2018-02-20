@@ -19,10 +19,17 @@ public class CameraSubsystem extends Subsystem {
     // here. Call these from Commands.
 
     Thread m_visionThread;
+    UsbCamera camera;
     public void initDefaultCommand() {
+
+        camera = CameraServer.getInstance().startAutomaticCapture();
+    }
+
+    public void startVision() {
+
         m_visionThread = new Thread(() -> {
             // Get the UsbCamera from CameraServer
-            UsbCamera camera = CameraServer.getInstance().startAutomaticCapture();
+            //UsbCamera camera = CameraServer.getInstance().startAutomaticCapture();
 
 
             // Set the resolution
@@ -61,7 +68,6 @@ public class CameraSubsystem extends Subsystem {
         });
         m_visionThread.setDaemon(true);
         m_visionThread.start();
-
     }
 }
 

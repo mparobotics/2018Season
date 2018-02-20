@@ -1,16 +1,13 @@
-/*
 package frc.team3926.robot;
 
 import edu.wpi.first.wpilibj.command.CommandGroup;
 
-*/
 /**
  *
- *//*
+ */
+public class StraightenCubeCommandGroup extends CommandGroup {
 
-public class AutoCommandGroup extends CommandGroup {
-
-    public AutoCommandGroup() {
+    public StraightenCubeCommandGroup() {
         // Add Commands here:
         // e.g. addSequential(new Command1());
         //      addSequential(new Command2());
@@ -28,6 +25,8 @@ public class AutoCommandGroup extends CommandGroup {
         // a CommandGroup containing them would require both the chassis and the
         // arm.
 
-        addSequential(new AutonomousCommand());
+
+        addSequential(new StraightenCubeOutCommand());
+        addSequential(new StraightenCubeInCommand());
     }
-}*/
+}

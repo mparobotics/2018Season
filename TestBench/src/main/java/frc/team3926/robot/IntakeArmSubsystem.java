@@ -16,6 +16,8 @@ public class IntakeArmSubsystem extends Subsystem {
 
     private double rightAxis;
 
+    private double time;
+
     public void initDefaultCommand() {
         // Set the default command for a subsystem here.
         //setDefaultCommand(new MySpecialCommand());
@@ -54,6 +56,12 @@ public class IntakeArmSubsystem extends Subsystem {
 
         intakeMotor1.set(0);
         intakeMotor2.set(0);
+    }
+
+    public void setIntakeSpeed(double leftSpeed, double rightSpeed) {
+
+        intakeMotor1.set(leftSpeed);
+        intakeMotor2.set(rightSpeed);
     }
 }
 

@@ -20,7 +20,7 @@ public class SensorSubsystem extends Subsystem {
     private DigitalInput liftSwitchDown;
 
     private Servo wingServo;
-
+    private double time;
 
     public void initDefaultCommand() {
 
@@ -40,16 +40,13 @@ public class SensorSubsystem extends Subsystem {
         wingServo = new Servo (RobotMap.WING_SERVO_ID);
 
     }
-    public void servoWings() {
+    public void deployWings() {
 
-        if(Robot.oi.A.get() && Robot.oi.B.get()) { // TODO wings
+        wingServo.set(1);
+    }
+    public void resetWings() {
 
-            wingServo.set(1);
-
-        } else if(Robot.oi.A.get()) {
-
-            wingServo.set(0);
-        }
+        wingServo.set(0);
     }
     public double Encoder(String output) {
 

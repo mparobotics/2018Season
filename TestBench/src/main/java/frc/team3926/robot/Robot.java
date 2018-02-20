@@ -22,6 +22,12 @@ public class Robot extends IterativeRobot {
 	public final static ClimbingSubsystem climbingSubsystem = new ClimbingSubsystem();
 	public final static LiftSubsystem liftSubsystem = new LiftSubsystem();
 
+	public final static StraightenCubeCommandGroup StraightenCube = new StraightenCubeCommandGroup();
+	public final static DeployWingsCommand fly = new DeployWingsCommand();
+
+	//public final static StraightenCubeOutCommand straightenOut = new StraightenCubeOutCommand();
+	//public final static StraightenCubeInCommand straightenIn = new StraightenCubeInCommand();
+
 	public PowerDistributionPanel pdp = new PowerDistributionPanel();
 
 	public boolean week0;
@@ -30,8 +36,7 @@ public class Robot extends IterativeRobot {
 	public double autoDriveTime;
 
 
-	//public Servo wingServo;
-
+	//public Servo wingServo
 
 	//WPI_TalonSRX encoderMotor;
 
@@ -39,7 +44,7 @@ public class Robot extends IterativeRobot {
 
 		week0 = false; //if true enables FMS for week zero competition
 
-		Robot.cameraSubsystem.initDefaultCommand(); //starts camera
+		Robot.cameraSubsystem.startVision(); //starts camera
 
 		if (week0) {
 			NetworkTableInstance offSeasonNetworkTable =
@@ -52,7 +57,6 @@ public class Robot extends IterativeRobot {
 		}
 
 		SmartDashboard.putData("PowerDistributionPanel", pdp);
-
 	}
 
     @Override
@@ -61,7 +65,7 @@ public class Robot extends IterativeRobot {
     @Override
     public void autonomousInit() {
 
-		//Scheduler.getInstance().add(new AutonomousCommand());
+		Scheduler.getInstance().add(new SketchyAuto());
 	}
 
     @Override
@@ -86,7 +90,7 @@ public class Robot extends IterativeRobot {
     public void autonomousPeriodic() {
 
 		Scheduler.getInstance().run();
-		Robot.driveSubsystem.sketchyAuto();
+		//Robot.driveSubsystem.sketchyAuto();
 		/*double timeElapsed = 15 - DriverStation.getInstance().getMatchTime(); // The DriverStation gives an approximate time until the end of the period
 
 		if (timeElapsed >= autoWaitTime) {
@@ -104,7 +108,6 @@ public class Robot extends IterativeRobot {
     public void teleopPeriodic() {
 
 		Scheduler.getInstance().run();
-
 
 		//encoderMotor.set(.1);
 		//SmartDashboard.putNumber("distance", sensorSubsystem.Encoder("Distance"));
