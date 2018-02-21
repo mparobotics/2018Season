@@ -34,9 +34,10 @@ public class SketchyAuto extends CommandGroup {
         // a CommandGroup containing them would require both the chassis and the
         // arm.
 
-        //posistion = DriverStation.getInstance().getLocation();
+        posistion = DriverStation.getInstance().getLocation();
         switchPosistion = DriverStation.getInstance().getGameSpecificMessage();
-        posistion = 2;
+        //posistion = 3;
+        //switchPosistion = "lll";
         time = Timer.getFPGATimestamp();
 
         //TODO diffrent things for diffrent posistions
