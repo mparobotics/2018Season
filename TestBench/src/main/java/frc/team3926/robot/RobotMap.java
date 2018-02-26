@@ -125,4 +125,6 @@ public class RobotMap {
 
     public static final int DRIVE_GYRO_ID = 0;
 
+    public static final int HALF_DRIVE_BUTTON = 1;//not correct. annie has correct one
+
 }

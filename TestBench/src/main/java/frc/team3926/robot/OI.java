@@ -4,7 +4,6 @@ import edu.wpi.first.wpilibj.GenericHID;
 import edu.wpi.first.wpilibj.Joystick;
 import edu.wpi.first.wpilibj.buttons.JoystickButton;
 import edu.wpi.first.wpilibj.smartdashboard.SendableChooser;
-import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 
 public class OI {
 
@@ -91,27 +90,41 @@ public class OI {
 
     public final double getJoystickLeftY() {
 
+        double output;
         double rawY = leftStick.getY();
-        return apply_gain_deadzone_exponential(rawY, RobotMap.OI_GAIN, RobotMap.OI_DEAD_BAND);
+        output = rawY;
+        //output = apply_gain_deadzone_exponential(rawY, RobotMap.OI_GAIN, RobotMap.OI_DEAD_BAND);
+        return output;
     }
 
     public final double getJoystickRightY() {
 
+        double output;
         double rawY = rightStick.getY();
-        return apply_gain_deadzone_exponential(rawY, RobotMap.OI_GAIN, RobotMap.OI_DEAD_BAND);
+        output = rawY;
+        //output = apply_gain_deadzone_exponential(rawY, RobotMap.OI_GAIN, RobotMap.OI_DEAD_BAND);
+        return output;
     }
 
     public final double getXboxLeftY() {
 
+        double output;
         double rawY = xboxController.getRawAxis(xboxLeftAxis);
-        return apply_gain_deadzone_exponential(rawY, RobotMap.OI_XBOX_GAIN, RobotMap.OI_XBOX_DEAD_BAND);
+        output = rawY;
+        //output = apply_gain_deadzone_exponential(rawY, RobotMap.OI_XBOX_GAIN, RobotMap.OI_XBOX_DEAD_BAND);
+        return output;
     }
 
     public final double getXboxRightY() {
 
+        double output;
         double rawY = xboxController.getRawAxis(xboxRightAxis);
-        return apply_gain_deadzone_exponential(rawY, RobotMap.OI_XBOX_GAIN, RobotMap.OI_XBOX_DEAD_BAND);
+        output = rawY;
+        //output = apply_gain_deadzone_exponential(rawY, RobotMap.OI_XBOX_GAIN, RobotMap.OI_XBOX_DEAD_BAND);
+        return output;
+
     }
+
     public double ExponentialSpeedConstant(){
 
         return Robot.smartDashPrefs.getDouble("ESC",RobotMap.EXPONENTIAL_SPEED_CONSTANT);
@@ -164,14 +177,14 @@ public class OI {
 
     }
 
-    public double exponentialDriveLeft(){
+    public double exponentialDriveLeft() {
 
-        ESC  = ExponentialSpeedConstant();
+        ESC = ExponentialSpeedConstant();
         ESDB = ExponentialSpeedDeadBand();
 
         leftStickYaxis = Robot.oi.leftStick.getY();
 
-        if(!(leftStickYaxis <= ESDB && leftStickYaxis >= -ESDB)) { //setting the speed to zero if in dead band
+        if (!(leftStickYaxis <= ESDB && leftStickYaxis >= -ESDB)) { //setting the speed to zero if in dead band
 
             return 0;
 
@@ -190,11 +203,13 @@ public class OI {
         }
 
         //sets the speed to half the normal if the halfSpeedTrigger is pressed
-        if(halfSpeedTrigger.get()) {
+        if (halfSpeedTrigger.get()) {
 
-            rightSpeed = rightSpeed/2;
+            leftSpeed = leftSpeed / 2;
 
         }
+        return leftSpeed;
+    }
 
 
 
