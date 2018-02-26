@@ -43,7 +43,7 @@ public class StraightenCubeOutCommand extends Command {
     // Make this return true when this Command no longer needs to run execute()
     protected boolean isFinished() {
 
-        if(Timer.getFPGATimestamp() - time >= .08) {
+        if(Timer.getFPGATimestamp() - time >= .075) {
 
             return true;
         } else {

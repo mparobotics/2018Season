@@ -2,8 +2,8 @@ package frc.team3926.robot;
 
 public class RobotMap {
 
-    public static boolean BMO = false;
-    public static boolean QBERT = true;
+    public static boolean BMO = true;
+    public static boolean QBERT = false;
 ////////////////////////////////test sensors, motors, and values////////////////////////////////////////
     public static int LIMIT_SWITCH = 0;
     public static int ENCODER_ID_1 = 1;
@@ -30,7 +30,7 @@ public class RobotMap {
 
     //public static int WINCH_MOTOR_1 = 8; //change id,      90% speed
     public static int CLIMBING_WINCH_MOTOR_2 = 9; //change id,      90% speed
-    public static double WINCH_SPEED = .90;
+    public static double WINCH_SPEED = .40; //changed which speed from 90% to 40%
 
     public static int LIFT_MOTOR = 8; //change id, adjustable up to 75% speed
     public static int UP_LIFT_LIMIT_SWITCH = 4; // TODO change id

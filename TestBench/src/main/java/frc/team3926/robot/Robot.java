@@ -75,7 +75,10 @@ public class Robot extends IterativeRobot {
     @Override
     public void autonomousInit() {
 
-		Scheduler.getInstance().add(new SketchyAuto());
+		if(RobotMap.QBERT) {
+
+			Scheduler.getInstance().add(new SketchyAuto());
+		}
 	}
 
     @Override
