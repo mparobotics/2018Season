@@ -69,8 +69,7 @@ public class Robot extends IterativeRobot {
     @Override
     public void autonomousInit() {
 
-
-		new AutonomousCommandGroup();
+		Scheduler.getInstance().add(new AutonomousCommandGroup());
 		autoWaitTime = 0;
 		autoDriveTime = 2;
 	}

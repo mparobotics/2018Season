@@ -23,6 +23,7 @@ public class DriveSubsystem extends Subsystem {
     private SpeedControllerGroup m_left;
     private DifferentialDrive    m_myRobot;
 
+
     private Gyro                 gyro;
 
     String currentOrientation = "forward";
@@ -38,9 +39,8 @@ public class DriveSubsystem extends Subsystem {
     // specific distance traveled
     double leftIntegral; // used to determine how much the PID should adjust. should be reset to zero after turn or
     // specific distance traveled
-
-    Timer  rightCalcTimer;
-    Timer  leftCalcTimer;
+    double rightCalcTime;
+    double leftCalcTime;
 
     public void initDefaultCommand() {
 
@@ -50,8 +50,7 @@ public class DriveSubsystem extends Subsystem {
             BR = new WPI_TalonSRX(RobotMap.BACK_RIGHT);
             FL = new WPI_TalonSRX(RobotMap.FRONT_LEFT);
             BL = new WPI_TalonSRX(RobotMap.BACK_LEFT);
-            rightCalcTimer.start();
-            leftCalcTimer.start();
+
 
 
         } else if (RobotMap.BMO) {
@@ -90,6 +89,9 @@ public class DriveSubsystem extends Subsystem {
         FR.configSelectedFeedbackSensor(FeedbackDevice.CTRE_MagEncoder_Relative, 0, 100);
         BL.configSelectedFeedbackSensor(FeedbackDevice.CTRE_MagEncoder_Relative, 0, 100);
         FR.getSelectedSensorVelocity(0);
+
+        rightCalcTime = Timer.getFPGATimestamp();
+        leftCalcTime = Timer.getFPGATimestamp();
 
     }
 
@@ -188,7 +190,7 @@ public class DriveSubsystem extends Subsystem {
             case "leftDrive":
                 integral    = leftIntegral;
                 preError    = leftPreError;
-                dt          = leftCalcTimer.get(); //sets dt to the amount of time since the calculation was last done
+                dt          = Timer.getFPGATimestamp() - leftCalcTime;
                 encoderRate = BL.getSelectedSensorVelocity(0);
                 speedCap = RobotMap.DRIVE_PID_SPEED_CAP;
                 break;
@@ -196,7 +198,8 @@ public class DriveSubsystem extends Subsystem {
             case "rightDrive":
                 integral    = rightIntegral;
                 preError    = rightPreError;
-                dt          = rightCalcTimer.get(); //sets dt to the amount of time since the calculation was last done
+                dt          = Timer.getFPGATimestamp() - rightCalcTime; //sets dt to the amount of time since the
+                // calculation was last done
                 encoderRate = FR.getSelectedSensorVelocity(0);
                 speedCap = RobotMap.DRIVE_PID_SPEED_CAP;
                 break;
@@ -245,14 +248,14 @@ public class DriveSubsystem extends Subsystem {
 
             case "leftDrive":
                 leftIntegral = integral;
-                leftCalcTimer.reset();
+                leftCalcTime = Timer.getFPGATimestamp();
                 leftPreError = preError;
                 SmartDashboard.putNumber("Left PID Output",output);
                 break;
 
             case "rightDrive":
                 rightIntegral = integral;
-                rightCalcTimer.reset(); //sets dt to the amount of time since the calculation was last done
+                rightCalcTime = Timer.getFPGATimestamp();
                 rightPreError = preError;
                 SmartDashboard.putNumber("Right PID Output",output);
                 break;
