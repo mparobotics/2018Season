@@ -34,8 +34,8 @@ public class DriveCommand extends Command {
     @Override
     protected void execute() {
 
-        SmartDashboard.putNumber("Left RPM: ", Robot.driveSubsystem.getLeftRPM());
-        SmartDashboard.putNumber("Right RPM: ", Robot.driveSubsystem.getRightRPM());
+        //SmartDashboard.putNumber("Left RPM: ", Robot.driveSubsystem.getLeftRPM());
+        //SmartDashboard.putNumber("Right RPM: ", Robot.driveSubsystem.getRightRPM());
         //safeMode = dashboardPreferences.getBoolean("Safe Mode: ", safeMode);
 
         SmartDashboard.putBoolean("half speed trigger: ", Robot.oi.halfSpeedTrigger.get());

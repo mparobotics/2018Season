@@ -55,7 +55,7 @@ public class Robot extends IterativeRobot {
 
 		}
 
-		SmartDashboard.putData("PowerDistributionPanel", pdp);
+		//SmartDashboard.putData("PowerDistributionPanel", pdp);
 
 	}
 

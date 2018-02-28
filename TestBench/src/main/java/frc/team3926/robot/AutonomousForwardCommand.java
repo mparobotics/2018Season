@@ -20,9 +20,7 @@ public class AutonomousForwardCommand extends Command {
     // Called just before this Command runs the first time
     protected void initialize() {
 
-        SensorSubsystem.ResetRightDriveEncoder();
-        SensorSubsystem.ResetLeftDriveEncoder();
-
+        Robot.driveSubsystem.resetErrorsAndIntegralsAndEncoders();
     }
 
     // Called repeatedly when this Command is scheduled to run
@@ -35,7 +33,7 @@ public class AutonomousForwardCommand extends Command {
     // Make this return true when this Command no longer needs to run execute()
     protected boolean isFinished() {
 
-        return Robot.sensorSubsystem.RightDriveEncoder("Distance") > distance;
+        return Robot.driveSubsystem.drivenDistance(distance);
 
     }
 
@@ -43,7 +41,7 @@ public class AutonomousForwardCommand extends Command {
     protected void end() {
 
         //resets the heap values for the preError's and integral's
-        Robot.driveSubsystem.resetErrorsAndIntegrals();
+        Robot.driveSubsystem.resetErrorsAndIntegralsAndEncoders();
         Robot.driveSubsystem.turnOffMotors();
 
     }

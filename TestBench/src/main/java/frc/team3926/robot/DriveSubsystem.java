@@ -1,5 +1,6 @@
 package frc.team3926.robot;
 
+import com.ctre.phoenix.motorcontrol.FeedbackDevice;
 import com.ctre.phoenix.motorcontrol.can.WPI_TalonSRX;
 import edu.wpi.first.wpilibj.SpeedControllerGroup;
 import edu.wpi.first.wpilibj.Timer;
@@ -82,6 +83,10 @@ public class DriveSubsystem extends Subsystem {
             Encoder.EncodingType.k4X);*/
         setDefaultCommand(new DriveCommand());
 
+        FR.configSelectedFeedbackSensor(FeedbackDevice.CTRE_MagEncoder_Relative, 0, 100);
+        BL.configSelectedFeedbackSensor(FeedbackDevice.CTRE_MagEncoder_Relative, 0, 100);
+        FR.getSelectedSensorVelocity(0);
+
     }
 
     //takes in data from the position of the joysticks to determine speeds for drive system. As a joystick is pushed forward, the speed goes up exponentially
@@ -133,13 +138,16 @@ public class DriveSubsystem extends Subsystem {
     }
 
     //resets how much the robot thinks it is off and how much it needs to adjust.
-    public double resetErrorsAndIntegrals() {
+    public double resetErrorsAndIntegralsAndEncoders() {
 
         rightPreError = 0;
         leftPreError = 0;
 
         rightIntegral = 0;
         leftIntegral = 0;
+
+        FR.setSelectedSensorPosition(0,0,100);
+        BL.setSelectedSensorPosition(0,0,100);
 
         return 0;
 
@@ -155,90 +163,8 @@ public class DriveSubsystem extends Subsystem {
 
     // takes in a P value, I value, D value, dt ,stating Integra, and setpoint to determine the speed of the right side
     // in autonomous
-    public double rightMotorPID(double setPoint, double p, double i, double d) {
-
-        double dt = rightCalcTimer.get(); //sets dt to the amount of time since the calculation was last done
-        double output;
-        double error;//mesures how off the robots speed is from its target speed. used to set preError. The next
-        // time this method is run, the preError will be used to determine how much the signal to the motors will be
-        double derivative;
-
-        error = setPoint - SensorSubsystem.RightDriveEncoder("Rate");
-
-        rightIntegral = rightIntegral + (error * dt);
-
-        if (rightIntegral > RobotMap.PID_INTEGRAL_CAP) {
-
-            rightIntegral = RobotMap.PID_INTEGRAL_CAP;
-
-        } else if (rightIntegral < RobotMap.PID_INTEGRAL_MINIMUM) {
-
-            rightIntegral = RobotMap.PID_INTEGRAL_MINIMUM;
-
-        }
-
-        derivative = (error - rightPreError) / dt;
-
-        output = (p * error) + (i * rightIntegral) + (d * derivative);
-
-        rightPreError = error;
-
-        rightCalcTimer.reset();
-
-        if (output > RobotMap.DRIVE_PID_SPEED_CAP) {
-
-            output = RobotMap.DRIVE_PID_SPEED_CAP;
-
-        }
-
-        return output;
-
-    }
-
-    // takes in a P value, I value, D value, dt ,stating Integra, and setpoint to determine the speed of the left side
-    // in autonomous
-    public double leftMotorPID(double setPoint, double p, double i, double d) {
-
-        double dt = leftCalcTimer.get(); //sets dt to the amount of time since the calculation was last done
-
-        double output;
-        double error; //mesures how off the robots speed is from its target speed. used to set preError. The next
-        // time this method is run, the preError will be used to determine how much the signal to the motors will be
-        double derivative;
-
-        error = setPoint - SensorSubsystem.RightDriveEncoder("Rate");
-
-        leftIntegral = leftIntegral + (error * dt);
-
-        if (leftIntegral > RobotMap.PID_INTEGRAL_CAP) {
-
-            leftIntegral = RobotMap.PID_INTEGRAL_CAP;
-
-        } else if (leftIntegral < RobotMap.PID_INTEGRAL_MINIMUM) {
-
-            leftIntegral = RobotMap.PID_INTEGRAL_MINIMUM;
-
-        }
-
-        derivative = (error - leftPreError) / dt;
-
-        output = (p * error) + (i * leftIntegral) + (d * derivative);
-
-        leftPreError = error;
 
 
-
-        if (output > RobotMap.DRIVE_PID_SPEED_CAP) {
-
-            output = RobotMap.DRIVE_PID_SPEED_CAP;
-
-        }
-
-        leftCalcTimer.reset();
-
-        return output;
-
-    }
     public double generalPID(double setPoint, double p, double i, double d, String currentMotors) {
 
         double dt;
@@ -259,7 +185,7 @@ public class DriveSubsystem extends Subsystem {
                 integral    = leftIntegral;
                 preError    = leftPreError;
                 dt          = leftCalcTimer.get(); //sets dt to the amount of time since the calculation was last done
-                encoderRate = Robot.sensorSubsystem.RightDriveEncoder("Rate");
+                encoderRate = BL.getSelectedSensorVelocity(0);
                 speedCap = RobotMap.DRIVE_PID_SPEED_CAP;
                 break;
 
@@ -267,7 +193,7 @@ public class DriveSubsystem extends Subsystem {
                 integral    = rightIntegral;
                 preError    = rightPreError;
                 dt          = rightCalcTimer.get(); //sets dt to the amount of time since the calculation was last done
-                encoderRate = Robot.sensorSubsystem.LeftDriveEncoder("Rate");
+                encoderRate = FR.getSelectedSensorVelocity(0);
                 speedCap = RobotMap.DRIVE_PID_SPEED_CAP;
                 break;
 
@@ -368,6 +294,97 @@ public class DriveSubsystem extends Subsystem {
         Timer.delay(1);
         m_myRobot.tankDrive(0, 0);
         Timer.delay(3);
+
+    }
+
+    public boolean drivenDistance(double distance){
+
+        return FR.getSelectedSensorPosition(0) >= distance;
+
+    }
+
+    public double rightMotorPID(double setPoint, double p, double i, double d) {
+
+        double dt = rightCalcTimer.get(); //sets dt to the amount of time since the calculation was last done
+        double output;
+        double error;//mesures how off the robots speed is from its target speed. used to set preError. The next
+        // time this method is run, the preError will be used to determine how much the signal to the motors will be
+        double derivative;
+
+        error = setPoint - SensorSubsystem.RightDriveEncoder("Rate");
+
+        rightIntegral = rightIntegral + (error * dt);
+
+        if (rightIntegral > RobotMap.PID_INTEGRAL_CAP) {
+
+            rightIntegral = RobotMap.PID_INTEGRAL_CAP;
+
+        } else if (rightIntegral < RobotMap.PID_INTEGRAL_MINIMUM) {
+
+            rightIntegral = RobotMap.PID_INTEGRAL_MINIMUM;
+
+        }
+
+        derivative = (error - rightPreError) / dt;
+
+        output = (p * error) + (i * rightIntegral) + (d * derivative);
+
+        rightPreError = error;
+
+        rightCalcTimer.reset();
+
+        if (output > RobotMap.DRIVE_PID_SPEED_CAP) {
+
+            output = RobotMap.DRIVE_PID_SPEED_CAP;
+
+        }
+
+        return output;
+
+    }
+
+    // takes in a P value, I value, D value, dt ,stating Integra, and setpoint to determine the speed of the left side
+    // in autonomous
+    public double leftMotorPID(double setPoint, double p, double i, double d) {
+
+        double dt = leftCalcTimer.get(); //sets dt to the amount of time since the calculation was last done
+
+        double output;
+        double error; //mesures how off the robots speed is from its target speed. used to set preError. The next
+        // time this method is run, the preError will be used to determine how much the signal to the motors will be
+        double derivative;
+
+        error = setPoint - SensorSubsystem.RightDriveEncoder("Rate");
+
+        leftIntegral = leftIntegral + (error * dt);
+
+        if (leftIntegral > RobotMap.PID_INTEGRAL_CAP) {
+
+            leftIntegral = RobotMap.PID_INTEGRAL_CAP;
+
+        } else if (leftIntegral < RobotMap.PID_INTEGRAL_MINIMUM) {
+
+            leftIntegral = RobotMap.PID_INTEGRAL_MINIMUM;
+
+        }
+
+        derivative = (error - leftPreError) / dt;
+
+        output = (p * error) + (i * leftIntegral) + (d * derivative);
+
+        leftPreError = error;
+
+
+
+        if (output > RobotMap.DRIVE_PID_SPEED_CAP) {
+
+            output = RobotMap.DRIVE_PID_SPEED_CAP;
+
+        }
+
+        leftCalcTimer.reset();
+
+        return output;
 
     }
 
