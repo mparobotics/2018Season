@@ -2,6 +2,7 @@ package frc.team3926.robot;
 
 import com.ctre.phoenix.motorcontrol.FeedbackDevice;
 import com.ctre.phoenix.motorcontrol.can.WPI_TalonSRX;
+import edu.wpi.first.wpilibj.Preferences;
 import edu.wpi.first.wpilibj.SpeedControllerGroup;
 import edu.wpi.first.wpilibj.Timer;
 import edu.wpi.first.wpilibj.command.Subsystem;
@@ -73,6 +74,9 @@ public class DriveSubsystem extends Subsystem {
 
         rightPreError = 0;
         leftPreError = 0;
+
+        Robot.smartDashPrefs = Preferences.getInstance();
+        SmartDashboard.putNumber("Right PID Output",0);
 
         double rightDerivative = 0;
         double leftDerivative = 0;
@@ -243,12 +247,14 @@ public class DriveSubsystem extends Subsystem {
                 leftIntegral = integral;
                 leftCalcTimer.reset();
                 leftPreError = preError;
+                SmartDashboard.putNumber("Left PID Output",output);
                 break;
 
             case "rightDrive":
                 rightIntegral = integral;
                 rightCalcTimer.reset(); //sets dt to the amount of time since the calculation was last done
                 rightPreError = preError;
+                SmartDashboard.putNumber("Right PID Output",output);
                 break;
 
         }

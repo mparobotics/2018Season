@@ -30,14 +30,14 @@ public class OI {
     //private double gain = 0;
     //private double deadBand = 0;
 
-    double         leftStickYaxis;
-    double         rightStickYAxis;
-    double         leftSpeed;
-    double         rightSpeed;
+    double      leftStickYaxis;
+    double      rightStickYAxis;
+    double      leftSpeed;
+    double      rightSpeed;
 
-    double         ESC;
-    double         ESDB;
-    Preferences sensorSmartdashPrefs;
+    double      ESC;
+    double      ESDB;
+    Preferences oiSmartdashPrefs;
 
 
 
@@ -58,7 +58,7 @@ public class OI {
 
         halfSpeedTrigger = new JoystickButton(rightStick, RobotMap.HALF_DRIVE_BUTTON);
 
-        sensorSmartdashPrefs = Preferences.getInstance();
+        oiSmartdashPrefs = Preferences.getInstance();
         //halfSpeedTrigger.whenPressed(new DriveCommand());
 
         /*gainChooser = new SendableChooser();
