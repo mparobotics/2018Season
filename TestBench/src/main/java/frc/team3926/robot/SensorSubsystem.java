@@ -42,7 +42,7 @@ public class SensorSubsystem extends Subsystem {
         //liftSwitchUp = new DigitalInput(RobotMap.UP_LIFT_LIMIT_SWITCH);
         //liftSwitchDown = new DigitalInput(RobotMap.DOWN_LIFT_LIMIT_SWITCH);
 
-        enc = new Encoder(RobotMap.ENCODER_ID_1, RobotMap.ENCODER_ID_2, false, Encoder.EncodingType.k4X);
+        /*enc = new Encoder(RobotMap.ENCODER_ID_1, RobotMap.ENCODER_ID_2, false, Encoder.EncodingType.k4X);
         enc.setMaxPeriod(.05);
         enc.setMinRate(10);
         enc.setDistancePerPulse(20);
@@ -66,7 +66,7 @@ public class SensorSubsystem extends Subsystem {
         // TODO use encoder manual to figure out pulses per revolution.
         leftDriveEnc.setDistancePerPulse(RobotMap.WHEEL_CIRCUMFERENCE_FEET * RobotMap.DRIVE_ENC_PULSE_PER_REVOLUTION);
         leftDriveEnc.setReverseDirection(RobotMap.DRIVE_ENC_REVERSE_DIRECTION);
-        leftDriveEnc.setSamplesToAverage(RobotMap.DRIVE_ENC_AVERAGE_SAMPLES);
+        leftDriveEnc.setSamplesToAverage(RobotMap.DRIVE_ENC_AVERAGE_SAMPLES);*/
 
     }
 
@@ -123,7 +123,7 @@ public class SensorSubsystem extends Subsystem {
 
     }
 
-    public static double RightDriveEncoder(String output) {
+    /*public static double RightDriveEncoder(String output) {
 
         double outputValue = 0;
 
@@ -185,7 +185,7 @@ public class SensorSubsystem extends Subsystem {
 
         return 0;
 
-    }
+    }*/
 
     public static double ResetGyro(){
 

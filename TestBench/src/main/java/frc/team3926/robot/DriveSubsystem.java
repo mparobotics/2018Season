@@ -278,8 +278,10 @@ public class DriveSubsystem extends Subsystem {
 
         }
 
-        rightSpeed = rightMotorPID (rightSetPoint, RobotMap.TURNING_KP, RobotMap.TURNING_KI, RobotMap.TURNING_KD);
-        leftSpeed  = leftMotorPID (leftSetPoint, RobotMap.TURNING_KP, RobotMap.TURNING_KI, RobotMap.TURNING_KD);
+        leftSpeed =
+                generalPID(leftSetPoint, RobotMap.TURNING_KP, RobotMap.TURNING_KI, RobotMap.TURNING_KD,"leftDrive");
+        rightSpeed =
+                generalPID(rightSetPoint, RobotMap.TURNING_KP, RobotMap.TURNING_KI, RobotMap.TURNING_KD, "rightDrive");
 
         m_myRobot.tankDrive(leftSpeed, rightSpeed);
 
@@ -303,7 +305,7 @@ public class DriveSubsystem extends Subsystem {
 
     }
 
-    public double rightMotorPID(double setPoint, double p, double i, double d) {
+    /*public double rightMotorPID(double setPoint, double p, double i, double d) {
 
         double dt = rightCalcTimer.get(); //sets dt to the amount of time since the calculation was last done
         double output;
@@ -386,7 +388,7 @@ public class DriveSubsystem extends Subsystem {
 
         return output;
 
-    }
+    }*/
 
     //this changes the coordinates of the robot based off the distance that the robot has just travelled
     /*public double changeCords(double distance){
