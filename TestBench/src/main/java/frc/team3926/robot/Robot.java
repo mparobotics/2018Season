@@ -55,6 +55,8 @@ public class Robot extends IterativeRobot {
 
 		}
 
+		smartDashPrefs = Preferences.getInstance();
+
 		//SmartDashboard.putData("PowerDistributionPanel", pdp);
 
 	}

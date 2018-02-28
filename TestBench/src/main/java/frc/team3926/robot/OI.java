@@ -2,6 +2,7 @@ package frc.team3926.robot;
 
 import edu.wpi.first.wpilibj.GenericHID;
 import edu.wpi.first.wpilibj.Joystick;
+import edu.wpi.first.wpilibj.Preferences;
 import edu.wpi.first.wpilibj.buttons.JoystickButton;
 import edu.wpi.first.wpilibj.smartdashboard.SendableChooser;
 
@@ -36,6 +37,7 @@ public class OI {
 
     double         ESC;
     double         ESDB;
+    Preferences sensorSmartdashPrefs;
 
 
 
@@ -56,7 +58,7 @@ public class OI {
 
         halfSpeedTrigger = new JoystickButton(rightStick, RobotMap.HALF_DRIVE_BUTTON);
 
-        Robot.smartDashPrefs.getInstance();
+        sensorSmartdashPrefs = Preferences.getInstance();
         //halfSpeedTrigger.whenPressed(new DriveCommand());
 
         /*gainChooser = new SendableChooser();
