@@ -1,6 +1,7 @@
 package frc.team3926.robot;
 
 import edu.wpi.first.networktables.NetworkTableInstance;
+import edu.wpi.first.wpilibj.DriverStation;
 import edu.wpi.first.wpilibj.IterativeRobot;
 import edu.wpi.first.wpilibj.PowerDistributionPanel;
 import edu.wpi.first.wpilibj.command.Scheduler;
@@ -8,12 +9,7 @@ import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 import frc.team3926.robot.command.auto.SketchyAuto;
 import frc.team3926.robot.command.teleop.DeployWingsCommand;
 import frc.team3926.robot.command.teleop.StraightenCubeCommandGroup;
-import frc.team3926.robot.subsystem.CameraSubsystem;
-import frc.team3926.robot.subsystem.ClimbingSubsystem;
-import frc.team3926.robot.subsystem.DriveSubsystem;
-import frc.team3926.robot.subsystem.IntakeArmSubsystem;
-import frc.team3926.robot.subsystem.LiftSubsystem;
-import frc.team3926.robot.subsystem.Sensors;
+import frc.team3926.robot.subsystem.*;
 
 /**
  *  *
@@ -79,6 +75,7 @@ public class Robot extends IterativeRobot {
 
 			Scheduler.getInstance().add(new SketchyAuto());
 		}
+
 	}
 
     @Override
@@ -103,6 +100,7 @@ public class Robot extends IterativeRobot {
     public void autonomousPeriodic() {
 
 		Scheduler.getInstance().run();
+		SmartDashboard.putNumber("Time: ", DriverStation.getInstance().getMatchTime());
 		//Robot.driveSubsystem.sketchyAuto();
 		/*double timeElapsed = 15 - DriverStation.getInstance().getMatchTime(); // The DriverStation gives an approximate time until the end of the period
 
@@ -121,7 +119,7 @@ public class Robot extends IterativeRobot {
     public void teleopPeriodic() {
 
 		Scheduler.getInstance().run();
-
+		SmartDashboard.putNumber("Time: ", DriverStation.getInstance().getMatchTime());
 		//encoderMotor.set(.1);
 		//SmartDashboard.putNumber("distance", sensorSubsystem.Encoder("Distance"));
 		//SmartDashboard.putBoolean("Limit Switch", sensorSubsystem.LimitSwitch());

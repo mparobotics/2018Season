@@ -104,13 +104,8 @@ public class DriveSubsystem extends Subsystem {
         leftStickYaxis = Robot.oi.getJoystickLeftY();
         rightStickYaxis = Robot.oi.getJoystickRightY();
 
-        if(driveMode == defaultDriveID) {
 
-            leftSpeed = leftStickYaxis;
-            rightSpeed = rightStickYaxis;
-
-        }
-        else if (driveMode == halfDriveID) {
+        if (driveMode == halfDriveID) {
 
             if (Robot.oi.halfSpeedTrigger.get()) {
 
@@ -121,6 +116,12 @@ public class DriveSubsystem extends Subsystem {
                 leftSpeed = leftStickYaxis;
                 rightSpeed = rightStickYaxis;
             }
+        }
+        else if(driveMode == defaultDriveID) {
+
+            leftSpeed = leftStickYaxis;
+            rightSpeed = rightStickYaxis;
+
         }
         else if (driveMode == straightDriveID) {
 
