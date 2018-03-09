@@ -87,13 +87,13 @@ public class OI {
     public final double getJoystickLeftY() {
 
         double rawY = leftStick.getY();
-        return apply_gain_deadzone_exponential(rawY, RobotMap.OI_GAIN, RobotMap.OI_DEAD_BAND);
+        return apply_gain_deadzone_exponential(rawY, RobotMap.OI_GAIN_R, RobotMap.OI_DEAD_BAND_R);
     }
 
     public final double getJoystickRightY() {
 
         double rawY = rightStick.getY();
-        return apply_gain_deadzone_exponential(rawY, RobotMap.OI_GAIN, RobotMap.OI_DEAD_BAND);
+        return apply_gain_deadzone_exponential(rawY, RobotMap.OI_GAIN_R, RobotMap.OI_DEAD_BAND_R);
     }
 
     public final double getXboxLeftY() {

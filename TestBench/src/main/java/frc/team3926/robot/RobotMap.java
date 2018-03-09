@@ -30,7 +30,7 @@ public class RobotMap {
 
     //public static int WINCH_MOTOR_1 = 8; //change id,      90% speed
     public static int CLIMBING_WINCH_MOTOR_2 = 9; //change id,      90% speed
-    public static double WINCH_SPEED = .40; //changed which speed from 90% to 40%
+    public static double WINCH_SPEED = .90; //changed which speed from 90% to 40%
 
     public static int LIFT_MOTOR = 8; //change id, adjustable up to 75% speed
     public static int UP_LIFT_LIMIT_SWITCH = 4; // TODO change id
@@ -46,8 +46,12 @@ public class RobotMap {
     public static int CAMERA_RES_WIDTH = 320;
     public static int FPS = 30;
 ////////////////////////////other/////////////////////////////////////////////////////////////////////
-    public static double OI_GAIN = .3;
-    public static double OI_DEAD_BAND = .1;
+    public static double OI_GAIN_R = .3;
+    public static double OI_DEAD_BAND_R = .1;
+
+    public static double OI_GAIN_L = .3;
+    public static double OI_DEAD_BAND_L = .025;
+
 
     public static double OI_XBOX_GAIN = .05;
     public static double OI_XBOX_DEAD_BAND = .1;

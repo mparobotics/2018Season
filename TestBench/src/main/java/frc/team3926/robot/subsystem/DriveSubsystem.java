@@ -38,7 +38,11 @@ public class DriveSubsystem extends Subsystem {
     public int defaultDriveID = 1;
     public int halfDriveID = 2;
     public int straightDriveID = 3;
+    public int leftID = 1;
+    public int centerID = 2;
+    public int rightID = 3;
     public SendableChooser driveChooser;
+    public SendableChooser robotPoisitionChooser;
 
     public DriverStation ds;
     public double time;
@@ -70,19 +74,25 @@ public class DriveSubsystem extends Subsystem {
         m_left = new SpeedControllerGroup(FL, BL);
         m_myRobot = new DifferentialDrive(m_left, m_right);
 
-        ESC = RobotMap.OI_GAIN;//must be kept between 0 and 1
+        ESC = RobotMap.OI_GAIN_R;//must be kept between 0 and 1
 
         driveChooser = new SendableChooser();
+        robotPoisitionChooser = new SendableChooser();
 
         driveChooser.addDefault("Default Drive ", defaultDriveID);
         driveChooser.addObject("Half Drive ", halfDriveID);
         driveChooser.addObject("Straight Drive", straightDriveID);
-
         SmartDashboard.putData("Drive Mode: ", driveChooser);
 
-        position = DriverStation.getInstance().getLocation();
+        robotPoisitionChooser.addDefault("Left", leftID);
+        robotPoisitionChooser.addObject("Center", centerID);
+        robotPoisitionChooser.addObject("Right", rightID);
+        SmartDashboard.putData("Robot Posistion: ", robotPoisitionChooser);
 
-        SmartDashboard.putNumber("Position: ", position);
+
+       /* position = DriverStation.getInstance().getLocation();
+
+        SmartDashboard.putNumber("Position: ", position);*/
 
         setDefaultCommand(new DriveCommand());
     }
@@ -105,7 +115,7 @@ public class DriveSubsystem extends Subsystem {
         rightStickYaxis = Robot.oi.getJoystickRightY();
 
 
-        if (driveMode == halfDriveID) {
+        /*if (driveMode == halfDriveID) {
 
             if (Robot.oi.halfSpeedTrigger.get()) {
 
@@ -134,7 +144,10 @@ public class DriveSubsystem extends Subsystem {
                 leftSpeed = leftStickYaxis;
                 rightSpeed = rightStickYaxis;
             }
-        }
+        }*/
+
+        leftSpeed = leftStickYaxis;
+        rightSpeed = rightStickYaxis;
 
         m_myRobot.tankDrive(-leftSpeed, -rightSpeed);
     }
