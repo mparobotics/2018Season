@@ -87,6 +87,7 @@ public class Robot extends IterativeRobot {
 
 		/*encoderMotor = new WPI_TalonSRX(RobotMap.ENCODER_MOTOR); //encoder test motor
 		wingServo = new Servo (RobotMap.WING_SERVO_ID);*/
+
 	}
 
     @Override
@@ -120,6 +121,8 @@ public class Robot extends IterativeRobot {
 
 		Scheduler.getInstance().run();
 		SmartDashboard.putNumber("Time: ", DriverStation.getInstance().getMatchTime());
+		Robot.sensorSubsystem.printAccelerometerValues();
+		Robot.sensorSubsystem.printGyroAngle();
 		//encoderMotor.set(.1);
 		//SmartDashboard.putNumber("distance", sensorSubsystem.Encoder("Distance"));
 		//SmartDashboard.putBoolean("Limit Switch", sensorSubsystem.LimitSwitch());
@@ -129,6 +132,8 @@ public class Robot extends IterativeRobot {
 
     @Override
     public void testPeriodic() {
+		Robot.sensorSubsystem.printAccelerometerValues();
+		Robot.sensorSubsystem.printGyroAngle();
 
 		Scheduler.getInstance().run();
 		/*encoderMotor.set(Robot.oi.xboxController.getRawAxis(Robot.oi.xboxLeftAxis));

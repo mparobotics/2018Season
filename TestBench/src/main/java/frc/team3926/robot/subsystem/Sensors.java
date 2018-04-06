@@ -1,9 +1,12 @@
 package frc.team3926.robot.subsystem;
 
+import edu.wpi.first.wpilibj.ADXRS450_Gyro;
+import edu.wpi.first.wpilibj.BuiltInAccelerometer;
 import edu.wpi.first.wpilibj.DigitalInput;
-import edu.wpi.first.wpilibj.Encoder;
 import edu.wpi.first.wpilibj.Servo;
 import edu.wpi.first.wpilibj.command.Subsystem;
+import edu.wpi.first.wpilibj.interfaces.Accelerometer;
+import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 import frc.team3926.robot.RobotMap;
 
 /**
@@ -14,7 +17,9 @@ public class Sensors extends Subsystem {
     // Put methods for controlling this subsystem
     // here. Call these from Commands.
 
-    Encoder enc;
+    //Encoder enc;
+    Accelerometer accel;
+    ADXRS450_Gyro gyro; //ADXRS450 angular rate sensor
     private DigitalInput limitSwitch;
 
     private DigitalInput liftSwitchUp;
@@ -23,23 +28,39 @@ public class Sensors extends Subsystem {
     private Servo wingServo;
     private double time;
 
+    double xVal;
+    double yVal;
+    double zVal;
+
+    double gyroAngle;
+
     public void initDefaultCommand() {
 
         //new EncoderCommand();
         limitSwitch = new DigitalInput(RobotMap.LIMIT_SWITCH);
+        accel = new BuiltInAccelerometer();
+        gyro = new ADXRS450_Gyro();
+
+        accel = new BuiltInAccelerometer(Accelerometer.Range.k4G);
+        xVal = accel.getX();
+        yVal = accel.getY();
+        zVal = accel.getZ();
+
+        gyro.reset();
 
         //liftSwitchUp = new DigitalInput(RobotMap.UP_LIFT_LIMIT_SWITCH);
         //liftSwitchDown = new DigitalInput(RobotMap.DOWN_LIFT_LIMIT_SWITCH);
 
-        enc = new Encoder(RobotMap.ENCODER_ID_1, RobotMap.ENCODER_ID_2, false, Encoder.EncodingType.k4X);
+       /* enc = new Encoder(RobotMap.ENCODER_ID_1, RobotMap.ENCODER_ID_2, false, Encoder.EncodingType.k4X);
         enc.setMaxPeriod(.05);
         enc.setMinRate(10);
         enc.setDistancePerPulse(20);
         enc.setReverseDirection(false);
-        enc.setSamplesToAverage(20); //TODO test to find better value
+        enc.setSamplesToAverage(20); //TODO test to find better value*/
 
         wingServo = new Servo (RobotMap.WING_SERVO_ID);
 
+        gyro.calibrate();
     }
     public void deployWings() {
 
@@ -49,7 +70,7 @@ public class Sensors extends Subsystem {
 
         wingServo.set(0);
     }
-    public double Encoder(String output) {
+    /*public double Encoder(String output) {
 
         double outputValue = 0;
 
@@ -73,7 +94,7 @@ public class Sensors extends Subsystem {
            }
 
             return outputValue;
-        }
+        }*/
 
       public boolean LimitSwitch(){
 
@@ -91,5 +112,22 @@ public class Sensors extends Subsystem {
         Boolean downIsPressed = liftSwitchDown.get();
         return downIsPressed;
     }
+
+    public void printAccelerometerValues() {
+        xVal = accel.getX();
+        yVal = accel.getY();
+        zVal = accel.getZ();
+
+        SmartDashboard.putNumber("X Value: ", xVal);
+        SmartDashboard.putNumber("Y Value: ", yVal);
+        SmartDashboard.putNumber("Z Value: ", zVal);
+    }
+
+    public void printGyroAngle() {
+        gyroAngle = gyro.getAngle();
+
+        SmartDashboard.putNumber("Gyro Angle: ", gyroAngle);
+    }
+    
  }
 

@@ -2,12 +2,17 @@ package frc.team3926.robot;
 
 public class RobotMap {
 
-    public static boolean BMO = false;
-    public static boolean QBERT = true;
+    public static boolean BMO = true;
+    public static boolean QBERT = false;
 ////////////////////////////////test sensors, motors, and values////////////////////////////////////////
     public static int LIMIT_SWITCH = 0;
-    public static int ENCODER_ID_1 = 1;
-    public static int ENCODER_ID_2 = 2;
+    /*public static int ENCODER_ID_1 = 1;
+    public static int ENCODER_ID_2 = 2;*/
+
+    /*public static int RIGHT_ENCODER_ID_1 =
+    public static int RIGHT_ENCODER_ID_2 =
+    public static int LEFT_ENCODER_ID_1 =
+    public static int LEFT_ENCODER_ID_2 =*/
 
     public static double RADIUS_OF_ROTATION = 7.62; //cm
     public static int ENCODER_MOTOR = 2; //testing motor

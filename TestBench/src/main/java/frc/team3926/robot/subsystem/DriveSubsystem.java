@@ -65,6 +65,7 @@ public class DriveSubsystem extends Subsystem {
             FL = new WPI_TalonSRX(RobotMap.BMO_FRONT_LEFT);
             BL = new WPI_TalonSRX(RobotMap.BMO_BACK_LEFT);
             System.out.println("BMO");
+
         } else {
 
             throw new IllegalStateException("Robot Map has no robot set to true");
