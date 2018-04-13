@@ -171,5 +171,15 @@ public class Sensors extends Subsystem {
         SmartDashboard.putNumber("Gyro Angle: ", gyroAngle);
     }
 
+    public void printDistanceTraveled() {
+        WPI_TalonSRX BR = Robot.driveSubsystem.getMasterRight();
+        WPI_TalonSRX BL = Robot.driveSubsystem.getMasterLeft();
+
+        SmartDashboard.putNumber("Right Distance Traveled",
+                                 BR.getSelectedSensorPosition(0)/4096 * (RobotMap.WHEEL_CIRCUMFERNCE)*-1);
+        SmartDashboard.putNumber("Left Distance Traveled",
+                                 BL.getSelectedSensorPosition(0)/4096 * (RobotMap.WHEEL_CIRCUMFERNCE));
+    }
+
  }
 

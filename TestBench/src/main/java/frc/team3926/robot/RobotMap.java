@@ -8,15 +8,10 @@ public class RobotMap {
     public static int LIMIT_SWITCH = 0;
 
     public static double RAMP_VALUE = 2;
+    public static double WHEEL_CIRCUMFERNCE = Math.PI * 6; //INCHES
     /*public static int ENCODER_ID_1 = 1;
     public static int ENCODER_ID_2 = 2;*/
 
-    /*public static int RIGHT_ENCODER_ID_1 =
-    public static int RIGHT_ENCODER_ID_2 =
-    public static int LEFT_ENCODER_ID_1 =
-    public static int LEFT_ENCODER_ID_2 =*/
-
-    public static double RADIUS_OF_ROTATION = 7.62; //cm
     public static int ENCODER_MOTOR = 2; //testing motor
 
 ///////////////////////////////drive train motors///////////////////////////////////////////////////////
