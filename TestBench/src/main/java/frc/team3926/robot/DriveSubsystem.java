@@ -101,9 +101,14 @@ public class DriveSubsystem extends Subsystem {
         // takes in data from the position of the joysticks to determine speeds for drive system. As a joystick is
         // pushed forward, the speed goes up exponentially (works with pushing joystick backward and going in reverse
     // in the same way
-        m_myRobot.tankDrive(Robot.oi.exponentialDriveLeft(), Robot.oi.exponentialDriveRight());
+ //       m_myRobot.tankDrive(Robot.oi.exponentialDriveLeft(), Robot.oi.exponentialDriveRight());
 
-        //m_myRobot.tankDrive(Robot.oi.leftStick.getY(), Robot.oi.rightStick.getY());
+        m_myRobot.tankDrive(Robot.oi.leftStick.getY(), Robot.oi.rightStick.getY());
+
+        //takes the sensor value. it then divides it by the ppr (which is 4096). then it is multiplied by the
+        //circumphrence of the wheels in feet.
+        SmartDashboard.putNumber("Distance Traveled",
+                                 FR.getSelectedSensorPosition(0)/4096 * (RobotMap.WHEEL_CIRCUMPHRENCE_INCHES/12));
 
     }
 
