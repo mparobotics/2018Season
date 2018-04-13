@@ -128,6 +128,6 @@ public class Sensors extends Subsystem {
 
         SmartDashboard.putNumber("Gyro Angle: ", gyroAngle);
     }
-    
+
  }
 
