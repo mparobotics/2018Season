@@ -106,9 +106,13 @@ public class DriveSubsystem extends Subsystem {
         m_myRobot.tankDrive(Robot.oi.leftStick.getY(), Robot.oi.rightStick.getY());
 
         //takes the sensor value. it then divides it by the ppr (which is 4096). then it is multiplied by the
-        //circumphrence of the wheels in feet.
-        SmartDashboard.putNumber("Distance Traveled",
-                                 FR.getSelectedSensorPosition(0)/4096 * (RobotMap.WHEEL_CIRCUMPHRENCE_INCHES/12));
+        //circumphrence of the wheels in inches.
+        SmartDashboard.putNumber("Right Distance Traveled Inches",
+                                 BR.getSelectedSensorPosition(0)/4096 * (RobotMap.WHEEL_CIRCUMPHRENCE_INCHES)*-1);
+        SmartDashboard.putNumber("Left Distance Traveled Inches",
+                                 BL.getSelectedSensorPosition(0)/4096 * (RobotMap.WHEEL_CIRCUMPHRENCE_INCHES));
+
+
 
     }
 
