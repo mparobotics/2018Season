@@ -191,16 +191,17 @@ public class DriveSubsystem extends Subsystem {
                 integral    = leftIntegral;
                 preError    = leftPreError;
                 dt          = Timer.getFPGATimestamp() - leftCalcTime;
-                encoderRate = BL.getSelectedSensorVelocity(0);
+                encoderRate = BL.getSelectedSensorVelocity(0)/4096/RobotMap.WHEEL_CIRCUMPHRENCE_INCHES*10;
                 speedCap = RobotMap.DRIVE_PID_SPEED_CAP;
                 break;
 
             case "rightDrive":
                 integral    = rightIntegral;
                 preError    = rightPreError;
-                dt          = Timer.getFPGATimestamp() - rightCalcTime; //sets dt to the amount of time since the
-                // calculation was last done
-                encoderRate = FR.getSelectedSensorVelocity(0);
+                //sets dt to the amount of time since the calculation was last done
+                dt          = Timer.getFPGATimestamp() - rightCalcTime;
+
+                encoderRate = FR.getSelectedSensorVelocity(0)/4096/RobotMap.WHEEL_CIRCUMPHRENCE_INCHES*10;
                 speedCap = RobotMap.DRIVE_PID_SPEED_CAP;
                 break;
 
@@ -294,6 +295,7 @@ public class DriveSubsystem extends Subsystem {
 
         m_myRobot.tankDrive(leftSpeed, rightSpeed);
 
+
         return 0;
 
     }
@@ -310,7 +312,8 @@ public class DriveSubsystem extends Subsystem {
 
     public boolean drivenDistance(double distance){
 
-        return FR.getSelectedSensorPosition(0) >= distance;
+        return FR.getSelectedSensorPosition(0)/4096/RobotMap.WHEEL_CIRCUMPHRENCE_INCHES >= distance;
+        // units per rotation is 4096
 
     }
 
