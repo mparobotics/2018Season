@@ -76,11 +76,13 @@ public class Robot extends IterativeRobot {
 			Scheduler.getInstance().add(new SketchyAuto());
 		}
 
+		Robot.sensorSubsystem.setClosedEncoders();
 	}
 
     @Override
     public void teleopInit() {
 
+		Robot.sensorSubsystem.setOpenEncoders();
 	}
 
     public void testInit() {

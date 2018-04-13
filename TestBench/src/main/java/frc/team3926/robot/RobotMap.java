@@ -6,6 +6,8 @@ public class RobotMap {
     public static boolean QBERT = false;
 ////////////////////////////////test sensors, motors, and values////////////////////////////////////////
     public static int LIMIT_SWITCH = 0;
+
+    public static double RAMP_VALUE = 2;
     /*public static int ENCODER_ID_1 = 1;
     public static int ENCODER_ID_2 = 2;*/
 

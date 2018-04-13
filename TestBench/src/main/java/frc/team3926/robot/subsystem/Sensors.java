@@ -1,5 +1,9 @@
 package frc.team3926.robot.subsystem;
 
+import com.ctre.phoenix.motorcontrol.ControlMode;
+import com.ctre.phoenix.motorcontrol.FeedbackDevice;
+import com.ctre.phoenix.motorcontrol.NeutralMode;
+import com.ctre.phoenix.motorcontrol.can.WPI_TalonSRX;
 import edu.wpi.first.wpilibj.ADXRS450_Gyro;
 import edu.wpi.first.wpilibj.BuiltInAccelerometer;
 import edu.wpi.first.wpilibj.DigitalInput;
@@ -7,6 +11,7 @@ import edu.wpi.first.wpilibj.Servo;
 import edu.wpi.first.wpilibj.command.Subsystem;
 import edu.wpi.first.wpilibj.interfaces.Accelerometer;
 import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
+import frc.team3926.robot.Robot;
 import frc.team3926.robot.RobotMap;
 
 /**
@@ -60,8 +65,45 @@ public class Sensors extends Subsystem {
 
         wingServo = new Servo (RobotMap.WING_SERVO_ID);
 
+
+            WPI_TalonSRX BR = Robot.driveSubsystem.getMasterRight();
+            WPI_TalonSRX BL = Robot.driveSubsystem.getMasterLeft();
+            WPI_TalonSRX FR = Robot.driveSubsystem.getFollowerRight();
+            WPI_TalonSRX FL = Robot.driveSubsystem.getFollowerLeft();
+
+            FR.set(ControlMode.Follower, RobotMap.BMO_BACK_RIGHT);
+            FL.set(ControlMode.Follower, RobotMap.BMO_BACK_LEFT);
+
+            BR.setNeutralMode(NeutralMode.Brake);
+            BL.setNeutralMode(NeutralMode.Brake);
+
+            BR.configOpenloopRamp(RobotMap.RAMP_VALUE, 0);
+            BL.configOpenloopRamp(RobotMap.RAMP_VALUE, 0);
+
+            BR.configSelectedFeedbackSensor(FeedbackDevice.CTRE_MagEncoder_Relative, 0, 10);
+            BL.configSelectedFeedbackSensor( FeedbackDevice.CTRE_MagEncoder_Relative, 0, 10 );
+
+
         gyro.calibrate();
     }
+
+    public void setClosedEncoders() {
+
+        WPI_TalonSRX BR = Robot.driveSubsystem.getMasterRight();
+        WPI_TalonSRX BL = Robot.driveSubsystem.getMasterLeft();
+
+        BR.configClosedloopRamp(RobotMap.RAMP_VALUE, 0);
+        BL.configClosedloopRamp(RobotMap.RAMP_VALUE, 0);
+    }
+    public void setOpenEncoders() {
+
+        WPI_TalonSRX BR = Robot.driveSubsystem.getMasterRight();
+        WPI_TalonSRX BL = Robot.driveSubsystem.getMasterLeft();
+
+        BR.configOpenloopRamp(RobotMap.RAMP_VALUE, 0);
+        BL.configOpenloopRamp(RobotMap.RAMP_VALUE, 0);
+    }
+
     public void deployWings() {
 
         wingServo.set(1);

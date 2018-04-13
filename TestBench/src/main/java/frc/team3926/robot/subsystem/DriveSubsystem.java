@@ -8,9 +8,9 @@ import edu.wpi.first.wpilibj.command.Subsystem;
 import edu.wpi.first.wpilibj.drive.DifferentialDrive;
 import edu.wpi.first.wpilibj.smartdashboard.SendableChooser;
 import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
-import frc.team3926.robot.command.teleop.DriveCommand;
 import frc.team3926.robot.Robot;
 import frc.team3926.robot.RobotMap;
+import frc.team3926.robot.command.teleop.DriveCommand;
 
 /**
  *
@@ -66,6 +66,7 @@ public class DriveSubsystem extends Subsystem {
             BL = new WPI_TalonSRX(RobotMap.BMO_BACK_LEFT);
             System.out.println("BMO");
 
+
         } else {
 
             throw new IllegalStateException("Robot Map has no robot set to true");
@@ -89,6 +90,7 @@ public class DriveSubsystem extends Subsystem {
         robotPoisitionChooser.addObject("Center", centerID);
         robotPoisitionChooser.addObject("Right", rightID);
         SmartDashboard.putData("Robot Posistion: ", robotPoisitionChooser);
+
 
 
        /* position = DriverStation.getInstance().getLocation();
@@ -285,6 +287,44 @@ public class DriveSubsystem extends Subsystem {
     public void periodic() {
 
 
+    }
+
+    public WPI_TalonSRX getMasterLeft() {
+
+        if (RobotMap.BMO) {
+
+            return BL;
+        }
+
+        return null;
+    }
+    public WPI_TalonSRX getMasterRight() {
+
+        if (RobotMap.BMO) {
+
+            return BR;
+        }
+
+        return null;
+    }
+
+    public WPI_TalonSRX getFollowerLeft() {
+
+        if (RobotMap.BMO) {
+
+            return FL;
+        }
+
+        return null;
+    }
+    public WPI_TalonSRX getFollowerRight() {
+
+        if (RobotMap.BMO) {
+
+            return FR;
+        }
+
+        return null;
     }
 
 }

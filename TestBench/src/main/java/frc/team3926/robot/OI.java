@@ -87,12 +87,16 @@ public class OI {
     public final double getJoystickLeftY() {
 
         double rawY = leftStick.getY();
+
+        SmartDashboard.putNumber("Raw Y left: ", rawY);
         return apply_gain_deadzone_exponential(rawY, RobotMap.OI_GAIN_R, RobotMap.OI_DEAD_BAND_R);
     }
 
     public final double getJoystickRightY() {
 
         double rawY = rightStick.getY();
+
+        SmartDashboard.putNumber("Raw Y right: ", rawY);
         return apply_gain_deadzone_exponential(rawY, RobotMap.OI_GAIN_R, RobotMap.OI_DEAD_BAND_R);
     }
 
