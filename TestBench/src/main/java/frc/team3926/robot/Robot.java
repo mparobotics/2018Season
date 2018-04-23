@@ -125,6 +125,12 @@ public class Robot extends IterativeRobot {
 		SmartDashboard.putNumber("Time: ", DriverStation.getInstance().getMatchTime());
 		Robot.sensorSubsystem.printAccelerometerValues();
 		Robot.sensorSubsystem.printGyroAngle();
+
+		Robot.sensorSubsystem.getRobotPosistion();
+		SmartDashboard.putNumber("Posistion X: ", Robot.sensorSubsystem.X);
+		SmartDashboard.putNumber("Posistion Y: ", Robot.sensorSubsystem.Y);
+		SmartDashboard.putNumber("Posistion Angle: ", Robot.sensorSubsystem.gyroAngle);
+
 		//encoderMotor.set(.1);
 		//SmartDashboard.putNumber("distance", sensorSubsystem.Encoder("Distance"));
 		//SmartDashboard.putBoolean("Limit Switch", sensorSubsystem.LimitSwitch());
@@ -136,6 +142,7 @@ public class Robot extends IterativeRobot {
     public void testPeriodic() {
 		Robot.sensorSubsystem.printAccelerometerValues();
 		Robot.sensorSubsystem.printGyroAngle();
+		Robot.sensorSubsystem.printDistanceTraveled();
 
 		Scheduler.getInstance().run();
 		/*encoderMotor.set(Robot.oi.xboxController.getRawAxis(Robot.oi.xboxLeftAxis));

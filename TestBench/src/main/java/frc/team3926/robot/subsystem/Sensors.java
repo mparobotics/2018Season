@@ -37,7 +37,13 @@ public class Sensors extends Subsystem {
     double yVal;
     double zVal;
 
-    double gyroAngle;
+    public double gyroAngle;
+
+    double pastLDistance = 0;
+    double pastRDistance = 0;
+
+    public double X;
+    public double Y;
 
     public void initDefaultCommand() {
 
@@ -85,6 +91,9 @@ public class Sensors extends Subsystem {
 
 
         gyro.calibrate();
+
+        pastRDistance = getRDistance();
+        pastLDistance = getLDistance();
     }
 
     public void setClosedEncoders() {
@@ -138,7 +147,7 @@ public class Sensors extends Subsystem {
             return outputValue;
         }*/
 
-      public boolean LimitSwitch(){
+      /*public boolean LimitSwitch(){
 
         Boolean isPressed = limitSwitch.get();
 
@@ -153,7 +162,7 @@ public class Sensors extends Subsystem {
 
         Boolean downIsPressed = liftSwitchDown.get();
         return downIsPressed;
-    }
+    }*/
 
     public void printAccelerometerValues() {
         xVal = accel.getX();
@@ -179,6 +188,101 @@ public class Sensors extends Subsystem {
                                  BR.getSelectedSensorPosition(0)/4096 * (RobotMap.WHEEL_CIRCUMFERNCE)*-1);
         SmartDashboard.putNumber("Left Distance Traveled",
                                  BL.getSelectedSensorPosition(0)/4096 * (RobotMap.WHEEL_CIRCUMFERNCE));
+    }
+
+
+    public double getGyroAngle(double angle) {
+
+        angle = gyro.getAngle();
+        return angle;
+    }
+    public double getAccelerometerValue(String type) {
+
+        double value;
+
+        if (type == "X") {
+            value = accel.getX();
+            return value;
+        }
+        else if (type == "Y") {
+            value = accel.getY();
+            return value;
+        }
+        else if (type == "Z") {
+            value = accel.getZ();
+            return value;
+        }
+
+        return 0;
+    }
+    public double getEncoderValue(String talon) {
+
+        double BRDistance;
+        double BLDistance;
+
+        WPI_TalonSRX BR = Robot.driveSubsystem.getMasterRight();
+        WPI_TalonSRX BL = Robot.driveSubsystem.getMasterLeft();
+
+        if (talon == "BR") {
+
+            BRDistance = BR.getSelectedSensorPosition(0)/4096 * (RobotMap.WHEEL_CIRCUMFERNCE)*-1;
+            return BRDistance;
+        }
+        else if (talon == "BL") {
+
+            BLDistance = BL.getSelectedSensorPosition(0)/4096 * (RobotMap.WHEEL_CIRCUMFERNCE);
+            return BLDistance;
+        }
+
+        return 0;
+    }
+
+    public void getRobotPosistion() {
+
+        double BLDistance;
+        double BRDistance;
+        double averageDistance;
+
+        double dX;
+        double dY;
+
+        gyroAngle = (gyro.getAngle() * (2 * Math.PI)) / 360;
+
+        BLDistance = getLDistance();
+        BRDistance = getRDistance();
+
+         averageDistance = ((BRDistance - pastRDistance) + (BLDistance - pastLDistance)) / 2;
+
+          dX = (averageDistance) * Math.cos(gyroAngle);
+          dY = (averageDistance) * Math.sin(gyroAngle);
+
+        X = X + dX;
+        Y = Y + dY;
+
+        SmartDashboard.putNumber("Right Distance: ", BRDistance);
+
+        pastLDistance = BLDistance;
+        pastRDistance = BRDistance;
+    }
+
+    public double getRDistance() {
+
+        double BRDistance;
+        WPI_TalonSRX BR = Robot.driveSubsystem.getMasterRight();
+        BRDistance = BR.getSelectedSensorPosition(0)/4096 * (RobotMap.WHEEL_CIRCUMFERNCE);
+        BRDistance = BRDistance * (13/12); // measured value
+
+        return BRDistance;
+    }
+
+    public double getLDistance() {
+
+        double BLDistance;
+        WPI_TalonSRX BL = Robot.driveSubsystem.getMasterLeft();
+        BLDistance = BL.getSelectedSensorPosition(0)/4096 * (RobotMap.WHEEL_CIRCUMFERNCE)* -1;
+        BLDistance = BLDistance * (13/12); //measured value
+
+        return BLDistance;
     }
 
  }
