@@ -14,6 +14,9 @@ public class RobotMap {
 
     public static int ENCODER_MOTOR = 2; //testing motor
 
+    public static double RIGHT_P = .08;
+    public static double RIGHT_I = .01;
+
 ///////////////////////////////drive train motors///////////////////////////////////////////////////////
     public static int FRONT_RIGHT = 2;  //(Qbert)
     public static int FRONT_LEFT = 6;

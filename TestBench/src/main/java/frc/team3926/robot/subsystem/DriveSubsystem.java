@@ -10,7 +10,7 @@ import edu.wpi.first.wpilibj.smartdashboard.SendableChooser;
 import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 import frc.team3926.robot.Robot;
 import frc.team3926.robot.RobotMap;
-import frc.team3926.robot.command.teleop.DriveCommand;
+import frc.team3926.robot.command.auto.MoreAuto;
 
 /**
  *
@@ -47,6 +47,8 @@ public class DriveSubsystem extends Subsystem {
     public DriverStation ds;
     public double time;
     public int position;
+    double integralError = 0;
+    double beepboop = 0;
 
     public void initDefaultCommand() {
 
@@ -97,7 +99,9 @@ public class DriveSubsystem extends Subsystem {
 
         SmartDashboard.putNumber("Position: ", position);*/
 
-        setDefaultCommand(new DriveCommand());
+        //setDefaultCommand(new DriveCommand());
+        setDefaultCommand(new MoreAuto());
+
     }
 
     //takes in data from the position of the joysticks to determine speeds for drive system. As a joystick is pushed forward, the speed goes up exponentially
@@ -326,6 +330,24 @@ public class DriveSubsystem extends Subsystem {
 
         return null;
     }
+
+    public double rightPI() {
+
+        double speed = Robot.sensorSubsystem.getRightWheelSpeed();
+        double targetSpeed = 6;
+        double output;
+
+        double e = targetSpeed - speed;
+        integralError += e * .02;
+
+        output = (RobotMap.RIGHT_P * e) + (RobotMap.RIGHT_I * integralError);
+
+        SmartDashboard.putNumber("actual speed: ", speed);
+        SmartDashboard.putNumber("target speed: ", targetSpeed);
+        SmartDashboard.putNumber("output: ", output);
+        return -output;
+    }
+
 
 }
 

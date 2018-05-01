@@ -259,7 +259,7 @@ public class Sensors extends Subsystem {
         X = X + dX;
         Y = Y + dY;
 
-        SmartDashboard.putNumber("Right Distance: ", BRDistance);
+        //SmartDashboard.putNumber("Right Distance: ", BRDistance);
 
         pastLDistance = BLDistance;
         pastRDistance = BRDistance;
@@ -283,6 +283,26 @@ public class Sensors extends Subsystem {
         BLDistance = BLDistance * (13/12); //measured value
 
         return BLDistance;
+    }
+
+    public double getRightWheelSpeed() {
+
+        double RSpeed;
+        WPI_TalonSRX BR = Robot.driveSubsystem.getMasterRight();
+        RSpeed = BR.getSelectedSensorVelocity(0);
+
+        RSpeed = ((RSpeed * 10) / 4096) * (2 * Math.PI);
+
+        return RSpeed;
+    }
+
+    public double getLeftWheelSpeed() {
+
+        double LSpeed;
+        WPI_TalonSRX BL = Robot.driveSubsystem.getMasterLeft();
+        LSpeed = BL.getSelectedSensorVelocity(0) * 1000 / 4096 * (2 * Math.PI);
+
+        return LSpeed;
     }
 
  }
