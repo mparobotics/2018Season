@@ -8,7 +8,8 @@ public class RobotMap {
     public static int LIMIT_SWITCH = 0;
 
     public static double RAMP_VALUE = 2;
-    public static double WHEEL_CIRCUMFERNCE = Math.PI * 6; //INCHES
+    public static double WHEEL_CIRCUMFERNCE = Math.PI * 6; //INCHES      L in equation
+    public static double WIDTH_BETWEEN_WHEELS = 24; //INCHES        R in equation //TODO measure acctual value
     /*public static int ENCODER_ID_1 = 1;
     public static int ENCODER_ID_2 = 2;*/
 

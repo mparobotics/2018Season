@@ -348,6 +348,23 @@ public class DriveSubsystem extends Subsystem {
         return -output;
     }
 
+    public double uniRightControl(double v, double w) {
+
+        double rightVelocity;
+        rightVelocity = ((2 * v) + (w * RobotMap.WHEEL_CIRCUMFERNCE)) / (2 * RobotMap.WIDTH_BETWEEN_WHEELS);
+
+        return rightVelocity;
+    }
+
+    public double uniLeftControl(double v, double w) {
+
+        double leftVelocity;
+        leftVelocity = ((2 * v) - (w * RobotMap.WHEEL_CIRCUMFERNCE)) / (2 * RobotMap.WIDTH_BETWEEN_WHEELS);
+
+        return leftVelocity;
+    }
+
+
 
 }
 
