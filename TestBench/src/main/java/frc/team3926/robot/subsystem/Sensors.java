@@ -300,9 +300,11 @@ public class Sensors extends Subsystem {
 
         double LSpeed;
         WPI_TalonSRX BL = Robot.driveSubsystem.getMasterLeft();
-        LSpeed = BL.getSelectedSensorVelocity(0) * 1000 / 4096 * (2 * Math.PI);
+        LSpeed = BL.getSelectedSensorVelocity(0);
 
-        return LSpeed;
+        LSpeed = ((LSpeed * 10) / 4096) * (2 * Math.PI);
+
+        return -LSpeed;
     }
 
  }

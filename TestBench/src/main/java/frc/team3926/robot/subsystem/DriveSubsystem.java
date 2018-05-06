@@ -269,7 +269,7 @@ public class DriveSubsystem extends Subsystem {
 
     /*public void hitSomething() {
 
-        m_myRobot.tankDrive(0, 0);
+        m_myRobot.tankDrive(0, 0); hhi
         m_myRobot.tankDrive(-.5, -.5);
         Timer.delay(1);
         m_myRobot.tankDrive(0, 0);
@@ -331,27 +331,42 @@ public class DriveSubsystem extends Subsystem {
         return null;
     }
 
-    public double rightPI() {
+    public double rightPI(double targetSpeed) {
 
         double speed = Robot.sensorSubsystem.getRightWheelSpeed();
-        double targetSpeed = 6;
+        //double targetSpeed = 6;
         double output;
 
         double e = targetSpeed - speed;
         integralError += e * .02;
 
-        output = (RobotMap.RIGHT_P * e) + (RobotMap.RIGHT_I * integralError);
+        output = (RobotMap.RIGHT_P * e) + (RobotMap.RIGHT_I * integralError) + (RobotMap.RIGHT_F * targetSpeed);
 
         SmartDashboard.putNumber("actual speed: ", speed);
         SmartDashboard.putNumber("target speed: ", targetSpeed);
         SmartDashboard.putNumber("output: ", output);
+
+        return -output;
+    }
+
+    public double leftPI(double targetSpeed) {
+
+        double speed = Robot.sensorSubsystem.getLeftWheelSpeed();
+        //double targetSpeed = 6;
+        double output;
+
+        double e = targetSpeed - speed;
+        integralError += e * .02;
+
+        output = (RobotMap.LEFT_P * e) + (RobotMap.LEFT_I * integralError) + (RobotMap.LEFT_F * targetSpeed);
+
         return -output;
     }
 
     public double uniRightControl(double v, double w) {
 
         double rightVelocity;
-        rightVelocity = ((2 * v) + (w * RobotMap.WHEEL_CIRCUMFERNCE)) / (2 * RobotMap.WIDTH_BETWEEN_WHEELS);
+        rightVelocity = ((2 * v) + (w * RobotMap.WIDTH_BETWEEN_WHEELS)) / (2 * RobotMap.WHEEL_RADIUS);
 
         return rightVelocity;
     }
@@ -359,7 +374,7 @@ public class DriveSubsystem extends Subsystem {
     public double uniLeftControl(double v, double w) {
 
         double leftVelocity;
-        leftVelocity = ((2 * v) - (w * RobotMap.WHEEL_CIRCUMFERNCE)) / (2 * RobotMap.WIDTH_BETWEEN_WHEELS);
+        leftVelocity = ((2 * v) - (w * RobotMap.WIDTH_BETWEEN_WHEELS)) / (2 * RobotMap.WHEEL_RADIUS);
 
         return leftVelocity;
     }

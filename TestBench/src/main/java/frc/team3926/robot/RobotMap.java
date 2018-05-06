@@ -8,15 +8,21 @@ public class RobotMap {
     public static int LIMIT_SWITCH = 0;
 
     public static double RAMP_VALUE = 2;
-    public static double WHEEL_CIRCUMFERNCE = Math.PI * 6; //INCHES      L in equation
-    public static double WIDTH_BETWEEN_WHEELS = 24; //INCHES        R in equation //TODO measure acctual value
+    public static double WHEEL_CIRCUMFERNCE = Math.PI * 6; //INCHES
+    public static double WHEEL_RADIUS = 3; //INCHES        R in equation
+    public static double WIDTH_BETWEEN_WHEELS = 10; //INCHES        L in equation //TODO measure acctual value
     /*public static int ENCODER_ID_1 = 1;
     public static int ENCODER_ID_2 = 2;*/
 
     public static int ENCODER_MOTOR = 2; //testing motor
 
-    public static double RIGHT_P = .08;
-    public static double RIGHT_I = .01;
+    public static double RIGHT_P = .05;
+    public static double RIGHT_I = .06;
+    public static double RIGHT_F = .1;
+
+    public static double LEFT_P = .05;
+    public static double LEFT_I = .06;
+    public static double LEFT_F = .1;
 
 ///////////////////////////////drive train motors///////////////////////////////////////////////////////
     public static int FRONT_RIGHT = 2;  //(Qbert)
