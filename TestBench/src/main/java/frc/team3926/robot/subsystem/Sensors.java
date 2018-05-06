@@ -246,7 +246,16 @@ public class Sensors extends Subsystem {
         double dX;
         double dY;
 
-        gyroAngle = (gyro.getAngle() * (2 * Math.PI)) / 360;
+        gyroAngle = (-gyro.getAngle() * (2 * Math.PI)) / 360;
+
+        while(gyroAngle < -Math.PI) {
+
+            gyroAngle = gyroAngle + Math.PI * 2;
+        }
+        while(gyroAngle > Math.PI) {
+
+            gyroAngle = gyroAngle - Math.PI * 2;
+        }
 
         BLDistance = getLDistance();
         BRDistance = getRDistance();

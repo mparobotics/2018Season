@@ -47,8 +47,12 @@ public class DriveSubsystem extends Subsystem {
     public DriverStation ds;
     public double time;
     public int position;
-    double integralError = 0;
+    double rightIntegralError = 0;
+    double leftIntegralError = 0;
     double beepboop = 0;
+
+    public double rightVelocity;
+    public double leftVelocity;
 
     public void initDefaultCommand() {
 
@@ -338,9 +342,9 @@ public class DriveSubsystem extends Subsystem {
         double output;
 
         double e = targetSpeed - speed;
-        integralError += e * .02;
+        rightIntegralError += e * .02;
 
-        output = (RobotMap.RIGHT_P * e) + (RobotMap.RIGHT_I * integralError) + (RobotMap.RIGHT_F * targetSpeed);
+        output = (RobotMap.RIGHT_P * e) + (RobotMap.RIGHT_I * rightIntegralError) + (RobotMap.RIGHT_F * targetSpeed);
 
         SmartDashboard.putNumber("actual speed: ", speed);
         SmartDashboard.putNumber("target speed: ", targetSpeed);
@@ -356,30 +360,55 @@ public class DriveSubsystem extends Subsystem {
         double output;
 
         double e = targetSpeed - speed;
-        integralError += e * .02;
+        leftIntegralError += e * .02;
 
-        output = (RobotMap.LEFT_P * e) + (RobotMap.LEFT_I * integralError) + (RobotMap.LEFT_F * targetSpeed);
+        output = (RobotMap.LEFT_P * e) + (RobotMap.LEFT_I * leftIntegralError) + (RobotMap.LEFT_F * targetSpeed);
 
         return -output;
     }
 
-    public double uniRightControl(double v, double w) {
+    public void uniControl(double v, double w) {
 
-        double rightVelocity;
         rightVelocity = ((2 * v) + (w * RobotMap.WIDTH_BETWEEN_WHEELS)) / (2 * RobotMap.WHEEL_RADIUS);
-
-        return rightVelocity;
-    }
-
-    public double uniLeftControl(double v, double w) {
-
-        double leftVelocity;
         leftVelocity = ((2 * v) - (w * RobotMap.WIDTH_BETWEEN_WHEELS)) / (2 * RobotMap.WHEEL_RADIUS);
 
-        return leftVelocity;
     }
 
+    public void headingControl(double targetX, double targetY, double forcedHeading, boolean targetMode,
+                               double actualX, double actualY, double actualHeading) {
+        double targetHeading;
+        double headingError;
+        double w;
+        double v;
+        double distance;
 
+        if (targetMode) {
+
+            targetHeading = Math.atan2((targetY - actualY), (targetX - actualX));
+            distance = Math.sqrt(Math.pow((targetY - actualY), 2) + Math.pow((targetX - actualX), 2));
+
+            if (distance > 4) {
+
+                v = 24;
+            } else {
+
+                v = 0;
+            }
+
+        } else {
+
+            targetHeading = forcedHeading;
+            v = 0;
+        }
+
+        SmartDashboard.putNumber("target heading: ", targetHeading);
+        SmartDashboard.putNumber("actual heading: ", actualHeading);
+
+        headingError = targetHeading - actualHeading;
+        w = 6 * headingError;
+
+        uniControl(v,w);
+    }
 
 }
 
