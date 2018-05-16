@@ -133,10 +133,10 @@ public class MoreAuto extends Command {
                                             Robot.driveSubsystem.targetHeading, Robot.driveSubsystem.targetMode,
                                             Robot.sensorSubsystem.X, Robot.sensorSubsystem.Y, Robot.sensorSubsystem.gyroAngle);
 
-        driveSubsystem.setSpeed(driveSubsystem.leftPI(driveSubsystem.leftVelocity),
-                                driveSubsystem.rightPI(driveSubsystem.rightVelocity));
+        /*driveSubsystem.setSpeed(driveSubsystem.leftPI(driveSubsystem.leftVelocity),
+                                driveSubsystem.rightPI(driveSubsystem.rightVelocity));*/
 
-        //driveSubsystem.setSpeed(driveSubsystem.leftPI(0),driveSubsystem.rightPI(6));
+        driveSubsystem.setSpeed(driveSubsystem.leftPI(0),driveSubsystem.rightPI(6));
     }
 
 
