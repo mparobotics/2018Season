@@ -42,7 +42,7 @@ public class Sensors extends Subsystem {
     double pastLDistance = 0;
     double pastRDistance = 0;
 
-    public double X;
+    public double X = RobotMap.INCHES_TO_CENTER_OF_ROBOT;
     public double Y;
 
     public void initDefaultCommand() {
@@ -77,8 +77,8 @@ public class Sensors extends Subsystem {
             WPI_TalonSRX FR = Robot.driveSubsystem.getFollowerRight();
             WPI_TalonSRX FL = Robot.driveSubsystem.getFollowerLeft();
 
-            FR.set(ControlMode.Follower, RobotMap.BMO_BACK_RIGHT);
-            FL.set(ControlMode.Follower, RobotMap.BMO_BACK_LEFT);
+            FR.set(ControlMode.Follower, RobotMap.BACK_RIGHT);
+            FL.set(ControlMode.Follower, RobotMap.BACK_LEFT);
 
             BR.setNeutralMode(NeutralMode.Brake);
             BL.setNeutralMode(NeutralMode.Brake);

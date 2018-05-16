@@ -44,20 +44,24 @@ public class IntakeArmSubsystem extends Subsystem {
 
         rightAxis = Robot.oi.getXboxRightY();
 
-        intakeMotor1.set(rightAxis / 2);
-        intakeMotor2.set(-rightAxis / 2);
+        intakeMotor1.set(-rightAxis / 2);
+        intakeMotor2.set(rightAxis / 2);
 
     }
 
     public void autoReleaseCube() {
+        Robot.driveSubsystem.setSpeed(0, 0);
 
-        intakeMotor1.set(-RobotMap.INTAKE_SPEED);
-        intakeMotor2.set(RobotMap.INTAKE_SPEED);
+        time = Timer.getFPGATimestamp();
 
-        Timer.delay(2);
+        while (Timer.getFPGATimestamp() - time < 2) {
 
-        intakeMotor1.set(0);
-        intakeMotor2.set(0);
+            /*intakeMotor1.set(-RobotMap.INTAKE_SPEED);
+            intakeMotor2.set(RobotMap.INTAKE_SPEED);*/
+        }
+
+        /*intakeMotor1.set(0);
+        intakeMotor2.set(0);*/
     }
 
     public void setIntakeSpeed(double leftSpeed, double rightSpeed) {

@@ -10,7 +10,7 @@ import edu.wpi.first.wpilibj.smartdashboard.SendableChooser;
 import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 import frc.team3926.robot.Robot;
 import frc.team3926.robot.RobotMap;
-import frc.team3926.robot.command.auto.MoreAuto;
+import frc.team3926.robot.command.teleop.DriveCommand;
 
 /**
  *
@@ -41,18 +41,34 @@ public class DriveSubsystem extends Subsystem {
     public int leftID = 1;
     public int centerID = 2;
     public int rightID = 3;
+    public int score = 1;
+    public int noScore = 0;
     public SendableChooser driveChooser;
     public SendableChooser robotPoisitionChooser;
+    public SendableChooser scoreOnSwitchChooser;
 
     public DriverStation ds;
     public double time;
     public int position;
     double rightIntegralError = 0;
     double leftIntegralError = 0;
+
+    double headingIError = 0;
+
     double beepboop = 0;
 
     public double rightVelocity;
     public double leftVelocity;
+
+    public double targetX;
+    public double targetY;
+    public double targetHeading;
+    public boolean targetMode;
+
+    public int pathIndex = 0;
+    public double turningTime = 0;
+
+
 
     public void initDefaultCommand() {
 
@@ -86,6 +102,7 @@ public class DriveSubsystem extends Subsystem {
 
         driveChooser = new SendableChooser();
         robotPoisitionChooser = new SendableChooser();
+        scoreOnSwitchChooser = new SendableChooser();
 
         driveChooser.addDefault("Default Drive ", defaultDriveID);
         driveChooser.addObject("Half Drive ", halfDriveID);
@@ -97,14 +114,16 @@ public class DriveSubsystem extends Subsystem {
         robotPoisitionChooser.addObject("Right", rightID);
         SmartDashboard.putData("Robot Posistion: ", robotPoisitionChooser);
 
-
+        scoreOnSwitchChooser.addDefault("Score on switch", score);
+        scoreOnSwitchChooser.addObject("Don't Score on switch", noScore);
+        SmartDashboard.putData("Scoring on Switch: ", scoreOnSwitchChooser);
 
        /* position = DriverStation.getInstance().getLocation();
 
         SmartDashboard.putNumber("Position: ", position);*/
 
-        //setDefaultCommand(new DriveCommand());
-        setDefaultCommand(new MoreAuto());
+        setDefaultCommand(new DriveCommand());
+        //setDefaultCommand(new MoreAuto()); //TODO
 
     }
 
@@ -299,40 +318,20 @@ public class DriveSubsystem extends Subsystem {
 
     public WPI_TalonSRX getMasterLeft() {
 
-        if (RobotMap.BMO) {
-
-            return BL;
-        }
-
-        return null;
+        return BL;
     }
     public WPI_TalonSRX getMasterRight() {
 
-        if (RobotMap.BMO) {
-
-            return BR;
-        }
-
-        return null;
+        return BR;
     }
 
     public WPI_TalonSRX getFollowerLeft() {
 
-        if (RobotMap.BMO) {
-
-            return FL;
-        }
-
-        return null;
+        return FL;
     }
     public WPI_TalonSRX getFollowerRight() {
 
-        if (RobotMap.BMO) {
-
-            return FR;
-        }
-
-        return null;
+        return FR;
     }
 
     public double rightPI(double targetSpeed) {
@@ -379,17 +378,24 @@ public class DriveSubsystem extends Subsystem {
         double targetHeading;
         double headingError;
         double w;
-        double v;
+        double v; //linear velocity of robot
         double distance;
+
+        double maxSpeed = 25; //in per sec
+        double slowingDistance = 8;
+        double stoppingDistance = 8;
 
         if (targetMode) {
 
             targetHeading = Math.atan2((targetY - actualY), (targetX - actualX));
-            distance = Math.sqrt(Math.pow((targetY - actualY), 2) + Math.pow((targetX - actualX), 2));
+            distance = getDistanceToPoint(targetX, targetY, actualX, actualY);
 
-            if (distance > 4) {
+            if(distance > slowingDistance) {
 
-                v = 24;
+                v = maxSpeed;
+            } else if (distance > stoppingDistance) {
+
+                v = (maxSpeed/ (slowingDistance - stoppingDistance)) * (distance - stoppingDistance);
             } else {
 
                 v = 0;
@@ -405,9 +411,66 @@ public class DriveSubsystem extends Subsystem {
         SmartDashboard.putNumber("actual heading: ", actualHeading);
 
         headingError = targetHeading - actualHeading;
-        w = 6 * headingError;
+        headingIError += headingError * .02; //.02 = excution period (20 milliseconds)
+
+        w = (1.5 * headingError) + (1.5 * headingIError);
 
         uniControl(v,w);
+    }
+
+    public void followPaths(double[][] paths, double x, double y, double heading) {
+
+         //TODO arms
+         targetX = paths[pathIndex][0];
+         targetY = paths[pathIndex][1];
+         targetHeading = paths[pathIndex][2];
+         targetMode = paths[pathIndex][3] > .5;
+
+         int pathLenght = 2;
+
+         /*targetX = 30;
+         targetY = 0;
+         targetHeading = 0;*/
+         //targetMode = true;
+
+        double distance = getDistanceToPoint(targetX, targetY, x, y);
+
+        if (targetMode) {
+
+            if (distance < 9 && pathIndex != pathLenght ) {
+
+                pathIndex++;
+            }
+        } else {
+            //move to the next point when at the right heading
+
+            if (Math.abs(targetHeading - heading) < .1) {
+
+                turningTime += .02;
+            } else {
+
+                turningTime = 0;
+            }
+
+            if(pathIndex != pathLenght && turningTime > .5) {
+
+                pathIndex++;
+                turningTime = 0;
+            }
+        }
+
+        /*if (pathIndex == pathLenght) {   //shoot out cube in auto
+
+            Robot.intakeArmSubsystem.autoReleaseCube();
+        }*/
+    }
+
+    public double getDistanceToPoint(double targetX, double targetY, double actualX, double actualY) {
+        double distance;
+
+        distance = Math.sqrt(Math.pow((targetY - actualY), 2) + Math.pow((targetX - actualX), 2));
+
+        return distance;
     }
 
 }

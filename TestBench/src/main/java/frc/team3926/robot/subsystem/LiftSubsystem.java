@@ -20,6 +20,8 @@ public class LiftSubsystem extends Subsystem {
 
     private double leftAxis;
 
+    private double time;
+
     public void initDefaultCommand() {
         // Set the default command for a subsystem here.
 
@@ -42,9 +44,16 @@ public class LiftSubsystem extends Subsystem {
     }
 
     public void autoLiftToSwitch(){
+        Robot.driveSubsystem.setSpeed(0, 0);
 
-        liftMotor.set(.10);
-        Timer.delay(1);
+        time = Timer.getFPGATimestamp();
+
+        while (Timer.getFPGATimestamp() - time < 1.5) {
+
+            //liftMotor.set(.5);
+        }
+
+        //liftMotor.set(0);
     }
 
     public void setLiftSpeed(double speed) {
