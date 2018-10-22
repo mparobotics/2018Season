@@ -53,8 +53,10 @@ public class SketchyAuto extends CommandGroup {
 
         //TODO diffrent things for diffrent posistions
 
+        addSequential(new AutoGoStraightSides());
+
         //sides
-        if(posistion == 3 && switchPosistion.startsWith("R")) {
+       /* if(posistion == 3 && switchPosistion.startsWith("R")) {
 
             addSequential(new frc.team3926.robot.command.auto.AutoGoStraightSides()); //score on switch
 
@@ -108,7 +110,7 @@ public class SketchyAuto extends CommandGroup {
 
             addSequential(new AutoTurnRight());
             addSequential(new CenterSlam());
-        }
+        }*/
 
 
         /*if (posistion == 1 || posistion == 3) {

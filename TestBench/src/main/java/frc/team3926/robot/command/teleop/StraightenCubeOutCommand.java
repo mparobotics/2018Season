@@ -29,7 +29,7 @@ public class StraightenCubeOutCommand extends Command {
 
         //SmartDashboard.putNumber("timer: ", );
 
-        Robot.intakeArmSubsystem.setIntakeSpeed(-.5, .5);
+        Robot.intakeArmSubsystem.setIntakeSpeed(.5, -.5);
 
         /*if(Timer.getFPGATimestamp() - time >= .5) {
 

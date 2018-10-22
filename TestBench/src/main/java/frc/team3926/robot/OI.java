@@ -11,6 +11,7 @@ public class OI {
     private Joystick rightStick;
     private Joystick leftStick;
     public Joystick xboxController;
+    public Joystick xboxDriveController;
 
     int xboxRightAxis;
     int xboxLeftAxis; //contols the lift
@@ -38,6 +39,7 @@ public class OI {
         rightStick = new Joystick(RobotMap.RIGHT_JOYSTICK);
         leftStick = new Joystick(RobotMap.LEFT_JOYSTICK);
         xboxController = new Joystick(RobotMap.XBOX_CONTROLLER);
+        //xboxDriveController = new Joystick(RobotMap.XBOX_DRIVE_CONTROLLER);
 
         xboxLeftAxis = 1;
         xboxRightAxis = 5;
@@ -90,6 +92,7 @@ public class OI {
 
         SmartDashboard.putNumber("Raw Y left: ", rawY);
         return apply_gain_deadzone_exponential(rawY, RobotMap.OI_GAIN_R, RobotMap.OI_DEAD_BAND_R);
+        //return rawY;
     }
 
     public final double getJoystickRightY() {
@@ -98,6 +101,7 @@ public class OI {
 
         SmartDashboard.putNumber("Raw Y right: ", rawY);
         return apply_gain_deadzone_exponential(rawY, RobotMap.OI_GAIN_R, RobotMap.OI_DEAD_BAND_R);
+        //return rawY;
     }
 
     public final double getXboxLeftY() {
@@ -111,6 +115,18 @@ public class OI {
         double rawY = xboxController.getRawAxis(xboxRightAxis);
         return apply_gain_deadzone_exponential(rawY, RobotMap.OI_XBOX_GAIN, RobotMap.OI_XBOX_DEAD_BAND);
     }
+
+    /*public final double getDriveXboxLeftY() {
+
+        double rawY = xboxDriveController.getRawAxis(xboxLeftAxis);
+        return apply_gain_deadzone_exponential(rawY, RobotMap.OI_XBOX_GAIN, RobotMap.OI_XBOX_DEAD_BAND);
+    }
+
+    public final double getDriveXboxRightY() {
+
+        double rawY = xboxDriveController.getRawAxis(xboxRightAxis);
+        return apply_gain_deadzone_exponential(rawY, RobotMap.OI_XBOX_GAIN, RobotMap.OI_XBOX_DEAD_BAND);
+    }*/
 
     private double apply_gain_deadzone_exponential(double rawY, double gain, double deadBand) {
 

@@ -54,6 +54,7 @@ public class RobotMap {
     public static int RIGHT_JOYSTICK = 0;
     public static int LEFT_JOYSTICK = 1;
     public static int XBOX_CONTROLLER = 2;
+    //public static int XBOX_DRIVE_CONTROLLER = 3;
 
 /////////////////////////////camera////////////////////////////////////////////////////////////////////
     public static int CAMERA_RES_HEIGHT = 240;

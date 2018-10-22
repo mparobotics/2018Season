@@ -26,7 +26,7 @@ public class StraightenCubeInCommand extends Command {
     // Called repeatedly when this Command is scheduled to run
     protected void execute() {
 
-        Robot.intakeArmSubsystem.setIntakeSpeed(.75, -.75);
+        Robot.intakeArmSubsystem.setIntakeSpeed(-.75, .75);
     }
 
     // Make this return true when this Command no longer needs to run execute()

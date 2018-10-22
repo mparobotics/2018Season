@@ -30,7 +30,7 @@ public class AutoGoStraightSides extends Command {
     // Make this return true when this Command no longer needs to run execute()
     protected boolean isFinished() {
 
-        if (Timer.getFPGATimestamp() - time >= 1.5) {
+        if (Timer.getFPGATimestamp() - time >= 2.5) {
 
             return true;
         } else {

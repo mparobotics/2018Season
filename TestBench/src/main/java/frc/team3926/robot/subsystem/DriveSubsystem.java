@@ -141,9 +141,8 @@ public class DriveSubsystem extends Subsystem {
             Robot.oi.xboxController.setRumble(kRightRumble, 0);
         } */
 
-        leftStickYaxis = Robot.oi.getJoystickLeftY();
-        rightStickYaxis = Robot.oi.getJoystickRightY();
-
+       rightStickYaxis = Robot.oi.getJoystickRightY();
+       leftStickYaxis = Robot.oi.getJoystickLeftY(); //TODO maybe add back in
 
         /*if (driveMode == halfDriveID) {
 
@@ -176,8 +175,8 @@ public class DriveSubsystem extends Subsystem {
             }
         }*/
 
-        leftSpeed = leftStickYaxis;
         rightSpeed = rightStickYaxis;
+        leftSpeed = leftStickYaxis;
 
         m_myRobot.tankDrive(-leftSpeed, -rightSpeed);
     }

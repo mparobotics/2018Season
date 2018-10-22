@@ -6,7 +6,7 @@ import edu.wpi.first.wpilibj.IterativeRobot;
 import edu.wpi.first.wpilibj.PowerDistributionPanel;
 import edu.wpi.first.wpilibj.command.Scheduler;
 import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
-import frc.team3926.robot.command.auto.MoreAuto;
+import frc.team3926.robot.command.auto.SketchyAuto;
 import frc.team3926.robot.command.teleop.DeployWingsCommand;
 import frc.team3926.robot.command.teleop.StraightenCubeCommandGroup;
 import frc.team3926.robot.subsystem.*;
@@ -73,8 +73,8 @@ public class Robot extends IterativeRobot {
 
 		if(RobotMap.QBERT) {
 
-			//Scheduler.getInstance().add(new SketchyAuto());
-			Scheduler.getInstance().add(new MoreAuto());
+			Scheduler.getInstance().add(new SketchyAuto());
+			//Scheduler.getInstance().add(new MoreAuto());
 		}
 
 		Robot.sensorSubsystem.setClosedEncoders();
@@ -125,13 +125,13 @@ public class Robot extends IterativeRobot {
 
 		Scheduler.getInstance().run();
 		SmartDashboard.putNumber("Time: ", DriverStation.getInstance().getMatchTime());
-		Robot.sensorSubsystem.printAccelerometerValues();
+		/*Robot.sensorSubsystem.printAccelerometerValues();
 		Robot.sensorSubsystem.printGyroAngle();
 
 		Robot.sensorSubsystem.getRobotPosistion();
 		SmartDashboard.putNumber("Posistion X: ", Robot.sensorSubsystem.X);
 		SmartDashboard.putNumber("Posistion Y: ", Robot.sensorSubsystem.Y);
-		SmartDashboard.putNumber("Posistion Angle: ", Robot.sensorSubsystem.gyroAngle);
+		SmartDashboard.putNumber("Posistion Angle: ", Robot.sensorSubsystem.gyroAngle);*/
 
 
 		//encoderMotor.set(.1);
